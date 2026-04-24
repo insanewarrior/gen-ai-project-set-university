@@ -1,24 +1,37 @@
-import { StrictMode } from 'react'
+import { Component, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
-import Dashboard from './pages/Dashboard.jsx'
-import LogSession from './pages/LogSession.jsx'
-import Chat from './pages/Chat.jsx'
-import History from './pages/History.jsx'
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { error: null }
+  }
+  static getDerivedStateFromError(error) {
+    return { error }
+  }
+  render() {
+    if (this.state.error) {
+      return (
+        <div style={{ padding: 24, color: '#f87171', fontFamily: 'monospace', background: '#18181b', minHeight: '100vh' }}>
+          <h2>App Error</h2>
+          <pre style={{ whiteSpace: 'pre-wrap' }}>{String(this.state.error)}</pre>
+          <pre style={{ whiteSpace: 'pre-wrap', fontSize: 12, color: '#a1a1aa' }}>{this.state.error?.stack}</pre>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<App />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/log" element={<LogSession />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/history" element={<History />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ErrorBoundary>
   </StrictMode>,
 )

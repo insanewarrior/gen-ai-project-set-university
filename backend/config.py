@@ -3,6 +3,8 @@ import os
 DYNAMODB_ENDPOINT = os.getenv("DYNAMODB_ENDPOINT")
 FAISS_INDEX_PATH = os.getenv("FAISS_INDEX_PATH", "./data/faiss_index")
 AUTH_BYPASS = os.getenv("AUTH_BYPASS", "false")
+COGNITO_USER_POOL_ID = os.getenv("COGNITO_USER_POOL_ID", "")
+COGNITO_REGION = os.getenv("COGNITO_REGION", "us-east-1")
 CLAUDE_MODEL = os.getenv(
     "CLAUDE_MODEL", "claude-sonnet-4-5-20250514"
 )

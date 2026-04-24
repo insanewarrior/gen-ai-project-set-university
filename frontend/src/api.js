@@ -1,13 +1,28 @@
+import { getToken, signOut } from './auth'
+
 const BASE_URL = import.meta.env.VITE_API_URL || '/api'
 
 export async function apiFetch(path, options = {}) {
   const url = `${BASE_URL}${path}`
+  const token = await getToken()
+
   const headers = {
     'Content-Type': 'application/json',
     ...options.headers,
   }
 
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
   const response = await fetch(url, { ...options, headers })
+
+  if (response.status === 401) {
+    // Token expired or invalid — sign out and redirect to login
+    signOut()
+    window.location.href = '/login'
+    throw new Error('Unauthorized')
+  }
 
   if (!response.ok) {
     throw new Error(`API error: ${response.status}`)

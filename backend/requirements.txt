@@ -6,3 +6,5 @@ pydantic
 faiss-cpu
 sentence-transformers
 anthropic
+python-jose[cryptography]
+httpx

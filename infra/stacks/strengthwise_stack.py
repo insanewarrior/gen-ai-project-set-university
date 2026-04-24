@@ -70,6 +70,9 @@ class StrengthwiseStack(Stack):
             self_sign_up_enabled=True,
             sign_in_aliases=cognito.SignInAliases(email=True),
             auto_verify=cognito.AutoVerifiedAttrs(email=True),
+            custom_attributes={
+                "sport": cognito.StringAttribute(mutable=True),
+            },
             removal_policy=RemovalPolicy.DESTROY,
         )
 
@@ -128,7 +131,9 @@ class StrengthwiseStack(Stack):
             ),
         )
 
-        integration = HttpLambdaIntegration("LambdaIntegration", backend_function)
+        integration = HttpLambdaIntegration(
+            "LambdaIntegration", backend_function
+        )
 
         api.add_routes(
             path="/{proxy+}",

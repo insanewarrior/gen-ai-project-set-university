@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-04-24
-last_updated: 2026-04-25
+last_updated: 2026-04-25 (story 1.3 review)
 project: gen-ai-project-set-university
 project_key: NOKEY
 tracking_system: file-system
@@ -46,7 +46,7 @@ development_status:
   epic-1: in-progress
   1-1-project-scaffold-local-dev: review
   1-2-aws-infrastructure-deployment-pipeline: review
-  1-3-user-registration-authentication: backlog
+  1-3-user-registration-authentication: review
   epic-1-retrospective: optional
 
   # Epic 2: Training Session Logging & Exercise Database
