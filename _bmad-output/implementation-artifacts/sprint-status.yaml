@@ -1,0 +1,84 @@
+# generated: 2026-04-24
+# last_updated: 2026-04-24
+# project: gen-ai-project-set-university
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog → in-progress: Automatically when first story is created (via create-story)
+#   - in-progress → done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - Developer typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+
+generated: 2026-04-24
+last_updated: 2026-04-24
+project: gen-ai-project-set-university
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+  # Epic 1: Project Foundation & User Authentication
+  epic-1: in-progress
+  1-1-project-scaffold-local-dev: in-progress
+  1-2-aws-infrastructure-deployment-pipeline: backlog
+  1-3-user-registration-authentication: backlog
+  epic-1-retrospective: optional
+
+  # Epic 2: Training Session Logging & Exercise Database
+  epic-2: backlog
+  2-1-exercise-database-sport-selection: backlog
+  2-2-training-session-logging-form: backlog
+  2-3-session-history-detail-view: backlog
+  epic-2-retrospective: optional
+
+  # Epic 3: AI Coaching with Dual-Source RAG
+  epic-3: backlog
+  3-1-knowledge-base-ingestion-faiss-index: backlog
+  3-2-dual-source-rag-pipeline: backlog
+  3-3-chat-interface-with-citation-display: backlog
+  3-4-program-analysis: backlog
+  epic-3-retrospective: optional
+
+  # Epic 4: Usage Management & Rate Limiting
+  epic-4: backlog
+  4-1-server-side-rate-limiting-tier-enforcement: backlog
+  4-2-query-counter-display-user-profile: backlog
+  epic-4-retrospective: optional
+
+  # Epic 5: Feedback, Data Export & Account Lifecycle
+  epic-5: backlog
+  5-1-ai-response-feedback: backlog
+  5-2-training-data-export: backlog
+  5-3-account-deletion: backlog
+  epic-5-retrospective: optional
+
+  # Epic 6: Operations & Monitoring
+  epic-6: backlog
+  6-1-system-usage-monitoring: backlog
+  6-2-knowledge-base-update-pipeline: backlog
+  epic-6-retrospective: optional
