@@ -1,3 +1,11 @@
 #!/usr/bin/env bash
-set -e
-echo "Teardown script placeholder — will be implemented in a later story"
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+echo "Destroying CDK stack..."
+cd "$PROJECT_ROOT/infra"
+npx cdk destroy --force
+
+echo "Teardown complete!"

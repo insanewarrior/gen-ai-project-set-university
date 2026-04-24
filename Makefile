@@ -1,4 +1,4 @@
-.PHONY: dev dev-backend dev-frontend deploy seed
+.PHONY: dev dev-backend dev-frontend deploy teardown seed
 
 dev-backend:
 	cd backend && uvicorn main:app --reload --port 8080
@@ -11,6 +11,9 @@ dev:
 
 deploy:
 	./scripts/deploy.sh
+
+teardown:
+	./scripts/teardown.sh
 
 seed:
 	./scripts/seed.sh
