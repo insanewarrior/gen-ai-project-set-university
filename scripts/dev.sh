@@ -15,7 +15,7 @@ fi
 
 # Start backend
 echo "Starting FastAPI backend on port 8080..."
-(cd "$PROJECT_ROOT/backend" && source .venv/bin/activate && uvicorn main:app --reload --port 8080) &
+(cd "$PROJECT_ROOT/backend" && source .venv/bin/activate && uvicorn main:app --reload --port 8080 --env-file .env) &
 BACKEND_PID=$!
 
 # Start frontend

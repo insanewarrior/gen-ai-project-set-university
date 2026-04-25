@@ -1,6 +1,7 @@
 fastapi
 mangum==0.21.0
 uvicorn
+python-dotenv
 boto3
 pydantic
 faiss-cpu
@@ -8,3 +9,4 @@ sentence-transformers
 anthropic
 python-jose[cryptography]
 httpx
+moto[dynamodb]

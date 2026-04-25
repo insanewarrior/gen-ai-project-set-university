@@ -6,6 +6,7 @@ from mangum import Mangum
 
 from middleware.auth import CurrentUser, get_current_user
 from routers.exercises import router as exercises_router
+from routers.sessions import router as sessions_router
 
 app = FastAPI(title="StrengthWise API")
 
@@ -24,6 +25,7 @@ app.add_middleware(
 
 
 app.include_router(exercises_router)
+app.include_router(sessions_router)
 
 
 @app.get("/health")
