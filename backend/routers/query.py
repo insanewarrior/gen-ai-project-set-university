@@ -36,4 +36,5 @@ async def create_query(
             },
         )
     result["queriesRemaining"] = rate_result["queries_remaining"]
+    result["tierLimit"] = rate_result["tier_limit"]
     return {"data": result}

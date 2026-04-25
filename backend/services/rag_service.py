@@ -1,8 +1,9 @@
 import json
 import logging
+import os
 from pathlib import Path
 
-import anthropic
+from google import genai
 import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -141,14 +142,16 @@ Rules:
 - Return ONLY the JSON object, no markdown code blocks"""
 
 
-def _call_claude(prompt: str) -> dict:
-    client = anthropic.Anthropic()
-    message = client.messages.create(
-        model=config.CLAUDE_MODEL,
-        max_tokens=1024,
-        messages=[{"role": "user", "content": prompt}],
+def _call_gemini(prompt: str) -> dict:
+    client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+    response = client.models.generate_content(
+        model=config.GEMINI_MODEL,
+        contents=prompt,
     )
-    text = message.content[0].text
+    text = response.text.strip()
+    if text.startswith("```"):
+        text = text.split("\n", 1)[-1]
+        text = text.rsplit("```", 1)[0].strip()
     try:
         return json.loads(text)
     except json.JSONDecodeError:
@@ -162,14 +165,11 @@ def query(user_id: str, query_text: str) -> dict:
         sessions = session_service.get_sessions(user_id)
         personal_context, session_count = _format_sessions(sessions)
         prompt = _build_prompt(query_text, personal_context, session_count, knowledge_chunks)
-        parsed = _call_claude(prompt)
-    except anthropic.APIError as exc:
-        logger.error("Claude API error: %s", exc)
-        raise RuntimeError("AI_UNAVAILABLE") from exc
+        parsed = _call_gemini(prompt)
     except Exception as exc:
         if isinstance(exc, RuntimeError):
             raise
-        logger.error("RAG pipeline error: %s", exc)
+        logger.error("Gemini API error: %s", exc)
         raise RuntimeError("AI_UNAVAILABLE") from exc
 
     personal_citations = [

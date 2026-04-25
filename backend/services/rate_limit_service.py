@@ -5,7 +5,7 @@ from botocore.exceptions import ClientError
 
 import config
 
-_FREE_TIER_LIMIT = 3
+_FREE_TIER_LIMIT = 20
 _ONBOARDING_LIMIT = 10
 _ONBOARDING_DAYS = 7
 
@@ -49,6 +49,7 @@ def check_and_increment(user_id: str, user_create_date: str | None = None) -> di
         return {
             "allowed": True,
             "queries_remaining": tier_limit - new_count,
+            "tier_limit": tier_limit,
             "reset_at": _next_midnight(),
         }
     except ClientError as e:

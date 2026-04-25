@@ -52,3 +52,21 @@ export async function getSessions() {
 export async function getSession(sessionId, sessionDate) {
   return apiFetch('/sessions/' + sessionId + '?session_date=' + sessionDate)
 }
+
+export async function postQuery(queryText) {
+  const url = `${BASE_URL}/query`
+  const token = await getToken()
+  const headers = { 'Content-Type': 'application/json' }
+  if (token) headers['Authorization'] = `Bearer ${token}`
+  const response = await fetch(url, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ query: queryText }),
+  })
+  if (response.status === 429) {
+    const body = await response.json()
+    throw Object.assign(new Error('RATE_LIMIT_EXCEEDED'), { code: 'RATE_LIMIT_EXCEEDED', detail: body.detail })
+  }
+  if (!response.ok) throw new Error('AI_UNAVAILABLE')
+  return response.json()
+}

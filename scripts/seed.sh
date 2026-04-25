@@ -31,4 +31,10 @@ create_table_if_missing Sessions \
   --key-schema AttributeName=userId,KeyType=HASH AttributeName=sk,KeyType=RANGE \
   --billing-mode PAY_PER_REQUEST
 
+# QueryUsage table
+create_table_if_missing QueryUsage \
+  --attribute-definitions AttributeName=userId,AttributeType=S AttributeName=date,AttributeType=S \
+  --key-schema AttributeName=userId,KeyType=HASH AttributeName=date,KeyType=RANGE \
+  --billing-mode PAY_PER_REQUEST
+
 echo "Seed complete."

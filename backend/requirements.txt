@@ -6,7 +6,7 @@ boto3
 pydantic
 faiss-cpu
 sentence-transformers
-anthropic
+google-genai
 python-jose[cryptography]
 httpx
 moto[dynamodb]
