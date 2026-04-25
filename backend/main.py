@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 
 from middleware.auth import CurrentUser, get_current_user
+from routers.analyze import router as analyze_router
 from routers.exercises import router as exercises_router
 from routers.query import router as query_router
 from routers.sessions import router as sessions_router
@@ -28,6 +29,7 @@ app.add_middleware(
 app.include_router(exercises_router)
 app.include_router(sessions_router)
 app.include_router(query_router)
+app.include_router(analyze_router)
 
 
 @app.get("/health")

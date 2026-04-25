@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { postQuery, getSessions } from '../api'
+import { postQuery, postAnalyze, getSessions } from '../api'
 import ChatBubble from '../components/ChatBubble'
 import QueryCounter from '../components/QueryCounter'
 import StarterPromptCard from '../components/StarterPromptCard'
@@ -77,7 +77,8 @@ export default function Chat() {
     setError(null)
 
     try {
-      const data = await postQuery(text)
+      const isProgram = text.includes('\n')
+      const data = isProgram ? await postAnalyze(text) : await postQuery(text)
       const payload = data.data
       setMessages(prev => [
         ...prev,

@@ -70,3 +70,21 @@ export async function postQuery(queryText) {
   if (!response.ok) throw new Error('AI_UNAVAILABLE')
   return response.json()
 }
+
+export async function postAnalyze(programText) {
+  const url = `${BASE_URL}/analyze`
+  const token = await getToken()
+  const headers = { 'Content-Type': 'application/json' }
+  if (token) headers['Authorization'] = `Bearer ${token}`
+  const response = await fetch(url, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ program: programText }),
+  })
+  if (response.status === 429) {
+    const body = await response.json()
+    throw Object.assign(new Error('RATE_LIMIT_EXCEEDED'), { code: 'RATE_LIMIT_EXCEEDED', detail: body.detail })
+  }
+  if (!response.ok) throw new Error('AI_UNAVAILABLE')
+  return response.json()
+}

@@ -126,7 +126,7 @@ STRENGTH SCIENCE KNOWLEDGE:
 
 Respond with a JSON object in this exact format:
 {{
-  "response": "Your coaching response here (2-3 paragraphs). Include: StrengthWise provides training insights, not medical advice.",
+  "response": "Your coaching response here (2-3 paragraphs).",
   "personal_citations": [
     {{"sessionDate": "YYYY-MM-DD", "exercise": "exercise name", "detail": "specific metric or observation"}}
   ],
@@ -156,6 +156,82 @@ def _call_gemini(prompt: str) -> dict:
         return json.loads(text)
     except json.JSONDecodeError:
         return {"response": text, "personal_citations": [], "knowledge_citations": []}
+
+
+def _build_analyze_prompt(
+    program_text: str,
+    personal_context: str,
+    session_count: int,
+    knowledge_chunks: list[dict],
+) -> str:
+    knowledge_text = "\n".join(
+        f"[{chunk.get('source', '')} — {chunk.get('principle', '')}]: {chunk.get('text', '')}"
+        for chunk in knowledge_chunks
+    )
+    framing = _confidence_framing(session_count)
+    return f"""You are StrengthWise, an AI strength coach. Evaluate the athlete's training program using general strength science principles and their personal training history.
+
+TRAINING PROGRAM TO EVALUATE:
+{program_text}
+
+ATHLETE'S PERSONAL TRAINING DATA ({session_count} sessions):
+{personal_context}
+
+STRENGTH SCIENCE KNOWLEDGE:
+{knowledge_text}
+
+{framing}
+
+Respond with a JSON object in this exact format:
+{{
+  "response": "Your program evaluation here (2-4 paragraphs). Cover: alignment with principles, fit with athlete's current patterns, specific modifications suggested.",
+  "personal_citations": [
+    {{"sessionDate": "YYYY-MM-DD", "exercise": "exercise name", "detail": "specific metric or observation"}}
+  ],
+  "knowledge_citations": [
+    {{"source": "filename.md", "principle": "section header"}}
+  ]
+}}
+
+Rules:
+- Evaluate program structure, volume, intensity, and exercise selection
+- Only cite sessions that relate to the exercises or patterns in the submitted program
+- Only cite knowledge chunks provided above
+- If data is insufficient, acknowledge it honestly; return empty citation arrays
+- Return ONLY the JSON object, no markdown code blocks"""
+
+
+def analyze(user_id: str, program_text: str) -> dict:
+    try:
+        query_emb = _embed_query(program_text)
+        knowledge_chunks = _search_knowledge(query_emb)
+        sessions = session_service.get_sessions(user_id)
+        personal_context, session_count = _format_sessions(sessions)
+        prompt = _build_analyze_prompt(program_text, personal_context, session_count, knowledge_chunks)
+        parsed = _call_gemini(prompt)
+    except Exception as exc:
+        if isinstance(exc, RuntimeError):
+            raise
+        logger.error("Gemini API error in analyze: %s", exc)
+        raise RuntimeError("AI_UNAVAILABLE") from exc
+
+    personal_citations = [
+        {"sessionDate": c.get("sessionDate", ""), "exercise": c.get("exercise", ""), "detail": c.get("detail", "")}
+        for c in parsed.get("personal_citations", [])
+    ]
+    knowledge_citations = [
+        {"source": c.get("source", ""), "principle": c.get("principle", "")}
+        for c in parsed.get("knowledge_citations", [])
+    ]
+
+    return {
+        "response": parsed.get("response", ""),
+        "citations": {
+            "personal": personal_citations,
+            "knowledge": knowledge_citations,
+        },
+        "confidence": _confidence_label(session_count),
+    }
 
 
 def query(user_id: str, query_text: str) -> dict:

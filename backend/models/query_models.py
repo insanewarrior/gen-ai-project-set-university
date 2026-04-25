@@ -8,6 +8,12 @@ class QueryRequest(BaseModel):
     query: str = Field(..., max_length=2000)
 
 
+class AnalyzeRequest(BaseModel):
+    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)
+
+    program: str = Field(..., max_length=2000)
+
+
 class PersonalCitation(BaseModel):
     model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)
 
