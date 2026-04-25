@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-04-24
-last_updated: 2026-04-25 (story 3.1 review)
+last_updated: 2026-04-26 (story 3.2 review)
 project: gen-ai-project-set-university
 project_key: NOKEY
 tracking_system: file-system
@@ -59,7 +59,7 @@ development_status:
   # Epic 3: AI Coaching with Dual-Source RAG
   epic-3: in-progress
   3-1-knowledge-base-ingestion-faiss-index: review
-  3-2-dual-source-rag-pipeline: backlog
+  3-2-dual-source-rag-pipeline: review
   3-3-chat-interface-with-citation-display: backlog
   3-4-program-analysis: backlog
   epic-3-retrospective: optional

@@ -56,11 +56,12 @@ Cross-domain AI strength coach with memory — dual-source RAG + structured logg
 
 | Target         | Description                        |
 |----------------|------------------------------------|
-| `make dev`     | Start all local services           |
-| `make dev-backend`  | Start backend only            |
-| `make dev-frontend` | Start frontend only           |
-| `make deploy`  | Deploy to AWS (placeholder)        |
-| `make seed`    | Seed local database (placeholder)  |
+| `make dev`          | Start all local services           |
+| `make dev-backend`  | Start backend only                 |
+| `make dev-frontend` | Start frontend only                |
+| `make build-index`  | Build FAISS knowledge base index   |
+| `make deploy`       | Deploy to AWS (placeholder)        |
+| `make seed`         | Seed local database (placeholder)  |
 
 ## Environment Variables
 

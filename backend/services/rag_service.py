@@ -1,0 +1,191 @@
+import json
+import logging
+from pathlib import Path
+
+import anthropic
+import faiss
+import numpy as np
+from sentence_transformers import SentenceTransformer
+
+import config
+import services.session_service as session_service
+
+logger = logging.getLogger(__name__)
+
+_index = None
+_metadata = None
+_model = SentenceTransformer("all-MiniLM-L6-v2")
+
+
+def _download_from_s3(dest_path: Path) -> None:
+    import boto3
+    dest_path.mkdir(parents=True, exist_ok=True)
+    s3 = boto3.client("s3")
+    bucket = config.S3_FAISS_BUCKET
+    for fname in ["index.faiss", "index_metadata.json"]:
+        s3.download_file(bucket, f"faiss_index/{fname}", str(dest_path / fname))
+
+
+def _load_index() -> None:
+    global _index, _metadata
+    index_path = Path(config.FAISS_INDEX_PATH)
+    if not (index_path / "index.faiss").exists():
+        if config.S3_FAISS_BUCKET:
+            _download_from_s3(index_path)
+        else:
+            raise FileNotFoundError(
+                f"FAISS index not found at {index_path} and S3_FAISS_BUCKET is not configured"
+            )
+    _index = faiss.read_index(str(index_path / "index.faiss"))
+    with open(index_path / "index_metadata.json") as f:
+        _metadata = json.load(f)
+    logger.info("FAISS index loaded: %d vectors", _index.ntotal)
+
+
+try:
+    _load_index()
+except Exception as exc:
+    logger.error("Failed to load FAISS index at startup: %s", exc)
+
+
+def _embed_query(query_text: str) -> np.ndarray:
+    emb = _model.encode([query_text], convert_to_numpy=True).astype("float32")
+    faiss.normalize_L2(emb)
+    return emb
+
+
+def _search_knowledge(query_emb: np.ndarray, k: int = 3) -> list[dict]:
+    if _index is None or _metadata is None:
+        return []
+    distances, indices = _index.search(query_emb, k)
+    results = []
+    for idx in indices[0]:
+        if idx != -1 and idx < len(_metadata):
+            results.append(_metadata[idx])
+    return results
+
+
+def _format_sessions(sessions: list) -> tuple[str, int]:
+    recent = sessions[:10]
+    lines = []
+    for s in recent:
+        date = s.get("sessionDate", "unknown")
+        sport = s.get("sport", "")
+        for ex in s.get("exercises", []):
+            name = ex.get("exerciseName", ex.get("exercise_name", ""))
+            sets = ex.get("sets", [])
+            set_str = ", ".join(
+                f"{float(st.get('weight', 0))}kg x{st.get('reps', 0)} @RPE{float(st.get('rpe', 0))}"
+                for st in sets if st.get('weight')
+            )
+            lines.append(f"{date} | {sport}: {name} — {set_str}")
+    if not lines:
+        return "No training sessions logged yet.", len(sessions)
+    return "\n".join(lines), len(sessions)
+
+
+def _confidence_label(session_count: int) -> str:
+    if session_count <= 5:
+        return "low"
+    if session_count <= 30:
+        return "medium"
+    return "high"
+
+
+def _confidence_framing(session_count: int) -> str:
+    if session_count <= 5:
+        return "Based on your first few sessions..."
+    if session_count <= 30:
+        return "Looking at your recent training data..."
+    return "Based on your training history, a clear pattern shows..."
+
+
+def _build_prompt(
+    query: str,
+    personal_context: str,
+    session_count: int,
+    knowledge_chunks: list[dict],
+) -> str:
+    knowledge_text = "\n".join(
+        f"[{chunk.get('source', '')} — {chunk.get('principle', '')}]: {chunk.get('text', '')}"
+        for chunk in knowledge_chunks
+    )
+    framing = _confidence_framing(session_count)
+    return f"""You are StrengthWise, an AI strength coach. Analyze the athlete's question using their personal training data and general strength science knowledge provided below.
+
+ATHLETE QUESTION: {query}
+
+PERSONAL TRAINING DATA ({session_count} sessions):
+{personal_context}
+
+STRENGTH SCIENCE KNOWLEDGE:
+{knowledge_text}
+
+{framing}
+
+Respond with a JSON object in this exact format:
+{{
+  "response": "Your coaching response here (2-3 paragraphs). Include: StrengthWise provides training insights, not medical advice.",
+  "personal_citations": [
+    {{"sessionDate": "YYYY-MM-DD", "exercise": "exercise name", "detail": "specific metric or observation"}}
+  ],
+  "knowledge_citations": [
+    {{"source": "filename.md", "principle": "section header"}}
+  ]
+}}
+
+Rules:
+- Only cite sessions that are directly relevant to the question
+- Only cite knowledge chunks that appear in the provided knowledge above
+- If data is insufficient, say so honestly in the response; return empty citation arrays
+- Return ONLY the JSON object, no markdown code blocks"""
+
+
+def _call_claude(prompt: str) -> dict:
+    client = anthropic.Anthropic()
+    message = client.messages.create(
+        model=config.CLAUDE_MODEL,
+        max_tokens=1024,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    text = message.content[0].text
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        return {"response": text, "personal_citations": [], "knowledge_citations": []}
+
+
+def query(user_id: str, query_text: str) -> dict:
+    try:
+        query_emb = _embed_query(query_text)
+        knowledge_chunks = _search_knowledge(query_emb)
+        sessions = session_service.get_sessions(user_id)
+        personal_context, session_count = _format_sessions(sessions)
+        prompt = _build_prompt(query_text, personal_context, session_count, knowledge_chunks)
+        parsed = _call_claude(prompt)
+    except anthropic.APIError as exc:
+        logger.error("Claude API error: %s", exc)
+        raise RuntimeError("AI_UNAVAILABLE") from exc
+    except Exception as exc:
+        if isinstance(exc, RuntimeError):
+            raise
+        logger.error("RAG pipeline error: %s", exc)
+        raise RuntimeError("AI_UNAVAILABLE") from exc
+
+    personal_citations = [
+        {"sessionDate": c.get("sessionDate", ""), "exercise": c.get("exercise", ""), "detail": c.get("detail", "")}
+        for c in parsed.get("personal_citations", [])
+    ]
+    knowledge_citations = [
+        {"source": c.get("source", ""), "principle": c.get("principle", "")}
+        for c in parsed.get("knowledge_citations", [])
+    ]
+
+    return {
+        "response": parsed.get("response", ""),
+        "citations": {
+            "personal": personal_citations,
+            "knowledge": knowledge_citations,
+        },
+        "confidence": _confidence_label(session_count),
+    }
