@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-04-24
-last_updated: 2026-04-25 (story 1.3 review)
+last_updated: 2026-04-25 (story 2.1 review)
 project: gen-ai-project-set-university
 project_key: NOKEY
 tracking_system: file-system
@@ -50,8 +50,8 @@ development_status:
   epic-1-retrospective: optional
 
   # Epic 2: Training Session Logging & Exercise Database
-  epic-2: backlog
-  2-1-exercise-database-sport-selection: backlog
+  epic-2: in-progress
+  2-1-exercise-database-sport-selection: review
   2-2-training-session-logging-form: backlog
   2-3-session-history-detail-view: backlog
   epic-2-retrospective: optional

@@ -30,3 +30,8 @@ export async function apiFetch(path, options = {}) {
 
   return response.json()
 }
+
+export async function getExercises(sportType = null) {
+  const url = sportType ? `/exercises?sportType=${sportType}` : '/exercises'
+  return apiFetch(url)
+}

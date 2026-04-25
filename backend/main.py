@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 
 from middleware.auth import CurrentUser, get_current_user
+from routers.exercises import router as exercises_router
 
 app = FastAPI(title="StrengthWise API")
 
@@ -20,6 +21,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+app.include_router(exercises_router)
 
 
 @app.get("/health")

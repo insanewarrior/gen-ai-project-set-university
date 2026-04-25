@@ -1,0 +1,47 @@
+{
+  "grip": [
+    {"id": "grip-gripper-close", "name": "Gripper Close", "sportType": "grip"},
+    {"id": "grip-hub-lift", "name": "Hub Lift", "sportType": "grip"},
+    {"id": "grip-pinch-block", "name": "Pinch Block", "sportType": "grip"},
+    {"id": "grip-wrist-curl", "name": "Wrist Curl", "sportType": "grip"},
+    {"id": "grip-fat-bar", "name": "Fat Bar", "sportType": "grip"},
+    {"id": "grip-blob-lift", "name": "Blob Lift", "sportType": "grip"},
+    {"id": "grip-plate-pinch", "name": "Plate Pinch", "sportType": "grip"},
+    {"id": "grip-thick-bar-deadlift", "name": "Thick Bar Deadlift", "sportType": "grip"}
+  ],
+  "armwrestling": [
+    {"id": "aw-pronation", "name": "Pronation", "sportType": "armwrestling"},
+    {"id": "aw-supination", "name": "Supination", "sportType": "armwrestling"},
+    {"id": "aw-side-pressure", "name": "Side Pressure", "sportType": "armwrestling"},
+    {"id": "aw-hook", "name": "Hook", "sportType": "armwrestling"},
+    {"id": "aw-cupping", "name": "Cupping", "sportType": "armwrestling"},
+    {"id": "aw-table-practice", "name": "Table Practice", "sportType": "armwrestling"},
+    {"id": "aw-hammer-curl", "name": "Hammer Curl", "sportType": "armwrestling"},
+    {"id": "aw-reverse-curl", "name": "Reverse Curl", "sportType": "armwrestling"},
+    {"id": "aw-wrist-extension", "name": "Wrist Extension", "sportType": "armwrestling"}
+  ],
+  "powerlifting": [
+    {"id": "pl-squat", "name": "Squat", "sportType": "powerlifting"},
+    {"id": "pl-bench-press", "name": "Bench Press", "sportType": "powerlifting"},
+    {"id": "pl-deadlift", "name": "Deadlift", "sportType": "powerlifting"},
+    {"id": "pl-overhead-press", "name": "Overhead Press", "sportType": "powerlifting"},
+    {"id": "pl-barbell-row", "name": "Barbell Row", "sportType": "powerlifting"},
+    {"id": "pl-romanian-deadlift", "name": "Romanian Deadlift", "sportType": "powerlifting"},
+    {"id": "pl-pause-squat", "name": "Pause Squat", "sportType": "powerlifting"},
+    {"id": "pl-close-grip-bench", "name": "Close-Grip Bench", "sportType": "powerlifting"},
+    {"id": "pl-deficit-deadlift", "name": "Deficit Deadlift", "sportType": "powerlifting"},
+    {"id": "pl-good-morning", "name": "Good Morning", "sportType": "powerlifting"}
+  ],
+  "general": [
+    {"id": "gen-pull-up", "name": "Pull-Up", "sportType": "general"},
+    {"id": "gen-dip", "name": "Dip", "sportType": "general"},
+    {"id": "gen-push-up", "name": "Push-Up", "sportType": "general"},
+    {"id": "gen-face-pull", "name": "Face Pull", "sportType": "general"},
+    {"id": "gen-lat-pulldown", "name": "Lat Pulldown", "sportType": "general"},
+    {"id": "gen-cable-row", "name": "Cable Row", "sportType": "general"},
+    {"id": "gen-overhead-press", "name": "Overhead Press", "sportType": "general"},
+    {"id": "gen-romanian-deadlift", "name": "Romanian Deadlift", "sportType": "general"},
+    {"id": "gen-farmers-carry", "name": "Farmer's Carry", "sportType": "general"},
+    {"id": "gen-kettlebell-swing", "name": "Kettlebell Swing", "sportType": "general"}
+  ]
+}
