@@ -1,4 +1,4 @@
-.PHONY: dev dev-backend dev-frontend deploy teardown seed
+.PHONY: dev dev-backend dev-frontend deploy teardown seed build-index
 
 dev-backend:
 	cd backend && uvicorn main:app --reload --port 8080 --env-file .env
@@ -17,3 +17,6 @@ teardown:
 
 seed:
 	./scripts/seed.sh
+
+build-index:
+	python backend/scripts/build_faiss_index.py

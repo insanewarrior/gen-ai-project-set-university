@@ -37,3 +37,6 @@ htmlcov/
 
 # Build
 *.js.map
+
+# FAISS generated index (binary artifacts)
+backend/data/faiss_index/
