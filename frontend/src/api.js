@@ -48,3 +48,7 @@ export async function createSession(sessionData) {
 export async function getSessions() {
   return apiFetch('/sessions', {}, { redirectOn401: false })
 }
+
+export async function getSession(sessionId, sessionDate) {
+  return apiFetch('/sessions/' + sessionId + '?session_date=' + sessionDate)
+}
