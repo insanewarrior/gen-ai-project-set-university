@@ -1,6 +1,24 @@
+import ReactMarkdown from 'react-markdown'
 import CitationBlock from './CitationBlock'
 import FeedbackButtons from './FeedbackButtons'
 import FollowupChip from './FollowupChip'
+
+const MD_COMPONENTS = {
+  h1: ({ children }) => <h3 className="text-base font-semibold mt-3 mb-1">{children}</h3>,
+  h2: ({ children }) => <h3 className="text-base font-semibold mt-3 mb-1">{children}</h3>,
+  h3: ({ children }) => <h4 className="text-sm font-semibold mt-3 mb-1 text-zinc-100">{children}</h4>,
+  h4: ({ children }) => <h5 className="text-sm font-semibold mt-2 mb-1 text-zinc-200">{children}</h5>,
+  p:  ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+  ul: ({ children }) => <ul className="list-disc pl-5 mb-2 space-y-0.5">{children}</ul>,
+  ol: ({ children }) => <ol className="list-decimal pl-5 mb-2 space-y-0.5">{children}</ol>,
+  li: ({ children }) => <li>{children}</li>,
+  strong: ({ children }) => <strong className="font-semibold text-zinc-50">{children}</strong>,
+  em: ({ children }) => <em className="italic">{children}</em>,
+  code: ({ children }) => <code className="px-1 py-0.5 rounded bg-zinc-700 text-zinc-100 text-xs">{children}</code>,
+  table: ({ children }) => <table className="my-2 text-xs border-collapse">{children}</table>,
+  th: ({ children }) => <th className="border border-zinc-600 px-2 py-1 text-left">{children}</th>,
+  td: ({ children }) => <td className="border border-zinc-700 px-2 py-1">{children}</td>,
+}
 
 export default function ChatBubble({ role, message, citations, followups, onFollowupSelect, queryId }) {
   if (role === 'user') {
@@ -19,7 +37,7 @@ export default function ChatBubble({ role, message, citations, followups, onFoll
   return (
     <div className="flex flex-col gap-2 max-w-full">
       <div className="bg-zinc-800 text-zinc-100 rounded-2xl rounded-tl-sm px-4 py-3 text-sm leading-relaxed">
-        <p>{message}</p>
+        <ReactMarkdown components={MD_COMPONENTS}>{message}</ReactMarkdown>
         {personalCitations.map((c, i) => (
           <CitationBlock key={i} type="personal" citation={c} />
         ))}
