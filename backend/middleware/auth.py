@@ -52,10 +52,14 @@ def _get_user_create_date(user_id: str) -> str | None:
 
 
 async def get_current_user(
+    request: Request,
     credentials: Optional[HTTPAuthorizationCredentials] = Security(security),
 ) -> str:
     # AUTH_BYPASS mode for local development
     if config.AUTH_BYPASS.lower() == "true":
+        dev_user = request.headers.get("x-dev-user", "").lower()
+        if dev_user in _DEV_USERS:
+            return _DEV_USERS[dev_user]()["user_id"]
         return config.TEST_USER_ID
 
     if credentials is None:

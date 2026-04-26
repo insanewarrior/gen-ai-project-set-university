@@ -97,6 +97,7 @@ export default function Chat() {
           content: payload.response,
           citations: payload.citations,
           confidence: payload.confidence,
+          queryId: payload.queryId ?? null,
         },
       ])
       setQueriesRemaining(payload.queriesRemaining ?? null)
@@ -164,6 +165,7 @@ export default function Chat() {
             citations={msg.citations}
             followups={msg.role === 'ai' ? getFollowups(msg.confidence) : undefined}
             onFollowupSelect={handleFollowupSelect}
+            queryId={msg.queryId}
           />
         ))}
 

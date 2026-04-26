@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import uuid
 from pathlib import Path
 
 from google import genai
@@ -225,6 +226,7 @@ def analyze(user_id: str, program_text: str) -> dict:
     ]
 
     return {
+        "queryId": str(uuid.uuid4()),
         "response": parsed.get("response", ""),
         "citations": {
             "personal": personal_citations,
@@ -258,6 +260,7 @@ def query(user_id: str, query_text: str) -> dict:
     ]
 
     return {
+        "queryId": str(uuid.uuid4()),
         "response": parsed.get("response", ""),
         "citations": {
             "personal": personal_citations,

@@ -1,7 +1,8 @@
 import CitationBlock from './CitationBlock'
+import FeedbackButtons from './FeedbackButtons'
 import FollowupChip from './FollowupChip'
 
-export default function ChatBubble({ role, message, citations, followups, onFollowupSelect }) {
+export default function ChatBubble({ role, message, citations, followups, onFollowupSelect, queryId }) {
   if (role === 'user') {
     return (
       <div className="flex justify-end">
@@ -34,6 +35,7 @@ export default function ChatBubble({ role, message, citations, followups, onFoll
           ))}
         </div>
       )}
+      <FeedbackButtons queryId={queryId} />
     </div>
   )
 }

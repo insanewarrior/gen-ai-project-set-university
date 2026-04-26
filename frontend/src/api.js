@@ -71,6 +71,13 @@ export async function getProfile() {
   return apiFetch('/profile')
 }
 
+export async function postFeedback(queryId, rating) {
+  return apiFetch('/feedback', {
+    method: 'POST',
+    body: JSON.stringify({ queryId, rating }),
+  })
+}
+
 export async function postQuery(queryText) {
   const url = `${BASE_URL}/query`
   const token = await getToken()
