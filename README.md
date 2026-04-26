@@ -7,7 +7,7 @@ Cross-domain AI strength coach with memory — dual-source RAG + structured logg
 - Python 3.11+
 - Node.js 20+
 - Docker (for DynamoDB Local)
-- AWS CDK CLI (`npm install -g aws-cdk`)
+- AWS CDK CLI (`npm install -g aws-cdk`) — required for deployment only, not for local dev
 
 ## Local Development Setup
 
@@ -19,9 +19,12 @@ Cross-domain AI strength coach with memory — dual-source RAG + structured logg
    python -m venv .venv
    source .venv/bin/activate
    pip install -r requirements.txt -r requirements-dev.txt
-   cp .env.example .env  # adjust values as needed
+   cp .env.example .env
    cd ..
    ```
+
+   > **Required:** open `backend/.env` and set `GOOGLE_API_KEY` to your Google AI Studio key.
+   > All other values work as-is for local development.
 
 3. Set up the frontend:
    ```bash
@@ -41,6 +44,8 @@ Cross-domain AI strength coach with memory — dual-source RAG + structured logg
    - Vite dev server on port 5173
 
 5. Open http://localhost:5173 in your browser.
+
+> **Note:** The FAISS knowledge base index is pre-built and committed to the repo — no need to run `make build-index` for a fresh clone. Only run it if you modify files under `backend/data/knowledge/`.
 
 ## Project Structure
 
@@ -65,4 +70,4 @@ Cross-domain AI strength coach with memory — dual-source RAG + structured logg
 
 ## Environment Variables
 
-See `.env.example` for all configuration options.
+See `backend/.env.example` for all configuration options. The root `.env.example` is a reference for deployment variables only.
