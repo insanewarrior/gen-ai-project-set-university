@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { postQuery, postAnalyze, getSessions } from '../api'
+import { postQuery, postAnalyze, getSessions, getProfile } from '../api'
 import ChatBubble from '../components/ChatBubble'
 import QueryCounter from '../components/QueryCounter'
 import StarterPromptCard from '../components/StarterPromptCard'
@@ -49,6 +49,16 @@ export default function Chat() {
     getSessions()
       .then(res => setSessionCount(res.data?.length ?? 99))
       .catch(() => setSessionCount(99))
+  }, [])
+
+  useEffect(() => {
+    getProfile()
+      .then(res => {
+        const d = res.data
+        setQueriesRemaining(d.queriesRemainingToday ?? null)
+        if (d.tierLimit != null) setTierLimit(d.tierLimit)
+      })
+      .catch(() => {}) // non-critical: counter shows after first query if profile fails
   }, [])
 
   useEffect(() => {

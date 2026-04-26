@@ -2,12 +2,26 @@ import { getToken, signOut } from './auth'
 
 const BASE_URL = import.meta.env.VITE_API_URL || '/api'
 
+export function getDevUser() {
+  return localStorage.getItem('dev-user') || 'free'
+}
+
+export function setDevUser(type) {
+  localStorage.setItem('dev-user', type)
+}
+
+function devHeaders() {
+  if (!import.meta.env.DEV) return {}
+  return { 'X-Dev-User': getDevUser() }
+}
+
 export async function apiFetch(path, options = {}, { redirectOn401 = true } = {}) {
   const url = `${BASE_URL}${path}`
   const token = await getToken()
 
   const headers = {
     'Content-Type': 'application/json',
+    ...devHeaders(),
     ...options.headers,
   }
 
@@ -53,10 +67,14 @@ export async function getSession(sessionId, sessionDate) {
   return apiFetch('/sessions/' + sessionId + '?session_date=' + sessionDate)
 }
 
+export async function getProfile() {
+  return apiFetch('/profile')
+}
+
 export async function postQuery(queryText) {
   const url = `${BASE_URL}/query`
   const token = await getToken()
-  const headers = { 'Content-Type': 'application/json' }
+  const headers = { 'Content-Type': 'application/json', ...devHeaders() }
   if (token) headers['Authorization'] = `Bearer ${token}`
   const response = await fetch(url, {
     method: 'POST',
@@ -74,7 +92,7 @@ export async function postQuery(queryText) {
 export async function postAnalyze(programText) {
   const url = `${BASE_URL}/analyze`
   const token = await getToken()
-  const headers = { 'Content-Type': 'application/json' }
+  const headers = { 'Content-Type': 'application/json', ...devHeaders() }
   if (token) headers['Authorization'] = `Bearer ${token}`
   const response = await fetch(url, {
     method: 'POST',

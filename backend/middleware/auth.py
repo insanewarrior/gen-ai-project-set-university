@@ -1,8 +1,9 @@
+from datetime import datetime, timedelta
 from typing import Optional, TypedDict
 
 import boto3
 import httpx
-from fastapi import HTTPException, Security
+from fastapi import HTTPException, Request, Security
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
 from jose.exceptions import ExpiredSignatureError
@@ -91,11 +92,34 @@ async def get_current_user(
         )
 
 
+_DEV_USERS = {
+    "free": lambda: UserContext(
+        user_id="test-user-free",
+        user_create_date="2025-01-01T00:00:00",
+        is_premium=False,
+    ),
+    "onboarding": lambda: UserContext(
+        user_id="test-user-onboarding",
+        user_create_date=(datetime.utcnow() - timedelta(days=2)).isoformat(),
+        is_premium=False,
+    ),
+    "premium": lambda: UserContext(
+        user_id="test-user-premium",
+        user_create_date="2025-01-01T00:00:00",
+        is_premium=True,
+    ),
+}
+
+
 async def get_user_context(
+    request: Request,
     credentials: Optional[HTTPAuthorizationCredentials] = Security(security),
 ) -> UserContext:
     # AUTH_BYPASS mode for local development
     if config.AUTH_BYPASS.lower() == "true":
+        dev_user = request.headers.get("x-dev-user", "").lower()
+        if dev_user in _DEV_USERS:
+            return _DEV_USERS[dev_user]()
         return UserContext(
             user_id=config.TEST_USER_ID,
             user_create_date=config.TEST_USER_CREATE_DATE,

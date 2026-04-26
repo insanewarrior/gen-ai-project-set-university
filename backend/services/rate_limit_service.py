@@ -56,6 +56,16 @@ def _check_burst(user_id: str) -> dict:
         raise
 
 
+def get_today_count(user_id: str) -> int:
+    table = _get_table()
+    today = datetime.utcnow().strftime("%Y-%m-%d")
+    response = table.get_item(Key={"userId": user_id, "date": today})
+    item = response.get("Item")
+    if item is None:
+        return 0
+    return int(item.get("queryCount", 0))
+
+
 def check_and_increment(
     user_id: str,
     user_create_date: str | None = None,

@@ -1,5 +1,5 @@
 export default function QueryCounter({ queriesRemaining, resetAt, tierLimit = 3 }) {
-  if (queriesRemaining === null || queriesRemaining === undefined) return null
+  if (queriesRemaining === null || queriesRemaining === undefined || queriesRemaining === -1) return null
 
   function formatResetTime(iso) {
     if (!iso) return ''
