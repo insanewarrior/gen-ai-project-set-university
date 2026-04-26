@@ -143,3 +143,16 @@ def test_outputs_present():
     template.has_output("UserPoolId", {})
     template.has_output("UserPoolClientId", {})
     template.has_output("FaissIndexBucketName", {})
+
+
+def test_lambda_log_group_retention():
+    template = _template()
+    template.has_resource_properties(
+        "AWS::Logs::LogGroup",
+        {"RetentionInDays": 30},
+    )
+
+
+def test_outputs_include_log_group_name():
+    template = _template()
+    template.has_output("BackendLogGroupName", {})

@@ -10,6 +10,7 @@ from aws_cdk import (
     aws_cloudfront as cloudfront,
     aws_cloudfront_origins as origins,
     aws_cognito as cognito,
+    aws_logs as logs,
 )
 from aws_cdk.aws_apigatewayv2_integrations import HttpLambdaIntegration
 from aws_cdk.aws_ecr_assets import Platform
@@ -127,6 +128,14 @@ class StrengthwiseStack(Stack):
         feedback_table.grant_read_write_data(backend_function)
         faiss_bucket.grant_read(backend_function)
 
+        log_group = logs.LogGroup(
+            self,
+            "BackendFunctionLogGroup",
+            log_group_name=f"/aws/lambda/{backend_function.function_name}",
+            retention=logs.RetentionDays.ONE_MONTH,
+            removal_policy=RemovalPolicy.DESTROY,
+        )
+
         # --- API Gateway (HTTP API) ---
 
         api = apigwv2.HttpApi(
@@ -215,3 +224,4 @@ class StrengthwiseStack(Stack):
             value=user_pool_client.user_pool_client_id,
         )
         CfnOutput(self, "FaissIndexBucketName", value=faiss_bucket.bucket_name)
+        CfnOutput(self, "BackendLogGroupName", value=log_group.log_group_name)

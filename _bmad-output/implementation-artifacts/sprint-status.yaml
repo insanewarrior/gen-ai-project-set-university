@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-04-24
-last_updated: 2026-04-26 (story 5.3 implemented)
+last_updated: 2026-04-26 (story 6.1 review)
 project: gen-ai-project-set-university
 project_key: NOKEY
 tracking_system: file-system
@@ -78,7 +78,7 @@ development_status:
   epic-5-retrospective: optional
 
   # Epic 6: Operations & Monitoring
-  epic-6: backlog
-  6-1-system-usage-monitoring: backlog
+  epic-6: in-progress
+  6-1-system-usage-monitoring: review
   6-2-knowledge-base-update-pipeline: backlog
   epic-6-retrospective: optional
