@@ -1,4 +1,4 @@
-.PHONY: dev dev-backend dev-frontend deploy teardown seed build-index
+.PHONY: dev dev-backend dev-frontend deploy teardown seed build-index upload-index update-kb
 
 dev-backend:
 	cd backend && uvicorn main:app --reload --port 8080 --env-file .env
@@ -20,3 +20,9 @@ seed:
 
 build-index:
 	python backend/scripts/build_faiss_index.py
+
+upload-index:
+	@echo "Requires S3_BUCKET env var. Get it from CDK output FaissIndexBucketName."
+	python backend/scripts/upload_index_to_s3.py
+
+update-kb: build-index upload-index
