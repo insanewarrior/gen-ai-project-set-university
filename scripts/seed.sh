@@ -37,4 +37,10 @@ create_table_if_missing QueryUsage \
   --key-schema AttributeName=userId,KeyType=HASH AttributeName=date,KeyType=RANGE \
   --billing-mode PAY_PER_REQUEST
 
+# Feedback table
+create_table_if_missing Feedback \
+  --attribute-definitions AttributeName=queryId,AttributeType=S \
+  --key-schema AttributeName=queryId,KeyType=HASH \
+  --billing-mode PAY_PER_REQUEST
+
 echo "Seed complete."
