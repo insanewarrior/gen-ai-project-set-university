@@ -1,12 +1,12 @@
-# SRC16: Bench Press Endurance Cycle for Two Training Days per Week (II rank to КМС)
+# SRC16: Bench Press Endurance Cycle for Two Training Days per Week
 
 ## Overview
 
-SRC16 is the LMS bench press strength-endurance cycle for athletes limited to two training days per week. It is the endurance counterpart to SRC15 — same target athlete profile (bench press specialists at II rank to КМС, body weight 60 kg+, two-day-per-week schedule constraint), same 12-week duration, but with multi-rep strength-endurance work instead of heavy peak strength loading. The cycle is the second half of the SRC15+SRC16 pairing recommended for athletes whose schedule supports only two training days.
+SRC16 is the LMS bench press strength-endurance cycle for athletes limited to two training days per week. It is the endurance counterpart to SRC15 — same target athlete profile (bench press specialists at II rank to Candidate to Master of Sport, body weight 60 kg+, two-day-per-week schedule constraint), same 12-week duration, but with multi-rep strength-endurance work instead of heavy peak strength loading. The cycle is the second half of the SRC15+SRC16 pairing recommended for athletes whose schedule supports only two training days.
 
 ## Target Athlete Profile
 
-Bench press specialists of beginner to intermediate level (II rank through КМС) with demanding work schedules. Body weight minimum 60 kg. No acute injuries. Adequate squatting technique with a deep squat position recommended (because SRC16 includes squat work as background lower-body maintenance — the deep position is needed for the prescribed range of motion).
+Bench press specialists of beginner to intermediate level (II rank through Candidate to Master of Sport) with demanding work schedules. Body weight minimum 60 kg. No acute injuries. Adequate squatting technique with a deep squat position recommended (because SRC16 includes squat work as background lower-body maintenance — the deep position is needed for the prescribed range of motion).
 
 Commitment to proper nutrition and recovery is essential. The cycle's volume accumulates fatigue across the 12 weeks; insufficient recovery resources stall progression. No intense physical labor on non-training days because the strength-endurance volume requires recovery rather than accumulated depletion.
 
@@ -22,7 +22,7 @@ Default correction percentage is 0.5% for natural athletes, with a maximum of 2.
 
 ## Setup Instructions
 
-Download cycle16.xlsm (requires Microsoft Excel). Enable editing and active content. Navigate to the "1 в день" (Day 1) sheet for prescribed daily work. Set actual start dates in the Date column. Input maxima for squat and bench press in the yellow-highlighted cells using realistic values. Set the correction percentage in cell AH58.
+Download cycle16.xlsm (requires Microsoft Excel). Enable editing and active content. Navigate to the "1 per day" sheet for prescribed daily work. Set actual start dates in the Date column. Input maxima for squat and bench press in the yellow-highlighted cells using realistic values. Set the correction percentage in cell AH58.
 
 ## Important Guidelines
 
@@ -42,7 +42,7 @@ The pairing rationale: peak strength cycles produce neuromuscular gains but do n
 
 ## Distinction from SRC10/SRC11
 
-SRC10 and SRC11 are bench press endurance cycles for three-or-four-day schedules at КМС-МС and МС-МСМК levels respectively. SRC16 is the lighter-weight-class, lower-level, two-day-per-week variant. Running SRC10 on a two-day schedule would compress the volume into per-session loads that exceed recovery capacity; running SRC16 on a four-day schedule would underload the athlete. The right cycle for the right schedule is essential.
+SRC10 and SRC11 are bench press endurance cycles for three-or-four-day schedules at Candidate to Master of Sport through Master of Sport and Master of Sport to International Master of Sport levels respectively. SRC16 is the lighter-weight-class, lower-level, two-day-per-week variant. Running SRC10 on a two-day schedule would compress the volume into per-session loads that exceed recovery capacity; running SRC16 on a four-day schedule would underload the athlete. The right cycle for the right schedule is essential.
 
 ## Post-Cycle Progression
 

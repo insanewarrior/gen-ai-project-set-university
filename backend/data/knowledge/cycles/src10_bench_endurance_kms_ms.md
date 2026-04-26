@@ -1,12 +1,12 @@
-# SRC10: Bench Press Endurance Cycle (КМС to Master of Sport)
+# SRC10: Bench Press Endurance Cycle (Candidate to Master of Sport to Master of Sport)
 
 ## Overview
 
-SRC10 is the bench press strength-endurance cycle for established athletes at КМС to МС level. The 12-week program emphasizes muscular hypertrophy and multi-rep strength, making it appropriate for off-season preparation when an athlete needs to expand their work capacity and build muscular endurance before returning to peak strength work. It complements the strength cycles (SRC5, SRC6) by addressing the rep range and volume profile they deliberately exclude.
+SRC10 is the bench press strength-endurance cycle for established athletes at Candidate to Master of Sport to Master of Sport level. The 12-week program emphasizes muscular hypertrophy and multi-rep strength, making it appropriate for off-season preparation when an athlete needs to expand their work capacity and build muscular endurance before returning to peak strength work. It complements the strength cycles (SRC5, SRC6) by addressing the rep range and volume profile they deliberately exclude.
 
 ## Target Athlete Profile
 
-КМС to МС level. Body weight minimum 80 kg with optimal weight-to-height ratio. The athlete must have previous competition experience — SRC10 is not a learning cycle for novices. Bench press technique must be well-developed including proper foot drive, scapular retraction, and arch.
+Candidate to Master of Sport to Master of Sport level. Body weight minimum 80 kg with optimal weight-to-height ratio. The athlete must have previous competition experience — SRC10 is not a learning cycle for novices. Bench press technique must be well-developed including proper foot drive, scapular retraction, and arch.
 
 No musculoskeletal injuries or contraindications. Access to consistent nutrition and recovery; stable training schedule for the full 12 weeks; the cycle requires uninterrupted training without competitions or major life disruptions during its run.
 

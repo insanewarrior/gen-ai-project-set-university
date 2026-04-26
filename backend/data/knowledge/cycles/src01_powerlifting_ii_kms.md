@@ -1,8 +1,8 @@
-# SRC1: Powerlifting Strength Cycle (II rank to Candidate Master of Sport)
+# SRC1: Powerlifting Strength Cycle (II rank to Candidate to Master of Sport)
 
 ## Overview
 
-SRC1 is the foundational self-calculating cycle for powerlifters in the Bondarenko/LMS system. It is a 12-week strength period for athletes at Russian II adult rank, I adult rank, or Candidate Master of Sport (КМС) level. The cycle assumes raw (unequipped) competition and an established technical base. Three training sessions per week with one or two days of rest between sessions form the macrocycle structure.
+SRC1 is the foundational self-calculating cycle for powerlifters in the Bondarenko system. It is a 12-week strength period for athletes at II adult rank, I adult rank, or Candidate to Master of Sport level. The cycle assumes raw (unequipped) competition and an established technical base. Three training sessions per week with one or two days of rest between sessions form the macrocycle structure.
 
 ## Target Athlete Profile
 
@@ -14,7 +14,7 @@ The cycle was originally designed for male lifters; female lifters and lighter m
 
 Twelve consecutive weeks divided into 12 microcycles, each containing three training sessions. The recommended weekly schedules are Monday-Wednesday-Friday or Tuesday-Thursday-Saturday so that one or two rest days separate every session.
 
-The cycle is a strength period (силовой период), meaning the work is dosed according to the classical Bondarenko strength scheme: warm-up sets, accessory work, and cool-down work all stay at six repetitions or fewer. Higher rep work is deliberately excluded because the cycle is calibrated for neuromuscular adaptation rather than hypertrophy.
+The cycle is a strength period, meaning the work is dosed according to the classical Bondarenko strength scheme: warm-up sets, accessory work, and cool-down work all stay at six repetitions or fewer. Higher rep work is deliberately excluded because the cycle is calibrated for neuromuscular adaptation rather than hypertrophy.
 
 The load distribution implements partial high-volume training principles — the volume is meaningful but not extreme. The cycle does not implement micro-loading (small per-session weight increments). Selective high-intensity work appears across the macrocycle.
 

@@ -2,11 +2,11 @@
 
 ## Overview
 
-SRC11 is the elite-level bench press strength-endurance cycle in the LMS series. It is the МС-МСМК counterpart to SRC10 — same 8 to 20 rep philosophy and same 12-week duration, but calibrated for the absolute intensities and recovery demands of master-level athletes. The cycle is appropriate for elite benchers who have completed strength cycles (SRC6 or block cycles) and need to expand work capacity, drive hypertrophy, and refine technique under sub-maximal sustained loading before returning to peak strength work.
+SRC11 is the elite-level bench press strength-endurance cycle in the LMS series. It is the Master of Sport to International Master of Sport counterpart to SRC10 — same 8 to 20 rep philosophy and same 12-week duration, but calibrated for the absolute intensities and recovery demands of master-level athletes. The cycle is appropriate for elite benchers who have completed strength cycles (SRC6 or block cycles) and need to expand work capacity, drive hypertrophy, and refine technique under sub-maximal sustained loading before returning to peak strength work.
 
 ## Target Athlete Profile
 
-МС to МСМК level. Body weight minimum 80 kg with near-optimal height-to-weight ratio. Confirmed competition experience — the cycle assumes the athlete has competed and has a reliable 1RM history that drives the load math. Advanced technical proficiency in the bench press and supplementary lifts. No musculoskeletal injuries or limitations. Stable lifestyle with adequate nutrition capacity.
+Master of Sport to International Master of Sport level. Body weight minimum 80 kg with near-optimal height-to-weight ratio. Confirmed competition experience — the cycle assumes the athlete has competed and has a reliable 1RM history that drives the load math. Advanced technical proficiency in the bench press and supplementary lifts. No musculoskeletal injuries or limitations. Stable lifestyle with adequate nutrition capacity.
 
 A confident caloric surplus and sufficient protein intake are explicitly required. The cycle's loading consumes meaningful glycogen and produces substantial muscle damage; insufficient calories or protein produce predictable failure modes (stalled progress, accumulated fatigue, soft-tissue overuse).
 
@@ -32,7 +32,7 @@ Verify the athlete meets all correspondence conditions. Download cycle11.xlsm. E
 
 ## Distinction from SRC10
 
-SRC10 targets КМС-МС-level athletes with 8-12 rep work centered on the bench press, leaving squat and deadlift to the athlete. SRC11 targets МС-МСМК-level athletes with the same rep philosophy but integrated lower-body work to keep the full powerlifting profile intact. The difference is not just intensity — it is structural. An МС-level athlete running SRC10 may find their squat and deadlift detraining too far over 12 weeks; an МС-level athlete running SRC11 maintains the full lift profile.
+SRC10 targets Candidate to Master of Sport through Master of Sport-level athletes with 8-12 rep work centered on the bench press, leaving squat and deadlift to the athlete. SRC11 targets Master of Sport to International Master of Sport-level athletes with the same rep philosophy but integrated lower-body work to keep the full powerlifting profile intact. The difference is not just intensity — it is structural. A Master of Sport-level athlete running SRC10 may find their squat and deadlift detraining too far over 12 weeks; a Master of Sport-level athlete running SRC11 maintains the full lift profile.
 
 ## Post-Cycle Progression
 

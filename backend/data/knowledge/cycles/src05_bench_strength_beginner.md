@@ -1,8 +1,8 @@
-# SRC5: Bench Press Strength Cycle (II rank to КМС)
+# SRC5: Bench Press Strength Cycle
 
 ## Overview
 
-SRC5 is the LMS strength-period cycle for bench press specialists at II rank through Candidate Master of Sport. The 12-week, four-day-per-week structure emphasizes bench press development as the primary lift while giving meaningful attention to the standing press as a secondary specialty. It is the bench-focused counterpart to SRC1's three-lift powerlifting structure.
+SRC5 is the LMS strength-period cycle for bench press specialists at II rank through Candidate to Master of Sport. The 12-week, four-day-per-week structure emphasizes bench press development as the primary lift while giving meaningful attention to the standing press as a secondary specialty. It is the bench-focused counterpart to SRC1's three-lift powerlifting structure.
 
 ## Target Athlete Profile
 

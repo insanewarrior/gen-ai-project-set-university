@@ -1,12 +1,12 @@
-# SRC2: Powerlifting Strength Cycle (КМС to Master of Sport)
+# SRC2: Powerlifting Strength Cycle (Candidate to Master of Sport to Master of Sport)
 
 ## Overview
 
-SRC2 is the four-day-per-week intermediate-to-advanced powerlifting cycle in the LMS system. It is a 12-week strength period for athletes at Candidate Master of Sport (КМС) through Master of Sport (МС) level, the next step up from SRC1's three-day structure. The additional training day allows greater weekly volume and more granular load distribution across the squat, bench, and deadlift.
+SRC2 is the four-day-per-week intermediate-to-advanced powerlifting cycle in the LMS system. It is a 12-week strength period for athletes at Candidate to Master of Sport through Master of Sport level, the next step up from SRC1's three-day structure. The additional training day allows greater weekly volume and more granular load distribution across the squat, bench, and deadlift.
 
 ## Target Athlete Profile
 
-Required level is КМС to МС. Body weight minimum 80 kg, raw (unequipped) division. Technical skill must be high — the cycle does not have time budgeted for major technical reconstruction; minor refinements are acceptable.
+Required level is Candidate to Master of Sport to Master of Sport. Body weight minimum 80 kg, raw (unequipped) division. Technical skill must be high — the cycle does not have time budgeted for major technical reconstruction; minor refinements are acceptable.
 
 The cycle requires three balance conditions in the athlete's strength profile. First, approximately equal development of quadriceps, hamstrings, and spinal erectors across similar exercise volumes — a lifter with severely imbalanced posterior-to-anterior strength will find the prescribed accessories misallocated. Second, the deadlift must exceed the squat by 10 to 20 percent, with either stance acceptable for both lifts; this ratio reflects the body type the cycle's load math assumes. Third, no acute musculoskeletal injuries or joint problems.
 
@@ -30,4 +30,4 @@ After SRC2, the next phase is either a peak strength period (block cycles for po
 
 ## Distinction from SRC1
 
-SRC2 is not "harder SRC1" — it is structurally different. Four sessions per week allow the squat, bench, and deadlift to each appear with their own dedicated day plus one shared accessory day, where SRC1's three-day structure forces some lifts to share days. The four-day structure also reduces per-session volume per lift while increasing weekly frequency, which suits the КМС-МС athlete's recovery capacity better than SRC1's denser sessions would.
+SRC2 is not "harder SRC1" — it is structurally different. Four sessions per week allow the squat, bench, and deadlift to each appear with their own dedicated day plus one shared accessory day, where SRC1's three-day structure forces some lifts to share days. The four-day structure also reduces per-session volume per lift while increasing weekly frequency, which suits the Candidate to Master of Sport through Master of Sport athlete's recovery capacity better than SRC1's denser sessions would.

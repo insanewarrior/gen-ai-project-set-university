@@ -6,7 +6,7 @@ SRC14 is the LMS powerlifting cycle calibrated for athletes in lighter weight cl
 
 ## Target Athlete Profile
 
-Competitive powerlifters with established technique in all three lifts. Level II rank through МС, or equivalent competition results. Body weight minimum 60 kg with normal weight-to-height ratio.
+Competitive powerlifters with established technique in all three lifts. Level II rank through Master of Sport, or equivalent competition results. Body weight minimum 60 kg with normal weight-to-height ratio.
 
 The cycle requires an active lifestyle with proper recovery. It is unsuitable for athletes with demanding physical labor jobs because the prescribed volume assumes the athlete is recovering rather than depleting on non-training days. No acute injuries or significant musculoskeletal issues.
 
@@ -20,7 +20,7 @@ Each session includes four components: warm-up, main complex (the prescribed str
 
 ## Setup Instructions
 
-Download cycle14.xlsm and enable Excel editing and macros. Review program details on the "INFO" sheet. Navigate to the "1 в день" (1 per day) sheet for the prescribed daily work. Set actual start dates and the weekly training day schedule, ensuring rest days between sessions. Input current 1RM values for squat, bench, and deadlift in the highlighted yellow cells using realistic values. Set the correction percentage: 0.5% for natural athletes, with a maximum of 1.5% recommended for natural athletes pushing aggressive progression. Begin training.
+Download cycle14.xlsm and enable Excel editing and macros. Review program details on the "INFO" sheet. Navigate to the "1 per day" sheet for the prescribed daily work. Set actual start dates and the weekly training day schedule, ensuring rest days between sessions. Input current 1RM values for squat, bench, and deadlift in the highlighted yellow cells using realistic values. Set the correction percentage: 0.5% for natural athletes, with a maximum of 1.5% recommended for natural athletes pushing aggressive progression. Begin training.
 
 ## Why a Separate Cycle for Lighter Weight Classes
 
@@ -30,7 +30,7 @@ SRC14 recalibrates these relationships. The prescribed volumes scale to the ligh
 
 ## Suitable Use Cases
 
-SRC14 fits three athlete profiles. First, lighter-weight-class powerlifters at any level from II rank through МС who want a structured cycle calibrated for their body weight. Second, athletes returning from a layoff who have lost mass and now compete in a lighter class than their previous cycles assumed. Third, advanced lifters at heavier classes who want to drop to a lower class for competition and need a programming framework that accommodates the resulting body weight reduction.
+SRC14 fits three athlete profiles. First, lighter-weight-class powerlifters at any level from II rank through Master of Sport who want a structured cycle calibrated for their body weight. Second, athletes returning from a layoff who have lost mass and now compete in a lighter class than their previous cycles assumed. Third, advanced lifters at heavier classes who want to drop to a lower class for competition and need a programming framework that accommodates the resulting body weight reduction.
 
 ## Post-Cycle Progression
 

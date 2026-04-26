@@ -1,12 +1,12 @@
-# SRC13: Combined Strength Bench Cycle (КМС to International Master of Sport)
+# SRC13: Combined Strength Bench Cycle (Candidate to Master of Sport to International Master of Sport)
 
 ## Overview
 
-SRC13 is an experimental 12-week bench press cycle that combines mixed periodization — 5 to 6 rep work alongside low-rep sets (2 to 3 reps and singles) — with high intensity and linear tonnage progression. The cycle is designed for advanced lifters across a wide level range (КМС through МСМК) who can handle aggressive load progression with adequate recovery support. Unlike SRC10/SRC11 which are pure endurance cycles or SRC5/SRC6 which are pure strength cycles, SRC13 deliberately mixes both rep ranges within the same macrocycle.
+SRC13 is an experimental 12-week bench press cycle that combines mixed periodization — 5 to 6 rep work alongside low-rep sets (2 to 3 reps and singles) — with high intensity and linear tonnage progression. The cycle is designed for advanced lifters across a wide level range (Candidate to Master of Sport through International Master of Sport) who can handle aggressive load progression with adequate recovery support. Unlike SRC10/SRC11 which are pure endurance cycles or SRC5/SRC6 which are pure strength cycles, SRC13 deliberately mixes both rep ranges within the same macrocycle.
 
 ## Target Athlete Profile
 
-КМС through МСМК level. The cycle accepts a wider competitive level range than most LMS cycles because its mixed periodization scales reasonably across the КМС-to-МСМК continuum — a КМС lifter and an МСМК lifter both have absolute intensities and recovery capacities that the load math can accommodate, though the absolute weights differ enormously.
+Candidate to Master of Sport through International Master of Sport level. The cycle accepts a wider competitive level range than most LMS cycles because its mixed periodization scales reasonably across the Candidate to Master of Sport-to-International Master of Sport continuum — a Candidate to Master of Sport lifter and an International Master of Sport lifter both have absolute intensities and recovery capacities that the load math can accommodate, though the absolute weights differ enormously.
 
 Advanced technical level is required. Athletes must have established technique with continuous technical refinement happening as part of regular training. The cycle does not budget time for major technical reconstruction.
 
@@ -40,7 +40,7 @@ Download cycle13.xlsm. Enable macros and editing. Review all exercises and confi
 
 ## Why "Experimental"
 
-The LMS documentation describes SRC13 as experimental because mixed periodization within a single macrocycle is uncommon in their catalog — most cycles are either strength-period or endurance-period purebreeds. The combination produces results when it works (the data backing the cycle showed strength gains across the КМС-МСМК range), but it places higher demands on the athlete's ability to recover from heterogeneous stimuli within the same week. Athletes for whom the cycle does not produce expected progress may need to revert to single-period cycles (SRC6 or SRC11) where the recovery profile is more predictable.
+The LMS documentation describes SRC13 as experimental because mixed periodization within a single macrocycle is uncommon in their catalog — most cycles are either strength-period or endurance-period purebreeds. The combination produces results when it works (the data backing the cycle showed strength gains across the Candidate to Master of Sport through International Master of Sport range), but it places higher demands on the athlete's ability to recover from heterogeneous stimuli within the same week. Athletes for whom the cycle does not produce expected progress may need to revert to single-period cycles (SRC6 or SRC11) where the recovery profile is more predictable.
 
 ## Post-Cycle Progression
 

@@ -6,7 +6,7 @@ The embedded cycles for strict biceps curl are self-calculating Excel programs d
 
 ## Three Difficulty Levels
 
-The cycles ship in three level-specific variants matched to the athlete's competitive history with the lift. The beginner variant (BicBeginner.xlsm) suits athletes new to strict curling — it provides sufficient load for initial progress and helps quickly master proper technique. The intermediate variant (BicIntermediate.xlsm) targets competitors with I-rank to КМС-level results who have trained strict curls for some time, implementing greater training volume to effectively increase performance. The advanced variant (BicExperienced.xlsm) addresses elite athletes at МС-МСМК level with competition experience, containing already quite high loads for serious competitive aspirations.
+The cycles ship in three level-specific variants matched to the athlete's competitive history with the lift. The beginner variant (BicBeginner.xlsm) suits athletes new to strict curling — it provides sufficient load for initial progress and helps quickly master proper technique. The intermediate variant (BicIntermediate.xlsm) targets competitors with I-rank to Candidate to Master of Sport-level results who have trained strict curls for some time, implementing greater training volume to effectively increase performance. The advanced variant (BicExperienced.xlsm) addresses elite athletes at Master of Sport to International Master of Sport level with competition experience, containing already quite high loads for serious competitive aspirations.
 
 ## Athlete Requirements
 

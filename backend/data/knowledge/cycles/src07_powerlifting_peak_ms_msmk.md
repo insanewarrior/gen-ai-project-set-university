@@ -2,11 +2,11 @@
 
 ## Overview
 
-SRC7 is the elite-level peaking cycle in the LMS powerlifting series. The 12-week program targets athletes at МС to МСМК (International Master of Sport) classification in the raw division and is designed to produce a peak strength state for competition or formal max attempts in week 13. Unlike SRC1 and SRC2 which build strength across the macrocycle, SRC7 sharpens an already-built strength base into a competition-ready peak.
+SRC7 is the elite-level peaking cycle in the LMS powerlifting series. The 12-week program targets athletes at Master of Sport to International Master of Sport (International Master of Sport) classification in the raw division and is designed to produce a peak strength state for competition or formal max attempts in week 13. Unlike SRC1 and SRC2 which build strength across the macrocycle, SRC7 sharpens an already-built strength base into a competition-ready peak.
 
 ## Target Athlete Profile
 
-МС or МСМК level confirmed by competition results. Body weight 70 kg or more — meaningfully lower minimum than the 80 kg threshold of SRC1/SRC2 because elite athletes at lighter classes still benefit from the cycle's peaking structure. Weight-to-height ratio must remain in normal proportions.
+Master of Sport or International Master of Sport level confirmed by competition results. Body weight 70 kg or more — meaningfully lower minimum than the 80 kg threshold of SRC1/SRC2 because elite athletes at lighter classes still benefit from the cycle's peaking structure. Weight-to-height ratio must remain in normal proportions.
 
 The training goal must be balanced strength gains across all three lifts. SRC7 is not for athletes who want to specialize on a single lift while neglecting another — its load distribution assumes the athlete is preparing all three for competition.
 
@@ -36,4 +36,4 @@ Week 13 accommodates competition or formal attempts following cycle completion. 
 
 ## Distinction from SRC2
 
-SRC2 is a strength-building cycle for КМС-МС lifters; SRC7 is a peaking cycle for МС-МСМК lifters. Different goals, different load math, different daily distribution. SRC7 assumes the athlete already has the strength and is sharpening it; SRC2 assumes the athlete is still acquiring it. Running SRC7 on a lifter who is not yet МС-level will produce overload because the absolute intensities are calibrated for athletes whose 1RM percentages translate to absolute weights their bodies can recover from at five sessions per week.
+SRC2 is a strength-building cycle for Candidate to Master of Sport through Master of Sport lifters; SRC7 is a peaking cycle for Master of Sport to International Master of Sport lifters. Different goals, different load math, different daily distribution. SRC7 assumes the athlete already has the strength and is sharpening it; SRC2 assumes the athlete is still acquiring it. Running SRC7 on a lifter who is not yet Master of Sport-level will produce overload because the absolute intensities are calibrated for athletes whose 1RM percentages translate to absolute weights their bodies can recover from at five sessions per week.

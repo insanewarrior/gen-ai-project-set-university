@@ -2,11 +2,11 @@
 
 ## Overview
 
-SRC12 is the elite-level deadlift-and-bench strength-endurance cycle in the LMS catalog. It is the endurance counterpart to SRC9 — same target athlete profile (МС-МСМК lifters whose deadlift dominates), same lift focus (deadlift and bench, with squat de-emphasized), but with an 8+ rep range throughout instead of the strength-period 6-rep cap. The cycle is appropriate for elite deadlift specialists who need to expand work capacity and address muscular endurance during off-season preparation.
+SRC12 is the elite-level deadlift-and-bench strength-endurance cycle in the LMS catalog. It is the endurance counterpart to SRC9 — same target athlete profile (Master of Sport to International Master of Sport lifters whose deadlift dominates), same lift focus (deadlift and bench, with squat de-emphasized), but with an 8+ rep range throughout instead of the strength-period 6-rep cap. The cycle is appropriate for elite deadlift specialists who need to expand work capacity and address muscular endurance during off-season preparation.
 
 ## Target Athlete Profile
 
-МС or МСМК level. Body weight 80 kg or more. Weight-to-height ratio should minimally deviate from recommended standards — significant deviations indicate the cycle's load calibration may be off. The deadlift must be the dominant movement, with significant superiority over the squat. Athletes with balanced or squat-dominant strength profiles should choose a different cycle.
+Master of Sport or International Master of Sport level. Body weight 80 kg or more. Weight-to-height ratio should minimally deviate from recommended standards — significant deviations indicate the cycle's load calibration may be off. The deadlift must be the dominant movement, with significant superiority over the squat. Athletes with balanced or squat-dominant strength profiles should choose a different cycle.
 
 No acute musculoskeletal injuries requiring immediate treatment. Adequate recovery capacity, low physical job demands. The cycle's volume accumulates over 12 weeks; insufficient recovery resources produce stalled progression rather than peak strength gains.
 

@@ -40,9 +40,9 @@ Most lifters successfully iterate the block 2 to 4 times before plateau, accumul
 
 ## Comparison: Block vs SRC7 for Peaking
 
-Both the powerlifting block cycles and SRC7 serve peaking purposes. The block cycles are 4-week, level-graded across the full range from beginner to advanced. SRC7 is 12-week, calibrated specifically for МС-МСМК-level athletes. The choice depends on the athlete's level and timing.
+Both the powerlifting block cycles and SRC7 serve peaking purposes. The block cycles are 4-week, level-graded across the full range from beginner to advanced. SRC7 is 12-week, calibrated specifically for Master of Sport to International Master of Sport-level athletes. The choice depends on the athlete's level and timing.
 
-A КМС-level lifter with 4 weeks before a competition uses a block. An МС lifter with 12 weeks of preparation time uses SRC7 because the longer macrocycle allows more thorough peaking. An МС lifter with only 4 weeks before competition uses a block (advanced variant) because SRC7 cannot be compressed.
+A Candidate to Master of Sport-level lifter with 4 weeks before a competition uses a block. A Master of Sport lifter with 12 weeks of preparation time uses SRC7 because the longer macrocycle allows more thorough peaking. A Master of Sport lifter with only 4 weeks before competition uses a block (advanced variant) because SRC7 cannot be compressed.
 
 ## When the Block Is the Wrong Choice
 

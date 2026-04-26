@@ -1,8 +1,8 @@
-# SRC4: Arm Wrestling Top-Roll Cycle (II rank to КМС)
+# SRC4: Arm Wrestling Top-Roll Cycle
 
 ## Overview
 
-SRC4 is the dedicated arm wrestling cycle in the LMS system, authored by Andrey Barskov. It is a 12-week strength training cycle for top-roll-style arm wrestlers at Russian II adult rank through Candidate Master of Sport (КМС). The cycle structure differs from the powerlifting cycles in two important ways: more training days per week (four), and an exercise vocabulary built around arm wrestling movement patterns rather than barbell lifts.
+SRC4 is the dedicated arm wrestling cycle in the LMS system, authored by Andrey Barskov. It is a 12-week strength training cycle for top-roll-style arm wrestlers at II adult rank through Candidate to Master of Sport. The cycle structure differs from the powerlifting cycles in two important ways: more training days per week (four), and an exercise vocabulary built around arm wrestling movement patterns rather than barbell lifts.
 
 ## Target Athlete Profile
 
@@ -24,7 +24,7 @@ Correction percentage default is 0.5% per microcycle, adjustable. The 1RM input 
 
 ## Exercise Vocabulary
 
-The arm-specific exercises in SRC4 do not have direct barbell-sport equivalents. Top imitation (имитация верха) is a dumbbell-and-elbow-pad simulation of the top-roll finishing motion. Side press (боковой нажим) is a horizontal lateral push mimicking hook-style finishing. Pronation with strength bands (пронация СБ) and supination drills isolate the rotational strength of the forearm. Wrist with strength bands (кисть РР) trains wrist flexion against band tension. Shoulder adduction (приведение к плечу) brings the working arm toward the puller's body. Cable lat pull-down (тяга верхнего блока) builds pulling strength for hook-style and as general posterior chain support. Weighted chin-ups (подтягивание) develop the supinated-grip pulling strength used at the table.
+The arm-specific exercises in SRC4 do not have direct barbell-sport equivalents. Top imitation is a dumbbell-and-elbow-pad simulation of the top-roll finishing motion. Side press is a horizontal lateral push mimicking hook-style finishing. Pronation with strength bands and supination drills isolate the rotational strength of the forearm. Wrist with strength bands trains wrist flexion against band tension. Shoulder adduction brings the working arm toward the puller's body. Cable lat pull-down builds pulling strength for hook-style and as general posterior chain support. Weighted chin-ups develop the supinated-grip pulling strength used at the table.
 
 Bench press, squat, and deadlift appear at light or medium intensity as background general physical preparation, never as primary stimulus.
 
@@ -38,4 +38,4 @@ The detailed per-microcycle exercise prescriptions, set/rep schemes, and intensi
 
 ## Post-Cycle Progression
 
-After SRC4, the typical progression is to a peaking phase before competition or to repeat the cycle with updated 1RM inputs. There is currently no LMS МС-МСМК-level arm wrestling cycle published, so elite arm wrestlers either iterate SRC4 with progressively heavier inputs or design custom programming.
+After SRC4, the typical progression is to a peaking phase before competition or to repeat the cycle with updated 1RM inputs. There is currently no LMS Master of Sport to International Master of Sport-level arm wrestling cycle published, so elite arm wrestlers either iterate SRC4 with progressively heavier inputs or design custom programming.

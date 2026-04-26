@@ -2,11 +2,11 @@
 
 ## Overview
 
-SRC9 is the LMS deadlift-and-bench specialization cycle for elite athletes at МС to МСМК level. The 12-week mixed cycle combines pure strength methods with peak-reaching approaches, making it suitable for both regular training periods and direct competition preparation. It is the cycle of choice for an elite powerlifter whose deadlift exceeds their squat significantly and who wants to maintain or improve bench while bringing the pull to its peak.
+SRC9 is the LMS deadlift-and-bench specialization cycle for elite athletes at Master of Sport to International Master of Sport level. The 12-week mixed cycle combines pure strength methods with peak-reaching approaches, making it suitable for both regular training periods and direct competition preparation. It is the cycle of choice for an elite powerlifter whose deadlift exceeds their squat significantly and who wants to maintain or improve bench while bringing the pull to its peak.
 
 ## Target Athlete Profile
 
-МС or МСМК level confirmed by competition results. Body weight 80 kg or more. Deadlift performance must significantly exceed squat performance — this asymmetry is the cycle's core assumption. An athlete whose squat is similar to or stronger than their deadlift will find SRC9 misallocated; they should run SRC2 or SRC7 instead.
+Master of Sport or International Master of Sport level confirmed by competition results. Body weight 80 kg or more. Deadlift performance must significantly exceed squat performance — this asymmetry is the cycle's core assumption. An athlete whose squat is similar to or stronger than their deadlift will find SRC9 misallocated; they should run SRC2 or SRC7 instead.
 
 No acute musculoskeletal injuries requiring immediate treatment. Adequate recovery capacity is essential, and the athlete's job must not impose significant physical fatigue on top of the training load.
 

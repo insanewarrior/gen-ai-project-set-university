@@ -1,4 +1,4 @@
-# SRC15: Bench Press Peak Cycle for Two Training Days per Week (II rank to КМС)
+# SRC15: Bench Press Peak Cycle for Two Training Days per Week
 
 ## Overview
 
@@ -6,7 +6,7 @@ SRC15 is the LMS bench press cycle for athletes who can train only twice per wee
 
 ## Target Athlete Profile
 
-Athletes aiming to progress specifically in bench press but limited to two training sessions per week. Body weight minimum 60 kg. Experience level II rank through КМС or equivalent results. The athlete must understand proper exercise technique and movement patterns — the cycle's heavy loading provides little tolerance for technical errors.
+Athletes aiming to progress specifically in bench press but limited to two training sessions per week. Body weight minimum 60 kg. Experience level II rank through Candidate to Master of Sport or equivalent results. The athlete must understand proper exercise technique and movement patterns — the cycle's heavy loading provides little tolerance for technical errors.
 
 The cycle is suitable for athletes with demanding work schedules where additional training days are impractical, for those returning from time off who want to rebuild bench strength without overcommitting, and for athletes who choose to focus their gym time on bench press exclusively while devoting other physical activity to other goals.
 
@@ -26,7 +26,7 @@ The dense per-session intensity also means warm-ups matter more in SRC15 than in
 
 ## Setup Instructions (from the cycle15.xlsm spreadsheet)
 
-Enable editing and macros when opening the file. Navigate to the "1 в день" (1 per day) sheet which contains the prescribed daily work. Input actual competition maxima for squat and bench press in the designated cells. Set the weekly percentage increase (correction percentage), with 0.5% recommended for natural athletes and a maximum of 2.5% under aggressive progression conditions. Adjust training dates and select the two weekdays for Sessions 1 and 2.
+Enable editing and macros when opening the file. Navigate to the "1 per day" sheet which contains the prescribed daily work. Input actual competition maxima for squat and bench press in the designated cells. Set the weekly percentage increase (correction percentage), with 0.5% recommended for natural athletes and a maximum of 2.5% under aggressive progression conditions. Adjust training dates and select the two weekdays for Sessions 1 and 2.
 
 ## Post-Workout Protocol
 
