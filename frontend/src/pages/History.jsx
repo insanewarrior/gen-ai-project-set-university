@@ -94,21 +94,25 @@ export default function History() {
   return (
     <div className="p-4 md:p-6 max-w-3xl mx-auto w-full">
       <h1 className="text-2xl font-black text-white tracking-tight mb-6">History</h1>
-      <div role="list">
+      <div role="list" className="space-y-4">
         {[...dateGroups.entries()].map(([date, dateSessions]) => (
-          <div key={date}>
-            <h2 className="text-text-muted text-[10px] uppercase font-semibold tracking-widest mb-1 mt-5 first:mt-0">
-              {formatDate(date)}
-            </h2>
-            {dateSessions.map((session) => (
-              <div key={session.sessionId} role="listitem">
-                <SessionCard
-                  session={session}
-                  variant="history"
-                  onClick={() => handleSessionClick(session)}
-                />
-              </div>
-            ))}
+          <div key={date} className="bg-surface rounded-xl overflow-hidden">
+            <div className="px-4 py-2.5 border-b border-border-subtle bg-surface-2">
+              <h2 className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+                {formatDate(date)}
+              </h2>
+            </div>
+            <div>
+              {dateSessions.map((session) => (
+                <div key={session.sessionId} role="listitem">
+                  <SessionCard
+                    session={session}
+                    variant="history"
+                    onClick={() => handleSessionClick(session)}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>

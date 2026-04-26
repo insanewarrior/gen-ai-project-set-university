@@ -44,7 +44,7 @@ export default function ChatBubble({ role, message, citations, followups, onFoll
         {knowledgeCitations.map((c, i) => (
           <CitationBlock key={i} type="knowledge" citation={c} />
         ))}
-        <p className="text-xs text-text-muted italic px-1 mt-2">StrengthWise provides training insights, not medical advice.</p>
+        <p className="text-xs text-zinc-500 italic px-1 mt-2">StrengthWise provides training insights, not medical advice.</p>
       </div>
       {followups && followups.length > 0 && (
         <div className="flex flex-wrap gap-2 px-1">

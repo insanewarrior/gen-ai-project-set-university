@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ThumbsUp, ThumbsDown } from 'lucide-react'
 import { postFeedback } from '../api'
 
 export default function FeedbackButtons({ queryId }) {
@@ -21,30 +22,26 @@ export default function FeedbackButtons({ queryId }) {
         disabled={selected !== null}
         aria-label="Thumbs up"
         aria-pressed={selected === 'up'}
-        className={`text-base transition-colors disabled:cursor-default ${
-          selected === 'up'
-            ? 'text-blue-400'
-            : selected !== null
-              ? 'text-zinc-600'
-              : 'text-zinc-500 hover:text-zinc-300'
-        }`}
+        className="transition-colors disabled:cursor-default"
       >
-        👍
+        <ThumbsUp
+          size={15}
+          strokeWidth={2}
+          color={selected === 'up' ? '#00aaff' : selected !== null ? '#3f3f46' : '#71717a'}
+        />
       </button>
       <button
         onClick={() => handleFeedback('down')}
         disabled={selected !== null}
         aria-label="Thumbs down"
         aria-pressed={selected === 'down'}
-        className={`text-base transition-colors disabled:cursor-default ${
-          selected === 'down'
-            ? 'text-amber-400'
-            : selected !== null
-              ? 'text-zinc-600'
-              : 'text-zinc-500 hover:text-zinc-300'
-        }`}
+        className="transition-colors disabled:cursor-default"
       >
-        👎
+        <ThumbsDown
+          size={15}
+          strokeWidth={2}
+          color={selected === 'down' ? '#bf00ff' : selected !== null ? '#3f3f46' : '#71717a'}
+        />
       </button>
     </div>
   )

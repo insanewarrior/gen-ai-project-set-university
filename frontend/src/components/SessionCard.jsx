@@ -68,14 +68,15 @@ export default function SessionCard({ session, variant, isFirst, onClick }) {
       tabIndex={0}
       onClick={onClick}
       onKeyDown={handleKeyDown}
-      className="flex items-center justify-between py-3 px-1 border-b border-border-subtle cursor-pointer hover:bg-surface-2 min-h-[44px] transition-colors"
+      className="flex items-center justify-between py-3.5 px-4 border-b border-border-subtle last:border-b-0 cursor-pointer hover:bg-surface-2 min-h-[48px] transition-colors"
     >
-      <div className="flex items-center gap-2">
-        <span className="text-sm text-white font-medium">{sportLabel}</span>
+      <div className="flex items-center gap-3">
+        <Activity size={15} strokeWidth={2} className="text-text-muted shrink-0" />
+        <span className="text-sm text-white font-semibold">{sportLabel}</span>
       </div>
       <div className="flex items-center gap-3">
         <span className="text-accent text-sm font-semibold">{totalSets} sets</span>
-        <ChevronRight size={14} strokeWidth={2} className="text-[#333]" />
+        <ChevronRight size={14} strokeWidth={2} className="text-text-muted" />
       </div>
     </div>
   )

@@ -1,8 +1,8 @@
 const SPORTS = [
-  { key: 'grip', label: 'Grip Sport' },
-  { key: 'armwrestling', label: 'Armwrestling' },
-  { key: 'powerlifting', label: 'Powerlifting' },
   { key: 'general', label: 'General Strength' },
+  { key: 'powerlifting', label: 'Powerlifting' },
+  { key: 'armwrestling', label: 'Armwrestling' },
+  { key: 'grip', label: 'Grip Sport' },
 ]
 
 export function getSavedSport() {

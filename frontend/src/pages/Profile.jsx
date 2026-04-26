@@ -12,7 +12,7 @@ const TIER_LABELS = {
 function StatRow({ label, value }) {
   return (
     <div className="flex justify-between items-center py-3 border-b border-border-subtle last:border-0">
-      <span className="text-text-muted text-sm">{label}</span>
+      <span className="text-zinc-400 text-sm">{label}</span>
       <span className="text-white font-medium text-sm">{value}</span>
     </div>
   )
@@ -20,7 +20,7 @@ function StatRow({ label, value }) {
 
 function SectionLabel({ children }) {
   return (
-    <p className="text-text-muted text-[10px] uppercase tracking-widest font-semibold mb-3">{children}</p>
+    <p className="text-zinc-400 text-[10px] uppercase tracking-widest font-semibold mb-3">{children}</p>
   )
 }
 
@@ -105,7 +105,7 @@ export default function Profile() {
         <SectionLabel>Today's query budget</SectionLabel>
         <div className="bg-surface border border-border rounded-xl px-4 py-3">
           {profile.queriesRemainingToday === -1
-            ? <span className="text-xs text-text-muted">Unlimited daily queries (Premium)</span>
+            ? <span className="text-xs text-zinc-400">Unlimited daily queries (Premium)</span>
             : <QueryCounter queriesRemaining={profile.queriesRemainingToday} tierLimit={profile.tierLimit} />
           }
         </div>
@@ -153,7 +153,7 @@ export default function Profile() {
                 <button
                   onClick={() => { setShowDeleteConfirm(false); setDeleteError(null) }}
                   disabled={deleting}
-                  className="flex-1 py-2 px-4 text-text-muted rounded-lg text-sm hover:bg-surface-2 disabled:opacity-50 transition-colors"
+                  className="flex-1 py-2 px-4 text-zinc-400 rounded-lg text-sm hover:bg-surface-2 disabled:opacity-50 transition-colors"
                 >
                   Cancel
                 </button>
