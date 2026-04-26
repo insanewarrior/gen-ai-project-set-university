@@ -1,0 +1,1764 @@
+<!--
+  STRENGTHWISE — CAPSTONE PRESENTATION 2026
+  ==========================================
+  PRESENTER SETUP
+  ---------------
+  Option A (file://):  Open this file directly in Chrome or Firefox
+  Option B (local):    cd presentation && python3 -m http.server 8000
+                       then open http://localhost:8000
+
+  KEYBOARD SHORTCUTS
+  ------------------
+    Space / → / ↓    next slide
+    ← / ↑            previous slide
+    S                speaker notes (allow popup if prompted)
+    F                fullscreen
+    O                overview / tile view
+    B                blank screen (great during Q&A pauses)
+    Esc              exit fullscreen / overview
+
+  PDF EXPORT
+  ----------
+  1. Append ?print-pdf to URL
+  2. Ctrl+P (or Cmd+P) → Save as PDF
+  3. Enable "Background graphics" in print settings
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StrengthWise — Capstone 2026</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+  <style>
+    /* ================================================================
+       1. CSS VARIABLES — exact match to frontend/src/index.css
+       ================================================================ */
+    :root {
+      --bg-deep:        #0a0a0a;
+      --bg-surface:     #141414;
+      --bg-surface-2:   #1c1c1c;
+      --border:         #242424;
+      --border-bright:  #333333;
+      --accent-lime:    #b8ff3c;
+      --cite-personal:      #00aaff;
+      --cite-personal-bg:   rgba(0, 170, 255, 0.08);
+      --cite-personal-badge: rgba(0, 170, 255, 0.18);
+      --cite-knowledge:     #bf00ff;
+      --cite-knowledge-bg:  rgba(191, 0, 255, 0.08);
+      --cite-knowledge-badge: rgba(191, 0, 255, 0.18);
+      --text-primary:   #ffffff;
+      --text-secondary: #999999;
+      --text-muted:     #555555;
+      --green:  #22c55e;
+      --red:    #ef4444;
+      --orange: #f97316;
+    }
+
+    /* ================================================================
+       2. REVEAL OVERRIDES
+       ================================================================ */
+    .reveal-viewport { background: var(--bg-deep) !important; }
+    .reveal { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+    .reveal .slides section { text-align: left; }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      color: var(--text-primary);
+      text-transform: none;
+      letter-spacing: -0.025em;
+      font-weight: 700;
+      margin-bottom: 0.3em;
+    }
+    .reveal h1 { font-size: 3.2em; line-height: 1.05; }
+    .reveal h2 { font-size: 1.75em; }
+    .reveal h3 { font-size: 1.2em; }
+    .reveal p, .reveal li { color: var(--text-secondary); font-size: 0.85em; line-height: 1.6; }
+    .reveal strong { color: var(--text-primary); }
+    .reveal ul { list-style: none; padding: 0; margin: 0; }
+    .reveal ul li::before { content: "—"; color: var(--text-muted); margin-right: 0.5em; }
+    .reveal .progress { background: var(--border); }
+    .reveal .progress span { background: var(--accent-lime); }
+    .reveal .controls { font-size: 10px; bottom: 8px; right: 8px; }
+    .reveal .controls button { color: var(--text-muted); }
+    .reveal .slide-number { background: transparent; color: var(--text-muted); font-size: 0.5em; bottom: 6px; left: 8px; }
+
+    /* ================================================================
+       3. GLOBAL UTILITIES
+       ================================================================ */
+    .slide-inner {
+      padding: 32px 56px;
+      height: 100%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+    .slide-inner.center-v { justify-content: center; }
+
+    .tag {
+      display: inline-block;
+      border-radius: 4px;
+      font-size: 0.55em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.25em 0.7em;
+      line-height: 1;
+      vertical-align: middle;
+    }
+    .tag-lime    { background: rgba(184,255,60,0.12); color: var(--accent-lime); border: 1px solid rgba(184,255,60,0.25); }
+    .tag-personal  { background: var(--cite-personal-badge); color: var(--cite-personal); border: 1px solid rgba(0,170,255,0.3); }
+    .tag-knowledge { background: var(--cite-knowledge-badge); color: var(--cite-knowledge); border: 1px solid rgba(191,0,255,0.3); }
+    .tag-muted   { background: rgba(255,255,255,0.06); color: var(--text-muted); border: 1px solid var(--border); }
+
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+    }
+    .card-lime  { border-left: 3px solid var(--accent-lime); }
+    .card-personal  { border-left: 3px solid var(--cite-personal); background: var(--cite-personal-bg); }
+    .card-knowledge { border-left: 3px solid var(--cite-knowledge); background: var(--cite-knowledge-bg); }
+
+    .slide-label {
+      font-size: 0.52em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      margin-bottom: 0.25em;
+    }
+
+    .two-col { display: grid; gap: 2rem; align-items: start; }
+    .two-col-6040 { grid-template-columns: 3fr 2fr; }
+    .two-col-5050 { grid-template-columns: 1fr 1fr; }
+    .two-col-4060 { grid-template-columns: 2fr 3fr; }
+    .two-col-3070 { grid-template-columns: 1fr 2fr; }
+
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.65rem 0.8rem;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 1.9em;
+      font-weight: 800;
+      color: var(--accent-lime);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .stat-label {
+      font-size: 0.46em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-top: 0.2em;
+      line-height: 1.25;
+    }
+
+    /* ================================================================
+       4. SLIDE 1 — HERO
+       ================================================================ */
+    .hero-slide {
+      background: var(--bg-deep);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(184,255,60,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(184,255,60,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(184,255,60,0.07) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+    .hero-title {
+      font-size: 5.5em !important;
+      font-weight: 900 !important;
+      line-height: 0.95 !important;
+      letter-spacing: -0.04em !important;
+      color: var(--text-primary) !important;
+      margin-bottom: 0 !important;
+    }
+    .hero-title-accent {
+      color: var(--accent-lime);
+    }
+    .hero-tagline {
+      font-size: 1.1em;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 1.2rem 0 2rem;
+      line-height: 1.5;
+    }
+    .hero-footer {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.65em;
+      color: var(--text-muted);
+    }
+    .hero-footer strong { color: var(--text-secondary); }
+
+    /* ================================================================
+       5. SLIDE 2 — PROBLEM & MARKET
+       ================================================================ */
+    .pain-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.55rem 0.9rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 0.45rem;
+    }
+    .pain-icon {
+      font-size: 1.1em;
+      flex-shrink: 0;
+      margin-top: 0.15em;
+    }
+    .pain-title { font-size: 0.72em; font-weight: 700; color: var(--text-primary); margin-bottom: 0.1em; }
+    .pain-desc  { font-size: 0.6em; color: var(--text-muted); line-height: 1.35; }
+
+    .market-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; }
+    .market-zero {
+      grid-column: 1 / -1;
+      background: rgba(184,255,60,0.06);
+      border: 1px solid rgba(184,255,60,0.2);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      text-align: center;
+    }
+    .market-zero .stat-number { font-size: 2.1em; }
+    .market-zero-label { font-size: 0.54em; color: var(--text-secondary); margin-top: 0.12em; }
+
+    /* ================================================================
+       6. SLIDE 3 — COMPETITIVE LANDSCAPE
+       ================================================================ */
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.62em;
+      margin-top: 0.5rem;
+    }
+    .comp-table th {
+      text-align: left;
+      padding: 0.6em 0.8em;
+      background: var(--bg-surface-2);
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.85em;
+      border-bottom: 1px solid var(--border);
+    }
+    .comp-table td {
+      padding: 0.55em 0.8em;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    .comp-table tr:last-child td { border-bottom: none; }
+    .comp-table tr.us td {
+      background: rgba(184,255,60,0.05);
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .comp-table tr:hover:not(.us) td { background: rgba(255,255,255,0.02); }
+    .check-yes     { color: var(--green); font-weight: 700; }
+    .check-no      { color: var(--text-muted); }
+    .check-partial { color: var(--orange); }
+    .check-us      { color: var(--accent-lime); font-weight: 800; }
+    .comp-insight {
+      margin-top: 1rem;
+      padding: 0.8rem 1.2rem;
+      background: rgba(184,255,60,0.06);
+      border: 1px solid rgba(184,255,60,0.2);
+      border-radius: 8px;
+      font-size: 0.65em;
+      color: var(--text-secondary);
+    }
+
+    /* ================================================================
+       7. SLIDE 4 — SOLUTION & UVP
+       ================================================================ */
+    .uvp-cards { display: flex; flex-direction: column; gap: 0.5rem; }
+    .uvp-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.7rem 0.9rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent-lime);
+      border-radius: 8px;
+    }
+    .uvp-num {
+      font-size: 1.4em;
+      font-weight: 900;
+      color: var(--accent-lime);
+      opacity: 0.4;
+      line-height: 1;
+      flex-shrink: 0;
+      width: 1.5em;
+    }
+    .uvp-title { font-size: 0.75em; font-weight: 700; color: var(--text-primary); margin-bottom: 0.1em; }
+    .uvp-desc  { font-size: 0.6em; color: var(--text-muted); line-height: 1.4; }
+
+    .citation-demo {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem;
+      font-size: 0.62em;
+    }
+    .citation-demo-msg {
+      color: var(--text-secondary);
+      margin-bottom: 0.6rem;
+      font-style: italic;
+    }
+    .cite-block {
+      border-radius: 6px;
+      padding: 0.5rem 0.7rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.95em;
+    }
+    .cite-block-personal {
+      background: var(--cite-personal-bg);
+      border-left: 3px solid var(--cite-personal);
+    }
+    .cite-block-knowledge {
+      background: var(--cite-knowledge-bg);
+      border-left: 3px solid var(--cite-knowledge);
+    }
+    .cite-badge {
+      font-size: 0.7em;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.3em;
+    }
+    .cite-badge-personal  { color: var(--cite-personal); }
+    .cite-badge-knowledge { color: var(--cite-knowledge); }
+    .cite-text { color: var(--text-secondary); line-height: 1.4; }
+
+    /* ================================================================
+       8. SLIDE 5 — ARCHITECTURE
+       ================================================================ */
+    .arch-svg-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .arch-svg-wrap svg { max-width: 100%; height: auto; }
+
+    /* ================================================================
+       9. SLIDE 6 — HOW IT WORKS
+       ================================================================ */
+    .rag-flow {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin-top: 1rem;
+    }
+    .rag-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .rag-arrow {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+      padding-top: 40px; /* align with box top, past the num circle */
+      color: var(--border-bright);
+      font-size: 1.4em;
+      line-height: 1;
+    }
+    .rag-step-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 2px solid var(--border-bright);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75em;
+      font-weight: 800;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      margin-bottom: 0.7rem;
+    }
+    .rag-step-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.8rem;
+      width: 100%;
+      box-sizing: border-box;
+      flex: 1;
+    }
+    .rag-step-title {
+      font-size: 0.7em;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.3em;
+    }
+    .rag-step-desc {
+      font-size: 0.6em;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .rag-step.personal .rag-step-num { border-color: var(--cite-personal); color: var(--cite-personal); }
+    .rag-step.personal .rag-step-box { border-color: rgba(0,170,255,0.25); }
+    .rag-step.knowledge .rag-step-num { border-color: var(--cite-knowledge); color: var(--cite-knowledge); }
+    .rag-step.knowledge .rag-step-box { border-color: rgba(191,0,255,0.25); }
+
+    .json-mockup {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.55em;
+      line-height: 1.6;
+      margin-top: 1rem;
+      overflow: hidden;
+    }
+    .json-key    { color: var(--text-muted); }
+    .json-str    { color: var(--green); }
+    .json-cite-p { color: var(--cite-personal); }
+    .json-cite-k { color: var(--cite-knowledge); }
+
+    /* ================================================================
+       10. SLIDES 7 & 8 — BUSINESS MODEL & UNIT ECONOMICS
+       ================================================================ */
+    .tier-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; margin-top: 0.5rem; }
+    .tier-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem;
+    }
+    .tier-card.featured {
+      border-color: var(--accent-lime);
+      background: rgba(184,255,60,0.03);
+    }
+    .tier-card.future {
+      border-style: dashed;
+      opacity: 0.7;
+    }
+    .tier-name {
+      font-size: 0.65em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 0.3em;
+    }
+    .tier-price {
+      font-size: 2em;
+      font-weight: 900;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+    .tier-price span { font-size: 0.4em; font-weight: 400; color: var(--text-muted); }
+    .tier-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      font-size: 0.62em;
+      color: var(--text-secondary);
+      margin-bottom: 0.4em;
+    }
+    .tier-feature::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .tier-feature.locked::before { content: "—"; color: var(--text-muted); }
+
+    .econ-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .econ-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+    .cost-table {
+      width: 100%;
+      font-size: 0.62em;
+      border-collapse: collapse;
+    }
+    .cost-table tr { border-bottom: 1px solid var(--border); }
+    .cost-table tr:last-child { border-bottom: none; border-top: 1px solid var(--border-bright); }
+    .cost-table tr:last-child td { font-weight: 700; color: var(--text-primary); padding-top: 0.6em; }
+    .cost-table td { padding: 0.45em 0; color: var(--text-secondary); }
+    .cost-table td:last-child { text-align: right; color: var(--text-primary); }
+    .econ-insight {
+      grid-column: 1 / -1;
+      padding: 0.8rem 1.2rem;
+      background: rgba(184,255,60,0.06);
+      border: 1px solid rgba(184,255,60,0.2);
+      border-left: 3px solid var(--accent-lime);
+      border-radius: 8px;
+      font-size: 0.65em;
+      color: var(--text-secondary);
+    }
+
+    /* ================================================================
+       11. SLIDE 9 — KPIs
+       ================================================================ */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.35rem;
+      margin-top: 0.25rem;
+      flex: 1;
+    }
+    .kpi-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.4rem 0.7rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.2rem;
+    }
+    .kpi-name {
+      font-size: 0.6em;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .kpi-method {
+      font-size: 0.38em;
+      color: var(--text-muted);
+      text-align: right;
+      max-width: 130px;
+      line-height: 1.2;
+    }
+    .kpi-body { flex: 1; display: flex; align-items: center; justify-content: center; }
+
+    /* CSS-only progress for KPIs 2 & 3 */
+    .kpi-progress-wrap { width: 100%; }
+    .kpi-progress-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.2rem;
+      font-size: 0.58em;
+    }
+    .kpi-progress-label { color: var(--text-muted); width: 60px; flex-shrink: 0; text-align: right; }
+    .kpi-progress-bar {
+      flex: 1;
+      height: 7px;
+      background: var(--bg-surface-2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .kpi-progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.8s ease;
+    }
+    .kpi-progress-val { color: var(--text-secondary); width: 50px; flex-shrink: 0; font-weight: 600; }
+
+    .stars-row { display: flex; gap: 0.3rem; font-size: 1.05em; }
+    .star-filled { color: var(--accent-lime); }
+    .star-empty  { color: var(--border-bright); }
+    .kpi-target-note { font-size: 0.44em; color: var(--text-muted); margin-top: 0.2rem; text-align: center; }
+
+    /* ================================================================
+       12. SLIDE 10 — ROADMAP
+       ================================================================ */
+    .roadmap-phases { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; flex: 1; margin-top: 0.4rem; }
+    .roadmap-phase-label {
+      font-size: 0.52em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 0.55rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .roadmap-item {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+    .roadmap-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-lime);
+      flex-shrink: 0;
+      margin-top: 0.3em;
+    }
+    .roadmap-dot.future { background: var(--border-bright); }
+    .roadmap-item-title { font-size: 0.65em; font-weight: 600; color: var(--text-primary); margin-bottom: 0.1em; }
+    .roadmap-item-desc  { font-size: 0.55em; color: var(--text-muted); line-height: 1.35; }
+    .roadmap-item-month {
+      font-size: 0.5em;
+      color: var(--accent-lime);
+      font-weight: 700;
+      flex-shrink: 0;
+      width: 52px;
+      min-width: 52px;
+      text-align: right;
+      margin-top: 0.1em;
+      white-space: nowrap;
+    }
+
+    .scale-milestones {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.6rem;
+      margin-top: 0.7rem;
+      padding-top: 0.7rem;
+      border-top: 1px solid var(--border);
+    }
+    .scale-item {
+      text-align: center;
+      padding: 0.5rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+    }
+    .scale-users { font-size: 1.1em; font-weight: 800; color: var(--accent-lime); }
+    .scale-desc  { font-size: 0.52em; color: var(--text-muted); margin-top: 0.15em; line-height: 1.35; }
+
+    /* ================================================================
+       13. SLIDE 11 — DEMO
+       ================================================================ */
+    .demo-slide {
+      background: var(--bg-deep);
+      position: relative;
+      overflow: hidden;
+    }
+    .demo-glow-p {
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,170,255,0.08) 0%, transparent 70%);
+      top: -100px; left: 50%;
+      transform: translateX(-60%);
+      pointer-events: none;
+    }
+    .demo-glow-k {
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(191,0,255,0.06) 0%, transparent 70%);
+      bottom: -50px; right: 0;
+      pointer-events: none;
+    }
+    .demo-content {
+      position: relative; z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .demo-big {
+      font-size: 4em !important;
+      font-weight: 900 !important;
+      letter-spacing: -0.03em !important;
+      color: var(--text-primary) !important;
+      margin-bottom: 0 !important;
+    }
+    .demo-sub {
+      font-size: 1.1em;
+      color: var(--text-muted);
+      font-style: italic;
+      margin: 0.5rem 0 2rem;
+    }
+    .demo-queries {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+    .demo-query-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      padding: 0.5em 1em;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.65em;
+      color: var(--text-secondary);
+      cursor: default;
+    }
+    .demo-query-chip::before {
+      content: '"';
+      color: var(--text-muted);
+    }
+    .demo-query-chip::after {
+      content: '"';
+      color: var(--text-muted);
+    }
+
+    /* ================================================================
+       14. SLIDE 12 — Q&A
+       ================================================================ */
+    .qa-slide { position: relative; overflow: hidden; }
+    .qa-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(184,255,60,0.05) 0%, transparent 65%);
+      bottom: -200px; right: -200px;
+      pointer-events: none;
+    }
+    .qa-content { position: relative; z-index: 1; }
+    .qa-title {
+      font-size: 3.8em !important;
+      font-weight: 900 !important;
+      letter-spacing: -0.04em !important;
+      color: var(--text-primary) !important;
+    }
+    .qa-bullets { margin: 0.9rem 0; }
+    .qa-bullet {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.66em;
+      color: var(--text-secondary);
+    }
+    .qa-bullet::before { content: "→"; color: var(--accent-lime); font-weight: 700; }
+    .qa-repo {
+      margin-top: 1rem;
+      font-family: 'SF Mono', monospace;
+      font-size: 0.62em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .qa-repo strong { color: var(--text-secondary); }
+
+    /* ================================================================
+       15. PRINT / PDF EXPORT
+       ================================================================ */
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ================================================================
+     SLIDE 1 — HERO / TITLE
+     ================================================================ -->
+<section class="hero-slide">
+  <div class="slide-inner center-v hero-content" style="height:100%">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow"></div>
+
+    <div style="position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:center">
+      <div class="hero-eyebrow">
+        <span class="tag tag-lime">Capstone 2026</span>
+        <span class="tag tag-muted">CTO Pitch</span>
+      </div>
+
+      <h1 class="hero-title">
+        Strength<span class="hero-title-accent">Wise</span>
+      </h1>
+
+      <p class="hero-tagline">
+        The AI strength coach that knows your sport,<br>
+        remembers your history, and cites its sources.
+      </p>
+
+      <div style="display:flex;gap:0.8rem;margin-bottom:2rem">
+        <span class="tag tag-personal">Your Data</span>
+        <span style="font-size:0.6em;color:var(--text-muted);align-self:center">+</span>
+        <span class="tag tag-knowledge">Training Science</span>
+        <span style="font-size:0.6em;color:var(--text-muted);align-self:center">=</span>
+        <span class="tag tag-lime">Cited Coaching</span>
+      </div>
+
+      <div class="hero-footer">
+        <span><strong>Anar Shyraliiev</strong></span>
+        <span>April 2026</span>
+        <span>Grip Sport · Armwrestling · Powerlifting</span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Introduce yourself: "I'm Anar, and I've been training grip sport and armwrestling for years while collecting data I never knew how to use."
+    Pause after the slide loads — let them read the tagline.
+    "Today I'll walk you through StrengthWise — the tool I built to solve my own problem."
+    Target: 30 seconds.
+  </aside>
+</section>
+
+<!-- ================================================================
+     SLIDE 2 — PROBLEM & MARKET
+     ================================================================ -->
+<section>
+  <div class="slide-inner">
+    <div class="slide-label">Problem &amp; Market</div>
+    <h2>Niche athletes train hard.<br>Their data works against them.</h2>
+
+    <div class="two-col two-col-6040" style="flex:1;margin-top:0.5rem">
+      <div>
+        <div class="pain-item">
+          <div class="pain-icon">📊</div>
+          <div>
+            <div class="pain-title">Data trapped in spreadsheets</div>
+            <div class="pain-desc">Years of training logs — sets, reps, RPE, notes — that never surface insights automatically.</div>
+          </div>
+        </div>
+        <div class="pain-item">
+          <div class="pain-icon">🤖</div>
+          <div>
+            <div class="pain-title">Generic AI forgets everything</div>
+            <div class="pain-desc">ChatGPT gives generic advice, knows nothing about gripper closes or armwrestling pronation, and forgets after every session.</div>
+          </div>
+        </div>
+        <div class="pain-item">
+          <div class="pain-icon">🔬</div>
+          <div>
+            <div class="pain-title">Coaching knowledge stays siloed</div>
+            <div class="pain-desc">Powerlifting periodization that works for grip peaking — no tool makes that cross-domain connection.</div>
+          </div>
+        </div>
+        <div class="pain-item">
+          <div class="pain-icon">⏱️</div>
+          <div>
+            <div class="pain-title">Logging friction kills consistency</div>
+            <div class="pain-desc">Anything over 60 seconds per session gets abandoned. Most apps take 3–4 minutes.</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="market-stats">
+          <div class="stat-card">
+            <div class="stat-number">980K+</div>
+            <div class="stat-label">Competitive Powerlifters<br>(OpenPowerlifting DB)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">$150M</div>
+            <div class="stat-label">Armwrestling Equipment<br>Market (2025)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">590K</div>
+            <div class="stat-label">Reddit Subscribers<br>r/powerlifting + r/armwrestling</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">$4.4B</div>
+            <div class="stat-label">Global Strength Sports<br>Market (TAM)</div>
+          </div>
+          <div class="market-zero">
+            <div class="stat-number">0</div>
+            <div class="market-zero-label">tools with niche depth + personal memory + knowledge RAG</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    "The zero is the business opportunity."
+    Point to the community stats: these are reachable through organic word-of-mouth — Reddit, Discord, GripBoard.
+    "Competitive athletes are data hoarders. They just have no way to extract value."
+    Target: 35 seconds.
+  </aside>
+</section>
+
+<!-- ================================================================
+     SLIDE 3 — COMPETITIVE LANDSCAPE
+     ================================================================ -->
+<section>
+  <div class="slide-inner">
+    <div class="slide-label">Competitive Landscape</div>
+    <h2>Every competitor is missing at least two dimensions.</h2>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>Niche Sport Depth</th>
+          <th>Personal Memory / RAG</th>
+          <th>Knowledge Base RAG</th>
+          <th>Free Tier</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="us">
+          <td><strong>⚡ StrengthWise</strong></td>
+          <td class="check-us">✦ YES</td>
+          <td class="check-us">✦ YES</td>
+          <td class="check-us">✦ YES</td>
+          <td class="check-us">✦ YES</td>
+        </tr>
+        <tr><td>ChatGPT / Claude</td><td class="check-no">✗ No</td><td class="check-no">✗ No</td><td class="check-no">✗ No</td><td class="check-yes">✓ Yes</td></tr>
+        <tr><td>Juggernaut AI</td><td class="check-partial">~ Powerlifting only</td><td class="check-no">✗ No</td><td class="check-no">✗ No</td><td class="check-no">✗ No</td></tr>
+        <tr><td>Whoop Coach</td><td class="check-partial">~ Partial</td><td class="check-yes">✓ Yes</td><td class="check-no">✗ No</td><td class="check-no">✗ No</td></tr>
+        <tr><td>Renaissance Periodization</td><td class="check-partial">~ Powerlifting only</td><td class="check-no">✗ No</td><td class="check-no">✗ No</td><td class="check-no">✗ No</td></tr>
+        <tr><td>TrainHeroic</td><td class="check-partial">~ Partial</td><td class="check-no">✗ No</td><td class="check-no">✗ No</td><td class="check-no">✗ No</td></tr>
+        <tr><td>Strong / Hevy</td><td class="check-no">✗ No</td><td class="check-no">✗ No</td><td class="check-no">✗ No</td><td class="check-yes">✓ Yes</td></tr>
+        <tr><td>ArmProgress</td><td class="check-yes">✓ Armwrestling</td><td class="check-no">✗ No</td><td class="check-no">✗ No</td><td class="check-yes">✓ Yes</td></tr>
+        <tr><td>GripBoard Community</td><td class="check-yes">✓ Yes</td><td class="check-no">✗ No</td><td class="check-no">✗ No</td><td class="check-yes">✓ Yes</td></tr>
+        <tr><td>Fitbod / MyFitnessPal</td><td class="check-no">✗ No</td><td class="check-partial">~ Partial</td><td class="check-no">✗ No</td><td class="check-yes">✓ Yes</td></tr>
+      </tbody>
+    </table>
+
+    <div class="comp-insight">
+      <strong style="color:var(--accent-lime)">The gap:</strong> No tool occupies all four YES columns simultaneously. StrengthWise is the only one — by design.
+    </div>
+  </div>
+
+  <aside class="notes">
+    "I analyzed 12 competitors. Every single one is missing at least two of the four dimensions."
+    "ArmProgress knows armwrestling — but it's a dashboard, not a coach. It has no AI, no RAG."
+    "The StrengthWise row is the only all-green row. That's not an accident."
+    Target: 30 seconds.
+  </aside>
+</section>
+
+<!-- ================================================================
+     SLIDE 4 — SOLUTION & UVP
+     ================================================================ -->
+<section>
+  <div class="slide-inner">
+    <div class="slide-label">Solution &amp; Unique Value Proposition</div>
+    <h2>Dual-source RAG coaching,<br>built for athletes who train alone.</h2>
+
+    <div class="two-col two-col-5050" style="flex:1;margin-top:0.5rem">
+      <div class="uvp-cards">
+        <div class="uvp-card">
+          <div class="uvp-num">01</div>
+          <div>
+            <div class="uvp-title">Dual-Source RAG</div>
+            <div class="uvp-desc">Every answer fuses your personal training history (DynamoDB sessions) with a curated strength science knowledge base (FAISS). Both sources are cited in the response.</div>
+          </div>
+        </div>
+        <div class="uvp-card">
+          <div class="uvp-num">02</div>
+          <div>
+            <div class="uvp-title">Persistent Memory That Compounds</div>
+            <div class="uvp-desc">Your data accumulates across sessions. Confidence level improves with every log: "Based on 3 sessions..." → "Based on 60 sessions, a clear pattern shows..."</div>
+          </div>
+        </div>
+        <div class="uvp-card">
+          <div class="uvp-num">03</div>
+          <div>
+            <div class="uvp-title">Niche Sport Depth</div>
+            <div class="uvp-desc">Knows gripper closes, hub lifts, AW pronation/supination, powerlifting peaking cycles. Cross-domain transfer: PLing periodization → grip programming.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="citation-demo">
+        <div class="citation-demo-msg">"Why did my grip close stall in the last cycle?"</div>
+
+        <div class="cite-block cite-block-personal">
+          <div class="cite-badge cite-badge-personal">📍 Your Data</div>
+          <div class="cite-text">Your last 3 sessions show consistent RPE 9–10 on gripper closes with no volume reduction — classic accumulation without deload. Your session on Mar 14 hit 8×3 at 10 RPE.</div>
+        </div>
+
+        <div class="cite-block cite-block-knowledge">
+          <div class="cite-badge cite-badge-knowledge">🔬 Training Science</div>
+          <div class="cite-text">Grip-specific fatigue accumulates faster than lower-body strength (Zatsiorsky, 2006). A 5–7 day deload at 40% volume is recommended after 3+ weeks of high-RPE grip work.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Point to the mock citation: "This is the aha moment. Two sources, colour-coded, every response."
+    "Cyan is your data — what you actually did. Magenta is training science — why it matters."
+    "No other tool makes this connection automatically."
+    Target: 35 seconds.
+  </aside>
+</section>
+
+<!-- ================================================================
+     SLIDE 5 — TECHNICAL ARCHITECTURE
+     ================================================================ -->
+<section>
+  <div class="slide-inner">
+    <div class="slide-label">Technical Architecture</div>
+    <h2>Serverless by design. Zero idle cost.</h2>
+
+    <div class="arch-svg-wrap">
+      <svg viewBox="0 0 1360 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;font-family:-apple-system,BlinkMacSystemFont,sans-serif">
+        <defs>
+          <marker id="aw" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L7,3 z" fill="#555"/>
+          </marker>
+          <marker id="ap" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L7,3 z" fill="#00aaff"/>
+          </marker>
+          <marker id="ak" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L7,3 z" fill="#bf00ff"/>
+          </marker>
+          <marker id="ag" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L7,3 z" fill="#b8ff3c"/>
+          </marker>
+        </defs>
+
+        <!-- ─── CLIENT ─── -->
+        <rect x="10" y="154" width="148" height="80" rx="8" fill="#141414" stroke="#333" stroke-width="1.5"/>
+        <text x="84" y="186" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-size="12" font-weight="600">React SPA</text>
+        <text x="84" y="207" text-anchor="middle" dominant-baseline="middle" fill="#666" font-size="10">Vite + Tailwind</text>
+
+        <rect x="10" y="280" width="148" height="80" rx="8" fill="#141414" stroke="#333" stroke-width="1.5"/>
+        <text x="84" y="312" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-size="12" font-weight="600">CloudFront</text>
+        <text x="84" y="333" text-anchor="middle" dominant-baseline="middle" fill="#666" font-size="10">+ S3 (static)</text>
+
+        <!-- ─── COGNITO ─── -->
+        <rect x="210" y="58" width="148" height="66" rx="8" fill="#141414" stroke="#444" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="284" y="84" text-anchor="middle" dominant-baseline="middle" fill="#999" font-size="11" font-weight="600">Cognito</text>
+        <text x="284" y="106" text-anchor="middle" dominant-baseline="middle" fill="#555" font-size="10">JWT Auth · Tiers</text>
+
+        <!-- ─── API GW ─── -->
+        <rect x="210" y="154" width="148" height="80" rx="8" fill="#141414" stroke="#333" stroke-width="1.5"/>
+        <text x="284" y="186" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-size="12" font-weight="600">API Gateway</text>
+        <text x="284" y="207" text-anchor="middle" dominant-baseline="middle" fill="#666" font-size="10">HTTP API v2</text>
+
+        <!-- ─── LAMBDA ─── -->
+        <rect x="420" y="96" width="200" height="374" rx="10" fill="#1c1c1c" stroke="#333" stroke-width="1.5"/>
+        <text x="520" y="118" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-size="13" font-weight="700">Lambda</text>
+        <text x="520" y="138" text-anchor="middle" dominant-baseline="middle" fill="#666" font-size="10">Docker · 512MB · 30s</text>
+        <!-- inner box 1 -->
+        <rect x="436" y="150" width="168" height="56" rx="6" fill="#242424"/>
+        <text x="520" y="178" text-anchor="middle" dominant-baseline="middle" fill="#999" font-size="11">FastAPI + Mangum</text>
+        <!-- inner box 2 -->
+        <rect x="436" y="216" width="168" height="66" rx="6" fill="#242424"/>
+        <text x="520" y="238" text-anchor="middle" dominant-baseline="middle" fill="#999" font-size="11">all-MiniLM-L6-v2</text>
+        <text x="520" y="262" text-anchor="middle" dominant-baseline="middle" fill="#555" font-size="9">(in-process embeddings)</text>
+        <!-- inner box 3 -->
+        <rect x="436" y="292" width="168" height="66" rx="6" fill="#242424"/>
+        <text x="520" y="314" text-anchor="middle" dominant-baseline="middle" fill="#999" font-size="11">FAISS index (/tmp)</text>
+        <text x="520" y="338" text-anchor="middle" dominant-baseline="middle" fill="#555" font-size="9">warm after cold start</text>
+        <!-- inner box 4 -->
+        <rect x="436" y="368" width="168" height="56" rx="6" fill="#242424"/>
+        <text x="520" y="396" text-anchor="middle" dominant-baseline="middle" fill="#555" font-size="11">8 API routers</text>
+
+        <!-- ─── DYNAMO ─── -->
+        <rect x="700" y="114" width="168" height="208" rx="8" fill="#141414" stroke="#00aaff" stroke-width="1.5" stroke-opacity="0.5"/>
+        <text x="784" y="138" text-anchor="middle" dominant-baseline="middle" fill="#00aaff" font-size="12" font-weight="700">DynamoDB</text>
+        <text x="784" y="160" text-anchor="middle" dominant-baseline="middle" fill="#555" font-size="9">on-demand · pay-per-request</text>
+        <text x="784" y="190" text-anchor="middle" dominant-baseline="middle" fill="#888" font-size="11">Sessions</text>
+        <line x1="720" y1="205" x2="856" y2="205" stroke="#242424" stroke-width="1"/>
+        <text x="784" y="224" text-anchor="middle" dominant-baseline="middle" fill="#888" font-size="11">QueryUsage</text>
+        <line x1="720" y1="239" x2="856" y2="239" stroke="#242424" stroke-width="1"/>
+        <text x="784" y="258" text-anchor="middle" dominant-baseline="middle" fill="#888" font-size="11">Feedback</text>
+        <line x1="720" y1="273" x2="856" y2="273" stroke="#242424" stroke-width="1"/>
+        <text x="784" y="294" text-anchor="middle" dominant-baseline="middle" fill="#555" font-size="9">(userId PK · date SK)</text>
+
+        <!-- ─── S3 FAISS ─── -->
+        <rect x="700" y="352" width="168" height="120" rx="8" fill="#141414" stroke="#bf00ff" stroke-width="1.5" stroke-opacity="0.5"/>
+        <text x="784" y="380" text-anchor="middle" dominant-baseline="middle" fill="#bf00ff" font-size="12" font-weight="700">S3 — FAISS Index</text>
+        <text x="784" y="406" text-anchor="middle" dominant-baseline="middle" fill="#555" font-size="10">~80MB · knowledge base</text>
+        <text x="784" y="430" text-anchor="middle" dominant-baseline="middle" fill="#555" font-size="10">6 domain files + 13 cycles</text>
+
+        <!-- ─── GEMINI ─── -->
+        <rect x="960" y="58" width="168" height="110" rx="8" fill="#141414" stroke="#b8ff3c" stroke-width="1.5" stroke-opacity="0.6"/>
+        <text x="1044" y="96" text-anchor="middle" dominant-baseline="middle" fill="#b8ff3c" font-size="13" font-weight="700">Gemini API</text>
+        <text x="1044" y="122" text-anchor="middle" dominant-baseline="middle" fill="#555" font-size="10">google-genai SDK</text>
+        <text x="1044" y="144" text-anchor="middle" dominant-baseline="middle" fill="#555" font-size="10">Flash model · JSON out</text>
+
+        <!-- ─── CDK STRIP ─── -->
+        <rect x="10" y="508" width="1330" height="52" rx="6" fill="#141414" stroke="#242424" stroke-width="1"/>
+        <text x="680" y="534" text-anchor="middle" dominant-baseline="middle" fill="#444" font-size="11" font-weight="600">AWS CDK v2 (Python) · Single-command deploy/teardown · CloudWatch Logs (30-day retention)</text>
+
+        <!-- ─── ARROWS ─── -->
+        <!-- Browser → API GW -->
+        <line x1="158" y1="194" x2="208" y2="194" stroke="#555" stroke-width="1.5" marker-end="url(#aw)"/>
+        <!-- CloudFront ↔ Browser (dashed) -->
+        <line x1="84" y1="280" x2="84" y2="236" stroke="#333" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#aw)"/>
+        <!-- Cognito → API GW -->
+        <line x1="284" y1="124" x2="284" y2="152" stroke="#555" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#aw)"/>
+        <!-- API GW → Lambda -->
+        <line x1="358" y1="194" x2="418" y2="194" stroke="#555" stroke-width="1.5" marker-end="url(#aw)"/>
+
+        <!-- Lambda ↔ DynamoDB (cyan — personal path) -->
+        <line x1="620" y1="178" x2="698" y2="178" stroke="#00aaff" stroke-width="1.8" marker-end="url(#ap)" stroke-opacity="0.8"/>
+        <line x1="698" y1="196" x2="620" y2="196" stroke="#00aaff" stroke-width="1.2" stroke-dasharray="4,3" stroke-opacity="0.5" marker-end="url(#ap)"/>
+        <text x="659" y="168" text-anchor="middle" fill="#00aaff" font-size="9">personal data</text>
+
+        <!-- Lambda ↔ S3/FAISS (magenta — knowledge path) -->
+        <line x1="620" y1="380" x2="698" y2="380" stroke="#bf00ff" stroke-width="1.8" marker-end="url(#ak)" stroke-opacity="0.8"/>
+        <text x="659" y="370" text-anchor="middle" fill="#bf00ff" font-size="9">knowledge</text>
+
+        <!-- Lambda → Gemini: route UP and over — clear of all boxes -->
+        <path d="M 620 118 L 655 118 L 655 34 L 1044 34 L 1044 56" stroke="#b8ff3c" stroke-width="1.8" stroke-opacity="0.7" fill="none" marker-end="url(#ag)"/>
+        <!-- Gemini → Lambda return -->
+        <path d="M 1044 58 L 1044 20 L 645 20 L 645 112 L 622 112" stroke="#b8ff3c" stroke-width="1.2" stroke-opacity="0.4" stroke-dasharray="4,3" fill="none" marker-end="url(#ag)"/>
+        <text x="847" y="14" text-anchor="middle" fill="#b8ff3c" font-size="9">prompt + JSON response</text>
+
+        <!-- Legend -->
+        <line x1="1130" y1="420" x2="1158" y2="420" stroke="#00aaff" stroke-width="2"/>
+        <text x="1163" y="424" fill="#00aaff" font-size="10">Personal data</text>
+        <line x1="1130" y1="444" x2="1158" y2="444" stroke="#bf00ff" stroke-width="2"/>
+        <text x="1163" y="448" fill="#bf00ff" font-size="10">Knowledge base</text>
+        <line x1="1130" y1="468" x2="1158" y2="468" stroke="#b8ff3c" stroke-width="2"/>
+        <text x="1163" y="472" fill="#b8ff3c" font-size="10">LLM path</text>
+      </svg>
+    </div>
+  </div>
+
+  <aside class="notes">
+    "Lambda runs a Docker container — FastAPI app with Mangum as the ASGI adapter."
+    "FAISS loads from S3 into /tmp on cold start, then stays warm. All requests after that are sub-millisecond vector search."
+    "DynamoDB is pay-per-request — zero cost until users arrive."
+    "The CDK stack deploys and tears down in a single command — critical for a capstone."
+    Target: 40 seconds.
+  </aside>
+</section>
+
+<!-- ================================================================
+     SLIDE 6 — HOW IT WORKS (RAG FLOW)
+     ================================================================ -->
+<section>
+  <div class="slide-inner">
+    <div class="slide-label">How It Works</div>
+    <h2>One query. Two sources. One cited answer.</h2>
+
+    <div class="rag-flow" style="margin-top:1.5rem">
+      <div class="rag-step">
+        <div class="rag-step-num">1</div>
+        <div class="rag-step-box">
+          <div class="rag-step-title">User Query</div>
+          <div class="rag-step-desc">Athlete types question → sanitized → POST /query<br>Rate limit checked against QueryUsage table</div>
+        </div>
+      </div>
+
+      <div class="rag-arrow">&#8250;</div>
+
+      <div class="rag-step knowledge">
+        <div class="rag-step-num">2</div>
+        <div class="rag-step-box">
+          <div class="rag-step-title">Embed + FAISS Search</div>
+          <div class="rag-step-desc"><span style="color:var(--cite-knowledge)">all-MiniLM-L6-v2</span> encodes query → cosine similarity → top-3 knowledge chunks from FAISS index</div>
+        </div>
+      </div>
+
+      <div class="rag-arrow">&#8250;</div>
+
+      <div class="rag-step personal">
+        <div class="rag-step-num">3</div>
+        <div class="rag-step-box">
+          <div class="rag-step-title">Personal Context</div>
+          <div class="rag-step-desc"><span style="color:var(--cite-personal)">DynamoDB</span> → last 10 sessions for userId → structured as training history text</div>
+        </div>
+      </div>
+
+      <div class="rag-arrow">&#8250;</div>
+
+      <div class="rag-step">
+        <div class="rag-step-num">4</div>
+        <div class="rag-step-box">
+          <div class="rag-step-title">LLM Synthesis</div>
+          <div class="rag-step-desc">Both sources injected into structured prompt → <span style="color:var(--accent-lime)">Gemini Flash</span> → JSON with response + citation arrays</div>
+        </div>
+      </div>
+
+      <div class="rag-arrow">&#8250;</div>
+
+      <div class="rag-step">
+        <div class="rag-step-num">5</div>
+        <div class="rag-step-box">
+          <div class="rag-step-title">Cited Response</div>
+          <div class="rag-step-desc"><span style="color:var(--cite-personal)">■ YOUR DATA</span> pills + <span style="color:var(--cite-knowledge)">■ TRAINING SCIENCE</span> pills rendered inline</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="json-mockup">
+<span class="json-key">{</span>
+  <span class="json-key">  "response":</span> <span class="json-str">"Your grip stall is classic overreaching without deload..."</span><span class="json-key">,</span>
+  <span class="json-key">  "confidence":</span> <span class="json-str">"medium"</span> <span style="color:#555">// &lt;= 30 sessions logged</span>
+  <span class="json-key">  "personal_citations":</span> <span class="json-cite-p">[{"sessionDate":"2026-03-14","exercise":"gripper close","sets":8,"rpe":10}]</span><span class="json-key">,</span>
+  <span class="json-key">  "knowledge_citations":</span> <span class="json-cite-k">[{"source":"grip_programming.md","principle":"high-RPE accumulation deload protocol"}]</span>
+<span class="json-key">}</span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Walk through each step: "sanitize → embed → fetch → fuse → respond."
+    "The confidence tier is based on session count: ≤5 = low, ≤30 = medium, >30 = high. We tell the user how much to trust the pattern."
+    "Both citation arrays are indexed back to source documents — the athlete can always verify."
+    Target: 35 seconds.
+  </aside>
+</section>
+
+<!-- ================================================================
+     SLIDE 7 — BUSINESS MODEL
+     ================================================================ -->
+<section>
+  <div class="slide-inner">
+    <div class="slide-label">Business Model</div>
+    <h2>Freemium with metered AI coaching.<br>Zero cost for the core habit.</h2>
+
+    <div class="tier-cards" style="flex:1;margin-top:1rem">
+      <div class="tier-card">
+        <div class="tier-name">Free Forever</div>
+        <div class="tier-price">$0</div>
+        <div class="tier-feature">Unlimited session logging</div>
+        <div class="tier-feature">3 AI queries / day</div>
+        <div class="tier-feature">Full dual-source RAG quality</div>
+        <div class="tier-feature">Sport-native exercise library</div>
+        <div class="tier-feature locked">Export to CSV / PDF</div>
+        <div class="tier-feature locked">Unlimited queries</div>
+        <div style="margin-top:0.8rem;font-size:0.58em;color:var(--text-muted)">Onboarding: 10 queries / day for first 7 days</div>
+      </div>
+
+      <div class="tier-card featured">
+        <div class="tier-name" style="color:var(--accent-lime)">Premium</div>
+        <div class="tier-price">$7–10 <span>/ month</span></div>
+        <div class="tier-feature">Everything in Free</div>
+        <div class="tier-feature">Unlimited AI queries</div>
+        <div class="tier-feature">CSV + PDF export (roadmap)</div>
+        <div class="tier-feature">Priority response queue</div>
+        <div style="margin-top:0.8rem;font-size:0.58em;color:var(--text-muted)">Upgrade = one Cognito group change.<br>Rate limiting already implemented.</div>
+      </div>
+
+      <div class="tier-card future">
+        <div class="tier-name">Team / Coach <span class="tag tag-muted" style="margin-left:0.3em">Roadmap</span></div>
+        <div class="tier-price">TBD</div>
+        <div class="tier-feature">Multi-athlete management</div>
+        <div class="tier-feature">Coach dashboard &amp; analytics</div>
+        <div class="tier-feature">WAF/IFA integration</div>
+        <div class="tier-feature">White-label API</div>
+        <div style="margin-top:0.8rem;font-size:0.58em;color:var(--text-muted)">Phase 2 — B2B pivot after community traction.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1rem;padding:0.8rem 1.2rem;background:rgba(184,255,60,0.05);border:1px solid rgba(184,255,60,0.15);border-radius:8px;font-size:0.62em;color:var(--text-secondary)">
+      <strong style="color:var(--accent-lime)">Strategic insight:</strong> Logging is $0 LLM cost — it builds the habit and personal data moat. AI queries are the monetized layer. A serious competitive athlete spending $7/month on coaching is well below the pain threshold.
+    </div>
+  </div>
+
+  <aside class="notes">
+    "The free tier is the data flywheel. The more sessions you log, the more valuable premium becomes."
+    "At $7–10/month — that's less than one session of chalk."
+    "Stripe is the only remaining infrastructure piece to implement. Auth tiers already exist in Cognito."
+    Target: 30 seconds.
+  </aside>
+</section>
+
+<!-- ================================================================
+     SLIDE 8 — UNIT ECONOMICS
+     ================================================================ -->
+<section>
+  <div class="slide-inner">
+    <div class="slide-label">Unit Economics</div>
+    <h2>Break-even at 12 paying users.<br>Profitable at 25.</h2>
+
+    <div class="econ-grid" style="flex:1;margin-top:1rem">
+      <div>
+        <div style="font-size:0.6em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.7rem">12-Month Conservative Model</div>
+        <div class="econ-metrics">
+          <div class="stat-card"><div class="stat-number">500</div><div class="stat-label">Target active users (90-day)</div></div>
+          <div class="stat-card"><div class="stat-number">5%</div><div class="stat-label">Freemium → paid conversion</div></div>
+          <div class="stat-card"><div class="stat-number">$7.50</div><div class="stat-label">ARPU (midpoint)</div></div>
+          <div class="stat-card"><div class="stat-number">25</div><div class="stat-label">Paying subscribers</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:0.6em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.7rem">Monthly Cost Stack</div>
+        <table class="cost-table">
+          <tr><td>Lambda (pay-per-request)</td><td>~$5</td></tr>
+          <tr><td>DynamoDB (on-demand)</td><td>~$8</td></tr>
+          <tr><td>Gemini API (main variable cost)</td><td>~$40</td></tr>
+          <tr><td>CloudFront + S3</td><td>~$12</td></tr>
+          <tr><td>Cognito (MAU)</td><td>~$5</td></tr>
+          <tr><td>Miscellaneous</td><td>~$20</td></tr>
+          <tr><td><strong>Total</strong></td><td><strong>~$90/mo</strong></td></tr>
+        </table>
+      </div>
+
+      <div class="econ-insight" style="grid-column:1/-1">
+        <strong style="color:var(--accent-lime)">Break-even:</strong> 12 paid users ($90 ÷ $7.50). With 25 users: <strong>$187.50 revenue vs $90 costs = 54% margin.</strong><br>
+        At 5,000 users with the same architecture: margin approaches <strong>80%</strong> — Gemini API is the only meaningful variable cost. No re-architecture needed.
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    "Zero fixed infrastructure. Every component is pay-per-request."
+    "The Gemini API is ~$0.01–0.03 per query — at 100 queries/day that's $1–3/day, well under a single premium subscription."
+    "Logging endpoints have zero LLM cost — they're pure DynamoDB reads/writes."
+    Target: 30 seconds.
+  </aside>
+</section>
+
+<!-- ================================================================
+     SLIDE 9 — KPIs & METRICS (MANDATORY)
+     ================================================================ -->
+<section>
+  <div class="slide-inner">
+    <div class="slide-label">KPIs &amp; Measurable Metrics</div>
+    <h2>5 KPIs. Each with a measurement methodology.</h2>
+
+    <div class="kpi-grid">
+
+      <!-- KPI 1: Logging Time -->
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <div class="kpi-name">Session Logging Time</div>
+          <div class="kpi-method">Stopwatch UX testing from first field focus to submit</div>
+        </div>
+        <div class="kpi-body" style="flex-direction:column;align-items:stretch;width:100%">
+          <canvas id="chart-logging" style="display:block;width:100%;height:82px"></canvas>
+        </div>
+      </div>
+
+      <!-- KPI 2: Response Time -->
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <div class="kpi-name">AI Query Response Time (p95)</div>
+          <div class="kpi-method">CloudWatch Lambda duration logs, cold-start excluded</div>
+        </div>
+        <div class="kpi-body" style="flex-direction:column;align-items:flex-start;width:100%;padding-top:0.1rem;font-size:0.8em">
+          <div class="kpi-progress-wrap">
+            <div class="kpi-progress-row">
+              <div class="kpi-progress-label">Current</div>
+              <div class="kpi-progress-bar" style="height:5px"><div class="kpi-progress-fill" style="width:80%;background:#555"></div></div>
+              <div class="kpi-progress-val">~4s</div>
+            </div>
+            <div class="kpi-progress-row">
+              <div class="kpi-progress-label">Target</div>
+              <div class="kpi-progress-bar" style="height:5px"><div class="kpi-progress-fill" style="width:60%;background:var(--accent-lime)"></div></div>
+              <div class="kpi-progress-val">&lt;3s p95</div>
+            </div>
+          </div>
+          <div class="kpi-target-note" style="text-align:left;margin-top:0.15rem;font-size:0.5em">Lambda /tmp FAISS cache + Gemini Flash model keeps warm-start latency low</div>
+        </div>
+      </div>
+
+      <!-- KPI 3: Relevance Rating -->
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <div class="kpi-name">Query Relevance Rating</div>
+          <div class="kpi-method">Thumbs up/down per query → /feedback endpoint → Feedback DynamoDB table</div>
+        </div>
+        <div class="kpi-body" style="flex-direction:column;align-items:center;justify-content:center;gap:0.3rem">
+          <div class="stars-row">
+            <span class="star-filled">★</span>
+            <span class="star-filled">★</span>
+            <span class="star-filled">★</span>
+            <span class="star-filled">★</span>
+            <span class="star-empty">★</span>
+          </div>
+          <div style="font-size:0.7em;color:var(--text-primary);font-weight:700">Target: ≥ 4.0 / 5.0</div>
+          <div class="kpi-target-note">Collection begins at launch. Feedback endpoint already implemented.</div>
+        </div>
+      </div>
+
+      <!-- KPI 4: Retention -->
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <div class="kpi-name">90-Day Retention</div>
+          <div class="kpi-method">Cohort analysis: active if ≥1 session logged in week 13 — DynamoDB sessionDate</div>
+        </div>
+        <div class="kpi-body" style="flex-direction:column;align-items:stretch;width:100%">
+          <canvas id="chart-retention" style="display:block;width:100%;height:82px"></canvas>
+        </div>
+      </div>
+
+      <!-- KPI 5: Conversion — spans full width at bottom -->
+      <div class="kpi-card" style="grid-column:1/-1;flex-direction:row;gap:1.5rem;align-items:flex-start">
+        <div style="flex:0 0 auto">
+          <div class="kpi-name" style="margin-bottom:0.3rem">Freemium → Premium Conversion</div>
+          <div class="kpi-method" style="text-align:left;max-width:none">Cognito premium group ÷ total users · weekly</div>
+        </div>
+        <div style="flex:1;min-width:0;height:137px;position:relative">
+          <canvas id="chart-conversion" style="display:block;width:100%;height:100%"></canvas>
+        </div>
+        <div style="font-size:0.44em;color:var(--text-muted);line-height:1.5;flex:1">
+          <div style="margin-bottom:0.3em"><span style="color:var(--text-primary);font-weight:700">Now:</span> 0% baseline</div>
+          <div style="margin-bottom:0.3em"><span style="color:var(--orange);font-weight:700">Phase 1 (90d):</span> 5%</div>
+          <div><span style="color:var(--accent-lime);font-weight:700">Phase 2 (6mo):</span> 10%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    "Five KPIs, all measurable from day one — three have instrumentation already in the codebase."
+    "Logging time: stopwatch during UX testing — not a vanity metric, it determines abandonment risk."
+    "Retention: 50% vs 31% industry average — the personal data moat creates switching cost."
+    "Conversion: 5% conservative, 10% optimistic. Break-even is 12 users — we only need 5% of 240."
+    Target: 45 seconds.
+  </aside>
+</section>
+
+<!-- ================================================================
+     SLIDE 10 — ROADMAP & SCALABILITY
+     ================================================================ -->
+<section>
+  <div class="slide-inner">
+    <div class="slide-label">Roadmap &amp; Scalability</div>
+    <h2>Community-first growth.<br>Architecture that scales without re-engineering.</h2>
+
+    <div class="roadmap-phases" style="flex:1">
+      <div>
+        <div class="roadmap-phase-label">Phase 1 — 3 to 6 Months</div>
+
+        <div class="roadmap-item">
+          <div class="roadmap-item-month">M1</div>
+          <div class="roadmap-dot"></div>
+          <div>
+            <div class="roadmap-item-title">Public Launch</div>
+            <div class="roadmap-item-desc">Deploy to AWS. Seed with 13 historical cycles as demo content. Post to r/GripTraining, r/armwrestling, GripBoard.</div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-item-month">M2</div>
+          <div class="roadmap-dot"></div>
+          <div>
+            <div class="roadmap-item-title">Community Feedback Loop</div>
+            <div class="roadmap-item-desc">100 active users milestone. Weekly feedback sessions with grip and AW competitors. Iterate on exercise library.</div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-item-month">M3</div>
+          <div class="roadmap-dot"></div>
+          <div>
+            <div class="roadmap-item-title">Structured Onboarding</div>
+            <div class="roadmap-item-desc">Sport selector → auto programming recommendation. Reduce time-to-aha-moment from session 3 to session 1.</div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-item-month">M4–6</div>
+          <div class="roadmap-dot"></div>
+          <div>
+            <div class="roadmap-item-title">Analytics + Export</div>
+            <div class="roadmap-item-desc">Performance dashboard, CSV/PDF export, 500 users milestone, Stripe integration for premium.</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="roadmap-phase-label">Phase 2 — 1 to 2 Years</div>
+
+        <div class="roadmap-item">
+          <div class="roadmap-item-month">Y1</div>
+          <div class="roadmap-dot future"></div>
+          <div>
+            <div class="roadmap-item-title">v2 Feature Layer</div>
+            <div class="roadmap-item-desc">Voice logging, XLSX bulk import, automated program generation, HRV/wearable integration, proactive pattern alerts.</div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-item-month">Y1</div>
+          <div class="roadmap-dot future"></div>
+          <div>
+            <div class="roadmap-item-title">B2B Pivot</div>
+            <div class="roadmap-item-desc">Coach dashboard, multi-athlete management, WAF/IFA governing body partnerships, white-label API for gyms.</div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-item-month">Y2</div>
+          <div class="roadmap-dot future"></div>
+          <div>
+            <div class="roadmap-item-title">Platform Expansion</div>
+            <div class="roadmap-item-desc">Multi-region DynamoDB, multi-model support (fine-tuned open models), competition tracking, community features.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scale-milestones">
+      <div class="scale-item">
+        <div class="scale-users">500</div>
+        <div class="scale-desc">users → profitable<br>12 paid = break-even</div>
+      </div>
+      <div class="scale-item">
+        <div class="scale-users">5K</div>
+        <div class="scale-desc">users → hire 1 FTE<br>invest in wearables</div>
+      </div>
+      <div class="scale-item">
+        <div class="scale-users">50K</div>
+        <div class="scale-desc">users → B2B pivot<br>institutional licensing</div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    "Community-first means zero paid acquisition. Athletes discover through peer endorsement — that's the highest trust channel in niche sports."
+    "The architecture scales linearly: add users, pay more Gemini API fees, no re-architecture. Lambda auto-scales, DynamoDB auto-scales."
+    "The B2B opportunity: every serious gym coach wants what individual athletes want — just for 20 athletes at once."
+    Target: 35 seconds.
+  </aside>
+</section>
+
+<!-- ================================================================
+     SLIDE 11 — DEMO TRANSITION
+     ================================================================ -->
+<section class="demo-slide">
+  <div class="slide-inner center-v demo-content" style="height:100%">
+    <div class="demo-glow-p"></div>
+    <div class="demo-glow-k"></div>
+
+    <div style="position:relative;z-index:1">
+      <div class="slide-label">Live Demonstration</div>
+      <h1 class="demo-big">Let's see it live.</h1>
+      <p class="demo-sub">"Ask it something your coach never could."</p>
+
+      <div class="demo-queries">
+        <div class="demo-query-chip">Why did my grip stall in the last cycle?</div>
+        <div class="demo-query-chip">Design a 4-week AW program from my history</div>
+        <div class="demo-query-chip">Compare my RPE trends to periodization science</div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Alt-Tab to the live application now.
+    DEMO FLOW:
+    1. (30s) Log a session: select Grip Sport → add "gripper close" 5×3 RPE 9 → save. Show the sub-30s timing.
+    2. (2min) Type the first demo query. Wait for response. Pause when dual citations render — "there it is."
+    3. (1min) Show the personal citation (cyan, links back to the session you just logged) + knowledge citation (magenta, cites the training science source).
+    4. (30s) Optional: ask a cross-domain question.
+    Return to presentation when done.
+  </aside>
+</section>
+
+<!-- ================================================================
+     SLIDE 12 — Q&A / CLOSING
+     ================================================================ -->
+<section class="qa-slide">
+  <div class="slide-inner center-v qa-content" style="height:100%">
+    <div class="qa-glow"></div>
+
+    <div style="position:relative;z-index:1">
+      <h1 class="qa-title">Questions?</h1>
+
+      <div class="qa-bullets">
+        <div class="qa-bullet">Deployed on AWS — CloudFront, Lambda (Docker), DynamoDB, Cognito, S3</div>
+        <div class="qa-bullet">Zero fixed cost — every component is pay-per-request</div>
+        <div class="qa-bullet">The only tool with niche sport depth + personal memory + knowledge RAG</div>
+        <div class="qa-bullet">Break-even at 12 paying users ($90 / $7.50 ARPU)</div>
+        <div class="qa-bullet">5 measurable KPIs with existing instrumentation in the codebase</div>
+      </div>
+
+      <div style="display:flex;gap:1.5rem;margin-top:0.8rem;flex-wrap:wrap">
+        <div>
+          <div style="font-size:0.52em;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.25em">Likely Questions</div>
+          <div style="font-size:0.58em;color:var(--text-secondary);line-height:1.65">
+            <div><strong style="color:var(--text-primary)">Why Gemini?</strong> Google AI Studio free tier + lower inference cost at scale vs Claude</div>
+            <div><strong style="color:var(--text-primary)">FAISS vs Pinecone?</strong> FAISS in Lambda /tmp = zero per-query vector DB cost</div>
+            <div><strong style="color:var(--text-primary)">Data privacy?</strong> userId = Cognito UUID — no PII in training logs</div>
+            <div><strong style="color:var(--text-primary)">Cold start?</strong> FAISS loads ~80MB from S3 on cold start, stays in /tmp after</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-repo">
+        <span>📁</span>
+        <strong>gen-ai-project-set-university</strong>
+        <span style="color:var(--border-bright)">·</span>
+        <span>Anar Shyraliiev · 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    "Thank you. I'm happy to go deeper on any of the technical or business decisions."
+    Key prep: be ready to discuss the FAISS cold-start tradeoff, why Gemini over Claude, and the 90-day retention methodology.
+    "The code is in the repo — every architectural decision has an ADR in the architecture doc."
+  </aside>
+</section>
+
+</div><!-- .slides -->
+</div><!-- .reveal -->
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+
+<script>
+  // ─── REVEAL INIT ───────────────────────────────────────────────
+  Reveal.initialize({
+    plugins: [RevealNotes],
+    hash: true,
+    slideNumber: 'c/t',
+    transition: 'fade',
+    transitionSpeed: 'fast',
+    width: 1600,
+    height: 900,
+    margin: 0.04,
+    controls: true,
+    progress: true,
+    center: false,
+    disableLayout: false,
+  });
+
+  // ─── CHART.JS DEFAULTS ─────────────────────────────────────────
+  Chart.defaults.color = '#666';
+  Chart.defaults.borderColor = '#242424';
+  Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  Chart.defaults.font.size = 11;
+
+  // ─── LAZY INIT CHARTS ON KPI SLIDE ────────────────────────────
+  // KPI slide is index 8 (0-based: 0=hero,1=problem,2=comp,3=solution,4=arch,5=rag,6=biz,7=econ,8=kpi)
+  const KPI_IDX = 8;
+  let kpiInitDone = false;
+
+  Reveal.on('slidechanged', e => {
+    if (e.indexh === KPI_IDX && !kpiInitDone) {
+      kpiInitDone = true;
+      // Small delay to ensure canvas is in the DOM and sized
+      setTimeout(initKpiCharts, 120);
+    }
+  });
+
+  // Also init if we start on the KPI slide
+  Reveal.on('ready', e => {
+    if (Reveal.getIndices().h === KPI_IDX) {
+      setTimeout(initKpiCharts, 200);
+    }
+  });
+
+  function initKpiCharts() {
+    const LIME   = '#b8ff3c';
+    const MUTED  = '#3a3a3a';
+    const ORANGE = '#f97316';
+
+    // ── KPI 1: Logging Time ──────────────────────────────────────
+    const ctxLog = document.getElementById('chart-logging');
+    if (ctxLog && !ctxLog._chart) {
+      ctxLog._chart = new Chart(ctxLog, {
+        type: 'bar',
+        data: {
+          labels: ['Manual (before)', 'StrengthWise target'],
+          datasets: [{
+            data: [90, 30],
+            backgroundColor: ['rgba(239,68,68,0.3)', 'rgba(184,255,60,0.25)'],
+            borderColor: ['#ef4444', LIME],
+            borderWidth: 2,
+            borderRadius: 6,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          indexAxis: 'y',
+          plugins: { legend: { display: false } },
+          scales: {
+            x: {
+              max: 100,
+              grid: { color: '#1e1e1e' },
+              ticks: { color: '#555', callback: v => v + 's' }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: '#888' }
+            }
+          }
+        }
+      });
+    }
+
+    // ── KPI 4: Retention ─────────────────────────────────────────
+    const ctxRet = document.getElementById('chart-retention');
+    if (ctxRet && !ctxRet._chart) {
+      ctxRet._chart = new Chart(ctxRet, {
+        type: 'bar',
+        data: {
+          labels: ['Industry avg', 'StrengthWise target'],
+          datasets: [{
+            data: [31, 50],
+            backgroundColor: [MUTED, 'rgba(0,170,255,0.25)'],
+            borderColor: ['#444', '#00aaff'],
+            borderWidth: 2,
+            borderRadius: 6,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: {
+              max: 70,
+              grid: { color: '#1e1e1e' },
+              ticks: { color: '#555', callback: v => v + '%' }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: '#888' }
+            }
+          }
+        }
+      });
+    }
+
+    // ── KPI 5: Conversion ────────────────────────────────────────
+    const ctxConv = document.getElementById('chart-conversion');
+    if (ctxConv && !ctxConv._chart) {
+      ctxConv._chart = new Chart(ctxConv, {
+        type: 'bar',
+        data: {
+          labels: ['Now', 'Phase 1', 'Phase 2'],
+          datasets: [{
+            data: [0, 5, 10],
+            backgroundColor: [MUTED, 'rgba(249,115,22,0.3)', 'rgba(184,255,60,0.3)'],
+            borderColor: ['#444', ORANGE, LIME],
+            borderWidth: 2,
+            borderRadius: 6,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: {
+              max: 15,
+              grid: { color: '#1e1e1e' },
+              ticks: { color: '#555', callback: v => v + '%' }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: '#888' }
+            }
+          }
+        }
+      });
+    }
+  }
+</script>
+</body>
+</html>
