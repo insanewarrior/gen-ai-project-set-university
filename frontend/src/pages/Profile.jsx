@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getProfile } from '../api'
+import { getProfile, exportTrainingData } from '../api'
 import QueryCounter from '../components/QueryCounter'
 
 const TIER_LABELS = {
@@ -26,6 +26,20 @@ export default function Profile() {
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [exporting, setExporting] = useState(false)
+  const [exportError, setExportError] = useState(null)
+
+  async function handleExport() {
+    setExporting(true)
+    setExportError(null)
+    try {
+      await exportTrainingData()
+    } catch {
+      setExportError('Export failed. Please try again.')
+    } finally {
+      setExporting(false)
+    }
+  }
 
   useEffect(() => {
     getProfile()
@@ -62,6 +76,17 @@ export default function Profile() {
           ? <span className="text-xs text-zinc-400">Unlimited daily queries (Premium)</span>
           : <QueryCounter queriesRemaining={profile.queriesRemainingToday} tierLimit={profile.tierLimit} />
         }
+      </div>
+      <div className="bg-zinc-800 rounded-lg px-4 py-3 mt-4">
+        <p className="text-zinc-400 text-xs mb-2">Your data</p>
+        <button
+          onClick={handleExport}
+          disabled={exporting}
+          className="w-full py-2 px-4 border border-blue-500 text-blue-400 rounded-lg text-sm hover:bg-blue-500/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          {exporting ? 'Preparing your export...' : 'Export Training Data (CSV)'}
+        </button>
+        {exportError && <p className="text-red-400 text-xs mt-2">{exportError}</p>}
       </div>
     </div>
   )

@@ -7,6 +7,7 @@ from mangum import Mangum
 from middleware.auth import CurrentUser, get_current_user
 from routers.analyze import router as analyze_router
 from routers.exercises import router as exercises_router
+from routers.export import router as export_router
 from routers.feedback import router as feedback_router
 from routers.profile import router as profile_router
 from routers.query import router as query_router
@@ -34,6 +35,7 @@ app.include_router(query_router)
 app.include_router(analyze_router)
 app.include_router(profile_router)
 app.include_router(feedback_router)
+app.include_router(export_router)
 
 
 @app.get("/health")

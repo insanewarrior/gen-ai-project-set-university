@@ -96,6 +96,23 @@ export async function postQuery(queryText) {
   return response.json()
 }
 
+export async function exportTrainingData() {
+  const token = await getToken()
+  const headers = { ...devHeaders() }
+  if (token) headers['Authorization'] = `Bearer ${token}`
+  const response = await fetch(`${BASE_URL}/export`, { method: 'POST', headers })
+  if (!response.ok) throw new Error(`API error: ${response.status}`)
+  const blob = await response.blob()
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = 'training-data.csv'
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
+
 export async function postAnalyze(programText) {
   const url = `${BASE_URL}/analyze`
   const token = await getToken()

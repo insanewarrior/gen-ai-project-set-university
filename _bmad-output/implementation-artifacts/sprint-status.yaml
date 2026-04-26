@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-04-24
-last_updated: 2026-04-26 (story 5.1 implemented)
+last_updated: 2026-04-26 (story 5.2 created)
 project: gen-ai-project-set-university
 project_key: NOKEY
 tracking_system: file-system
@@ -73,7 +73,7 @@ development_status:
   # Epic 5: Feedback, Data Export & Account Lifecycle
   epic-5: in-progress
   5-1-ai-response-feedback: review
-  5-2-training-data-export: backlog
+  5-2-training-data-export: review
   5-3-account-deletion: backlog
   epic-5-retrospective: optional
 
