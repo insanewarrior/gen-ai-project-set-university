@@ -315,6 +315,7 @@ If behind schedule, drop program analysis. Ship general RAG + structured logging
 | XLSX bulk import | Rescue spreadsheet graveyards, cold-start advantage | Robust parsing of messy real-world data |
 | Proactive pattern detection | "Your volume dropped 20%" — surfaces insights without asking | Requires 30+ sessions per user for meaningful patterns |
 | Competition peaking analysis | High-value premium feature, natural upsell | Knowledge base needs peaking protocols |
+| Chat history persistence | Conversation survives tab switches, page refreshes, and re-logins — removes jarring state loss; current MVP clears on unmount (accepted limitation) | Store per-user conversation turns in DynamoDB; load on chat mount |
 | Suggested follow-up questions | Guides users who don't know what to ask | Low effort, high onboarding impact |
 | Thumbs up/down on responses | Quality feedback loop for knowledge base improvement | Simple DynamoDB flag per response |
 | Premium tier (Stripe integration) | Revenue generation for sustainability | Payment processing, usage tracking |

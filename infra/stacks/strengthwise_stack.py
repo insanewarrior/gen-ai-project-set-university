@@ -76,6 +76,14 @@ class StrengthwiseStack(Stack):
             removal_policy=RemovalPolicy.DESTROY,
         )
 
+        cognito.CfnUserPoolGroup(
+            self,
+            "PremiumGroup",
+            user_pool_id=user_pool.user_pool_id,
+            group_name="premium",
+            description="Premium tier users with unlimited daily queries",
+        )
+
         user_pool_client = user_pool.add_client(
             "WebClient",
             auth_flows=cognito.AuthFlow(user_srp=True),

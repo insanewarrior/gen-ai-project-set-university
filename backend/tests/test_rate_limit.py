@@ -1,5 +1,6 @@
 """Tests for rate_limit_service — uses moto DynamoDB mock."""
 import os
+from datetime import datetime
 
 import boto3
 import pytest
@@ -35,6 +36,22 @@ def dynamodb_table():
             BillingMode="PAY_PER_REQUEST",
         )
         yield
+
+
+def _make_table():
+    dynamodb = boto3.resource("dynamodb", region_name="us-east-1")
+    dynamodb.create_table(
+        TableName="QueryUsage",
+        KeySchema=[
+            {"AttributeName": "userId", "KeyType": "HASH"},
+            {"AttributeName": "date", "KeyType": "RANGE"},
+        ],
+        AttributeDefinitions=[
+            {"AttributeName": "userId", "AttributeType": "S"},
+            {"AttributeName": "date", "AttributeType": "S"},
+        ],
+        BillingMode="PAY_PER_REQUEST",
+    )
 
 
 def test_first_query_allowed(monkeypatch):
@@ -124,3 +141,86 @@ def test_reset_at_is_tomorrow_midnight(monkeypatch):
         assert len(parts[0]) == 4  # year
         assert len(parts[1]) == 2  # month
         assert len(parts[2]) == 2  # day
+
+
+def test_onboarding_tier_allows_10_queries(monkeypatch):
+    monkeypatch.setattr(config, "QUERY_USAGE_TABLE_NAME", "QueryUsage")
+    monkeypatch.setattr(config, "DYNAMODB_ENDPOINT", "")
+    import importlib
+    import services.rate_limit_service as rate_limit_service
+    importlib.reload(rate_limit_service)
+
+    today_iso = datetime.utcnow().isoformat()
+
+    with mock_aws():
+        _make_table()
+        for i in range(10):
+            r = rate_limit_service.check_and_increment(
+                "user-onboard", user_create_date=today_iso
+            )
+            assert r["allowed"] is True, f"query {i+1} should be allowed"
+            assert r["tier_limit"] == 10
+
+        eleventh = rate_limit_service.check_and_increment(
+            "user-onboard", user_create_date=today_iso
+        )
+        assert eleventh["allowed"] is False
+        assert eleventh["queries_remaining"] == 0
+
+
+def test_premium_user_skips_daily_limit(monkeypatch):
+    """Premium users exceed free tier daily limit (3) — no daily cap enforced."""
+    monkeypatch.setattr(config, "QUERY_USAGE_TABLE_NAME", "QueryUsage")
+    monkeypatch.setattr(config, "DYNAMODB_ENDPOINT", "")
+    import importlib
+    import services.rate_limit_service as rate_limit_service
+    importlib.reload(rate_limit_service)
+
+    with mock_aws():
+        _make_table()
+        # Call 5 times — exceeds free-tier daily limit of 3, under burst limit of 10
+        for i in range(5):
+            r = rate_limit_service.check_and_increment(
+                "user-premium-daily", is_premium=True
+            )
+            assert r["allowed"] is True, f"query {i+1} should be allowed"
+            assert r["queries_remaining"] == -1
+
+
+def test_premium_burst_limit_enforced(monkeypatch):
+    monkeypatch.setattr(config, "QUERY_USAGE_TABLE_NAME", "QueryUsage")
+    monkeypatch.setattr(config, "DYNAMODB_ENDPOINT", "")
+    import importlib
+    import services.rate_limit_service as rate_limit_service
+    importlib.reload(rate_limit_service)
+
+    with mock_aws():
+        _make_table()
+        for i in range(10):
+            r = rate_limit_service.check_and_increment(
+                "user-premium-burst", is_premium=True
+            )
+            assert r["allowed"] is True, f"query {i+1} should be allowed"
+
+        eleventh = rate_limit_service.check_and_increment(
+            "user-premium-burst", is_premium=True
+        )
+        assert eleventh["allowed"] is False
+        assert eleventh["queries_remaining"] == 0
+
+
+def test_user_create_date_none_defaults_to_free_tier(monkeypatch):
+    monkeypatch.setattr(config, "QUERY_USAGE_TABLE_NAME", "QueryUsage")
+    monkeypatch.setattr(config, "DYNAMODB_ENDPOINT", "")
+    import importlib
+    import services.rate_limit_service as rate_limit_service
+    importlib.reload(rate_limit_service)
+
+    with mock_aws():
+        _make_table()
+        r = rate_limit_service.check_and_increment(
+            "user-no-date", user_create_date=None
+        )
+        assert r["allowed"] is True
+        assert r["tier_limit"] == rate_limit_service._FREE_TIER_LIMIT
+        assert r["tier_limit"] == 3

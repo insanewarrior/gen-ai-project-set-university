@@ -5,9 +5,10 @@ from botocore.exceptions import ClientError
 
 import config
 
-_FREE_TIER_LIMIT = 20
+_FREE_TIER_LIMIT = 3
 _ONBOARDING_LIMIT = 10
 _ONBOARDING_DAYS = 7
+_PREMIUM_BURST_LIMIT = 10  # queries per minute for premium users
 
 
 def _get_table():
@@ -24,7 +25,45 @@ def _next_midnight() -> str:
     return (datetime.utcnow().date() + timedelta(days=1)).isoformat() + "T00:00:00Z"
 
 
-def check_and_increment(user_id: str, user_create_date: str | None = None) -> dict:
+def _next_minute() -> str:
+    dt = datetime.utcnow().replace(second=0, microsecond=0) + timedelta(minutes=1)
+    return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _check_burst(user_id: str) -> dict:
+    table = _get_table()
+    minute_key = datetime.utcnow().strftime("%Y-%m-%dT%H:%M")
+    try:
+        response = table.update_item(
+            Key={"userId": user_id, "date": f"burst:{minute_key}"},
+            UpdateExpression="SET queryCount = if_not_exists(queryCount, :zero) + :one",
+            ConditionExpression="attribute_not_exists(queryCount) OR queryCount < :limit",
+            ExpressionAttributeValues={
+                ":zero": 0, ":one": 1, ":limit": _PREMIUM_BURST_LIMIT
+            },
+            ReturnValues="UPDATED_NEW",
+        )
+        int(response["Attributes"]["queryCount"])
+        return {
+            "allowed": True,
+            "queries_remaining": -1,
+            "tier_limit": -1,
+            "reset_at": _next_minute(),
+        }
+    except ClientError as e:
+        if e.response["Error"]["Code"] == "ConditionalCheckFailedException":
+            return {"allowed": False, "queries_remaining": 0, "tier_limit": -1, "reset_at": _next_minute()}
+        raise
+
+
+def check_and_increment(
+    user_id: str,
+    user_create_date: str | None = None,
+    is_premium: bool = False,
+) -> dict:
+    if is_premium:
+        return _check_burst(user_id)
+
     table = _get_table()
     today = datetime.utcnow().strftime("%Y-%m-%d")
 
@@ -54,5 +93,5 @@ def check_and_increment(user_id: str, user_create_date: str | None = None) -> di
         }
     except ClientError as e:
         if e.response["Error"]["Code"] == "ConditionalCheckFailedException":
-            return {"allowed": False, "queries_remaining": 0, "reset_at": _next_midnight()}
+            return {"allowed": False, "queries_remaining": 0, "tier_limit": tier_limit, "reset_at": _next_midnight()}
         raise
