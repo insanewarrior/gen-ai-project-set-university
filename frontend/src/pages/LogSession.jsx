@@ -116,23 +116,23 @@ export default function LogSession() {
   }
 
   return (
-    <div className="p-4 max-w-lg mx-auto">
-      <h1 className="text-xl font-bold text-white mb-4">Log Session</h1>
+    <div className="p-4 md:p-6 max-w-2xl mx-auto w-full">
+      <h1 className="text-2xl font-black text-white tracking-tight mb-6">Log Session</h1>
 
-      <div className="mb-3">
+      <div className="mb-4">
         <input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white text-sm w-full"
+          className="bg-surface-2 border border-border rounded-lg px-3 py-2.5 text-white text-sm w-full focus:outline-none focus:border-accent transition-colors"
         />
       </div>
 
-      <div className="mb-3">
+      <div className="mb-4">
         <SportSelector value={sport} onChange={handleSportChange} />
       </div>
 
-      <div className="mb-3">
+      <div className="mb-4">
         <ExercisePicker
           sportType={sport}
           onSelect={handleAddExercise}
@@ -142,7 +142,7 @@ export default function LogSession() {
         />
       </div>
 
-      <div className="mb-3">
+      <div className="mb-4">
         {exerciseBlocks.map((block) => (
           <ExerciseBlock
             key={block.exercise.id}
@@ -155,41 +155,41 @@ export default function LogSession() {
         ))}
       </div>
 
-      <div className="mb-3">
+      <div className="mb-4">
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           maxLength={500}
           rows={3}
-          className="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white text-sm resize-none"
+          className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2.5 text-white text-sm resize-none focus:outline-none focus:border-accent transition-colors"
           style={{ maxHeight: '120px', overflowY: 'auto' }}
           placeholder="Session notes (optional)"
         />
-        <span className="text-zinc-500 text-xs">
+        <span className="text-text-muted text-xs">
           {500 - notes.length} chars remaining
         </span>
       </div>
 
       {saveError && (
-        <p className="text-red-500 text-sm mb-2">{saveError}</p>
+        <p className="text-error text-sm mb-2">{saveError}</p>
       )}
 
       <button
         onClick={handleSave}
         disabled={saving}
-        className="w-full bg-green-600 hover:bg-green-500 disabled:opacity-50 text-white font-semibold py-3 rounded-lg mt-4"
+        className="w-full bg-accent hover:brightness-110 disabled:opacity-50 text-black font-bold py-3 rounded-lg mt-2 transition-all"
       >
         {saving ? 'Saving…' : 'Save Session'}
       </button>
 
       {saveResult && (
-        <div className="mt-3">
-          <p className="text-green-500 text-sm">
+        <div className="mt-4">
+          <p className="text-success text-sm">
             Session saved. {saveResult.monthCount} sessions this month.
           </p>
           <Link
             to="/chat"
-            className="text-blue-400 text-sm underline"
+            className="text-accent text-sm font-medium hover:brightness-110"
           >
             Ask me anything about your training →
           </Link>

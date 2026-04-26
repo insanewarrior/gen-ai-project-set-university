@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom'
+import { User, LogOut } from 'lucide-react'
 
 export default function HeaderBar({ title, onSignOut }) {
   return (
-    <header className="h-12 flex items-center justify-between px-4 bg-surface border-b border-zinc-700">
-      <h1 className="text-base font-semibold text-zinc-100">{title}</h1>
+    <header className="h-12 flex items-center justify-between px-4 bg-[#0d0d0d] border-b border-[#1e1e1e]">
+      <h1 className="text-sm font-semibold text-[#555] tracking-wide">{title}</h1>
       <div className="flex items-center gap-2">
         <NavLink
           to="/profile"
@@ -11,21 +12,21 @@ export default function HeaderBar({ title, onSignOut }) {
           className={({ isActive }) =>
             `flex items-center justify-center w-8 h-8 rounded-full border transition-colors ${
               isActive
-                ? 'border-blue-500 text-blue-400'
-                : 'border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-zinc-200'
+                ? 'border-accent text-accent'
+                : 'border-[#3a3a3a] text-[#aaa] hover:border-[#555] hover:text-white'
             }`
           }
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
-            <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
-          </svg>
+          <User size={14} strokeWidth={1.8} />
         </NavLink>
         {onSignOut && (
           <button
             onClick={onSignOut}
-            className="text-sm text-zinc-400 hover:text-zinc-200 px-3 py-1 rounded border border-zinc-700 hover:border-zinc-500 transition-colors"
+            title="Sign out"
+            className="flex items-center gap-1.5 text-xs text-[#aaa] hover:text-white px-2.5 py-1 rounded border border-[#3a3a3a] hover:border-[#555] transition-colors"
           >
-            Sign Out
+            <LogOut size={12} strokeWidth={1.8} />
+            <span>Sign Out</span>
           </button>
         )}
       </div>

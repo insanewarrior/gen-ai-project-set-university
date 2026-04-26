@@ -18,7 +18,6 @@ export default function SportSelect({ onSuccess }) {
     if (cognitoUser) {
       const result = await updateSport(cognitoUser, sport)
       if (!result.success) {
-        // Non-blocking — sport attribute is best-effort for MVP
         console.warn('Failed to save sport attribute:', result.error)
       }
     }
@@ -28,30 +27,34 @@ export default function SportSelect({ onSuccess }) {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-[400px] bg-zinc-800 rounded-[8px] p-6">
-        <h1 className="text-xl font-semibold text-white mb-2">
-          What do you train?
-        </h1>
-        <p className="text-zinc-400 text-sm mb-6">
-          We&apos;ll personalize your experience based on your sport.
-        </p>
-        {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
-        <div className="flex flex-col gap-3">
-          {SPORTS.map((sport) => (
-            <button
-              key={sport}
-              disabled={loading}
-              onClick={() => handleSelect(sport)}
-              className={`w-full min-h-[48px] rounded-[6px] border text-left px-4 font-medium transition-colors disabled:opacity-50 ${
-                selected === sport
-                  ? 'bg-blue-500 border-blue-500 text-white'
-                  : 'bg-zinc-800 border-zinc-700 text-zinc-200 hover:border-blue-400 hover:text-white'
-              }`}
-            >
-              {sport}
-            </button>
-          ))}
+    <div className="min-h-screen bg-bg flex items-center justify-center p-4">
+      <div className="w-full max-w-[400px]">
+        <div className="text-center mb-8">
+          <span className="text-accent font-black italic text-4xl">S</span>
+          <p className="text-text-muted text-sm mt-2 tracking-wide uppercase">StrengthWise</p>
+        </div>
+        <div className="bg-surface border border-border rounded-2xl p-6">
+          <h1 className="text-xl font-bold text-white mb-2">What do you train?</h1>
+          <p className="text-text-muted text-sm mb-6">
+            We&apos;ll personalize your experience based on your sport.
+          </p>
+          {error && <p className="text-error text-sm mb-4">{error}</p>}
+          <div className="flex flex-col gap-2">
+            {SPORTS.map((sport) => (
+              <button
+                key={sport}
+                disabled={loading}
+                onClick={() => handleSelect(sport)}
+                className={`w-full min-h-[48px] rounded-lg border text-left px-4 font-medium text-sm transition-all disabled:opacity-50 ${
+                  selected === sport
+                    ? 'bg-[#b8ff3c18] border-accent text-accent'
+                    : 'bg-surface-2 border-border text-text-secondary hover:border-[#b8ff3c33] hover:text-white'
+                }`}
+              >
+                {sport}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

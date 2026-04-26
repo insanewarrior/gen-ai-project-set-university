@@ -7,9 +7,9 @@ export default function SetEntryRow({
   onEnterLastField,
 }) {
   const inputClass =
-    'w-full bg-zinc-900 border border-zinc-700 rounded text-center font-mono ' +
-    'text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-400 ' +
-    'focus:border-blue-500 py-2'
+    'w-full bg-bg border border-border rounded-lg text-center font-mono ' +
+    'text-sm text-white focus:outline-none focus:border-accent ' +
+    'transition-colors py-2'
 
   function handleWeightChange(e) {
     const val = e.target.value
@@ -34,7 +34,7 @@ export default function SetEntryRow({
 
   return (
     <div className="grid grid-cols-[40px_1fr_1fr_60px] gap-1">
-      <span className="text-zinc-400 text-sm text-center self-center">
+      <span className="text-text-muted text-sm text-center self-center">
         {setNumber}
       </span>
       <input

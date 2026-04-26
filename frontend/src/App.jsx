@@ -32,7 +32,7 @@ function AuthenticatedShell({ onSignOut }) {
         {/* Desktop sidebar */}
         <TabBar />
         {/* Content area */}
-        <main className="flex-1 overflow-y-auto p-4 md:max-w-[720px]">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden">
           <Outlet />
         </main>
       </div>
@@ -71,7 +71,7 @@ export default function App() {
   // Blank dark screen while checking auth state — prevents flash of
   // unauthenticated content
   if (authLoading) {
-    return <div className="min-h-screen bg-zinc-900" />
+    return <div className="min-h-screen bg-bg" />
   }
 
   if (!user) {

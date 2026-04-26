@@ -140,59 +140,59 @@ export default function Chat() {
   const inputDisabled = isLoading || queriesRemaining === 0
 
   return (
-    <div className="flex flex-col h-full -m-4">
+    <div className="flex flex-col h-[calc(100dvh-3rem)] md:h-[calc(100dvh-3rem)]">
       {/* Scrollable message area */}
       <div
         role="log"
         aria-live="polite"
         aria-label="Coaching conversation"
-        className="flex-1 overflow-y-auto p-4 flex flex-col gap-4"
+        className="flex-1 overflow-y-auto"
       >
-        {showStarters && (
-          <div className="flex flex-col gap-3">
-            <p className="text-sm text-zinc-400 text-center">The more sessions you log, the better my answers get.</p>
-            {STARTER_PROMPTS.map((q, i) => (
-              <StarterPromptCard key={i} question={q} onSelect={handleStarterSelect} />
-            ))}
-          </div>
-        )}
+        <div className="max-w-3xl mx-auto w-full px-4 py-6 flex flex-col gap-6">
+          {showStarters && (
+            <div className="flex flex-col gap-3">
+              <p className="text-sm text-text-muted text-center">The more sessions you log, the better my answers get.</p>
+              {STARTER_PROMPTS.map((q, i) => (
+                <StarterPromptCard key={i} question={q} onSelect={handleStarterSelect} />
+              ))}
+            </div>
+          )}
 
-        {messages.map((msg, i) => (
-          <ChatBubble
-            key={i}
-            role={msg.role}
-            message={msg.content}
-            citations={msg.citations}
-            followups={msg.role === 'ai' ? getFollowups(msg.confidence) : undefined}
-            onFollowupSelect={handleFollowupSelect}
-            queryId={msg.queryId}
-          />
-        ))}
+          {messages.map((msg, i) => (
+            <ChatBubble
+              key={i}
+              role={msg.role}
+              message={msg.content}
+              citations={msg.citations}
+              followups={msg.role === 'ai' ? getFollowups(msg.confidence) : undefined}
+              onFollowupSelect={handleFollowupSelect}
+              queryId={msg.queryId}
+            />
+          ))}
 
-        {isLoading && (
-          <div className="flex gap-1 items-center px-4 py-3 bg-zinc-800 rounded-2xl rounded-tl-sm w-fit">
-            <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-            <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-            <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce"></span>
-          </div>
-        )}
+          {isLoading && (
+            <div className="flex gap-1 items-center px-4 py-3 bg-surface rounded-2xl rounded-tl-sm w-fit">
+              <span className="w-2 h-2 bg-text-muted rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+              <span className="w-2 h-2 bg-text-muted rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+              <span className="w-2 h-2 bg-text-muted rounded-full animate-bounce"></span>
+            </div>
+          )}
 
-        <div ref={bottomRef} />
+          <div ref={bottomRef} />
+        </div>
       </div>
 
-      {/* Inline error */}
-      {error && (
-        <div className="px-4 pb-2 text-sm text-red-400">{error}</div>
-      )}
-
-      {/* Query counter + input bar */}
-      <div className="border-t border-zinc-700 bg-zinc-900">
+      {/* Input area — sticky to bottom */}
+      <div className="border-t border-border-subtle bg-bg">
+        {error && (
+          <div className="max-w-3xl mx-auto w-full px-4 pt-2 text-sm text-error">{error}</div>
+        )}
         {queriesRemaining !== null && (
-          <div className="px-4 pt-2 flex justify-end">
+          <div className="max-w-3xl mx-auto w-full px-4 pt-2 flex justify-end">
             <QueryCounter queriesRemaining={queriesRemaining} resetAt={resetAt} tierLimit={tierLimit ?? 3} />
           </div>
         )}
-        <div className="p-3 flex gap-2 items-end">
+        <div className="max-w-3xl mx-auto w-full px-4 py-3 flex gap-3 items-end">
           <textarea
             ref={textareaRef}
             value={queriesRemaining === 0 ? '' : input}
@@ -204,16 +204,16 @@ export default function Chat() {
               : 'Ask about your training...'}
             aria-label="Ask a coaching question"
             rows={1}
-            className="flex-1 resize-none bg-zinc-800 text-zinc-100 placeholder-zinc-500 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
+            className="flex-1 resize-none bg-surface text-white placeholder-[#777] rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden border border-border"
             style={{ maxHeight: '200px' }}
           />
           <button
             onClick={() => submitQuery(input)}
             disabled={inputDisabled || !input.trim()}
             aria-label="Send question"
-            className="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-blue-500 hover:bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed rounded-full transition-colors"
+            className="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-accent hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed rounded-full transition-all mb-0.5"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 text-black">
               <path d="M3.105 2.288a.75.75 0 0 0-.826.95l1.401 4.425H11.5a.75.75 0 0 1 0 1.5H3.68l-1.401 4.425a.75.75 0 0 0 .826.95 28.896 28.896 0 0 0 15.293-7.154.75.75 0 0 0 0-1.164A28.897 28.897 0 0 0 3.105 2.288Z" />
             </svg>
           </button>

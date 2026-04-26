@@ -52,7 +52,7 @@ export default function ExercisePicker({ sportType, onSelect, selectedExerciseId
     return (
       <div className="flex flex-col gap-2 p-2">
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="h-11 rounded bg-zinc-800 animate-pulse" />
+          <div key={i} className="h-11 rounded bg-surface animate-pulse" />
         ))}
       </div>
     )
@@ -65,7 +65,7 @@ export default function ExercisePicker({ sportType, onSelect, selectedExerciseId
   }
 
   return (
-    <div className="bg-zinc-800 overflow-y-auto max-h-96">
+    <div className="bg-surface border border-border rounded-lg overflow-y-auto max-h-96">
       {exercises.map((exercise) => {
         const isSelected = selectedExerciseIds.includes(exercise.id)
         return (
@@ -73,13 +73,13 @@ export default function ExercisePicker({ sportType, onSelect, selectedExerciseId
             key={exercise.id}
             onClick={() => handleSelect(exercise)}
             className={`w-full py-3 px-4 text-left text-sm flex items-center justify-between
-              border-b border-zinc-700 last:border-b-0
-              ${isSelected ? 'text-zinc-500 line-through' : 'text-zinc-100 hover:bg-zinc-700'}
+              border-b border-border-subtle last:border-b-0
+              ${isSelected ? 'text-text-muted line-through' : 'text-white hover:bg-surface-2'}
             `}
           >
             <span>{exercise.name}</span>
             {isSelected && (
-              <span className="text-blue-400 ml-2">✓</span>
+              <span className="text-accent ml-2 font-bold">✓</span>
             )}
           </button>
         )

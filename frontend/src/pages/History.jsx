@@ -48,33 +48,31 @@ export default function History() {
   // Loading state
   if (loading) {
     return (
-      <div>
-        <h1 className="text-2xl font-bold mb-4">History</h1>
+      <div className="p-4 md:p-6 max-w-3xl mx-auto w-full">
+        <h1 className="text-2xl font-black text-white tracking-tight mb-6">History</h1>
         {[...Array(5)].map((_, i) => (
-          <div key={i} className="bg-zinc-800 rounded h-12 mb-2 animate-pulse" />
+          <div key={i} className="bg-surface rounded-xl h-12 mb-2 animate-pulse" />
         ))}
       </div>
     )
   }
 
-  // Error state
   if (error) {
     return (
-      <div>
-        <h1 className="text-2xl font-bold mb-4">History</h1>
-        <p className="text-red-400">{error}</p>
+      <div className="p-4 md:p-6 max-w-3xl mx-auto w-full">
+        <h1 className="text-2xl font-black text-white tracking-tight mb-6">History</h1>
+        <p className="text-error text-sm">{error}</p>
       </div>
     )
   }
 
-  // Empty state
   if (sessions.length === 0) {
     return (
-      <div className="text-center mt-12">
-        <p className="text-zinc-400 mb-4">No sessions logged yet.</p>
+      <div className="p-4 md:p-6 text-center mt-12">
+        <p className="text-text-secondary text-sm mb-4">No sessions logged yet.</p>
         <Link
           to="/log"
-          className="bg-blue-500 text-white px-6 py-3 rounded-lg font-medium inline-block"
+          className="bg-accent text-black font-bold px-6 py-3 rounded-lg text-sm inline-block hover:brightness-110 transition-all"
         >
           Log Session
         </Link>
@@ -82,7 +80,6 @@ export default function History() {
     )
   }
 
-  // Session list view
   const dateGroups = groupByDate(sessions)
 
   async function handleSessionClick(session) {
@@ -95,12 +92,12 @@ export default function History() {
   }
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">History</h1>
+    <div className="p-4 md:p-6 max-w-3xl mx-auto w-full">
+      <h1 className="text-2xl font-black text-white tracking-tight mb-6">History</h1>
       <div role="list">
         {[...dateGroups.entries()].map(([date, dateSessions]) => (
           <div key={date}>
-            <h2 className="text-zinc-500 text-xs uppercase font-semibold tracking-wider mb-1 mt-4">
+            <h2 className="text-text-muted text-[10px] uppercase font-semibold tracking-widest mb-1 mt-5 first:mt-0">
               {formatDate(date)}
             </h2>
             {dateSessions.map((session) => (

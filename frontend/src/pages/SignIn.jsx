@@ -23,56 +23,58 @@ export default function SignIn({ onSuccess }) {
     }
   }
 
+  const inputClass = 'bg-surface-2 border border-border rounded-lg px-3 py-2.5 text-[16px] text-white w-full focus:outline-none focus:border-accent transition-colors'
+
   return (
-    <div className="min-h-screen bg-zinc-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-[400px] bg-zinc-800 rounded-[8px] p-6">
-        <h1 className="text-xl font-semibold text-white mb-6">Sign In</h1>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1">
-            <label className="text-sm text-zinc-400" htmlFor="email">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              autoComplete="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="bg-zinc-800 border border-zinc-700 rounded-[6px] px-3 py-2 text-[16px] text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label className="text-sm text-zinc-400" htmlFor="password">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              autoComplete="current-password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="bg-zinc-800 border border-zinc-700 rounded-[6px] px-3 py-2 text-[16px] text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          {error && (
-            <p className="text-red-400 text-sm">{error}</p>
-          )}
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-blue-500 hover:bg-blue-600 disabled:opacity-50 text-white font-medium rounded-[6px] min-h-[44px] w-full mt-2"
-          >
-            {loading ? 'Signing in…' : 'Sign In'}
-          </button>
-        </form>
-        <p className="text-zinc-400 text-sm mt-4 text-center">
-          Don&apos;t have an account?{' '}
-          <Link to="/signup" className="text-blue-400 hover:underline">
-            Create account
-          </Link>
-        </p>
+    <div className="min-h-screen bg-bg flex items-center justify-center p-4">
+      <div className="w-full max-w-[400px]">
+        <div className="text-center mb-8">
+          <span className="text-accent font-black italic text-4xl">S</span>
+          <p className="text-text-muted text-sm mt-2 tracking-wide uppercase">StrengthWise</p>
+        </div>
+        <div className="bg-surface border border-border rounded-2xl p-6">
+          <h1 className="text-xl font-bold text-white mb-6">Sign In</h1>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div className="flex flex-col gap-1.5">
+              <label className="text-text-muted text-xs uppercase tracking-widest" htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                autoComplete="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={inputClass}
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-text-muted text-xs uppercase tracking-widest" htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={inputClass}
+              />
+            </div>
+            {error && <p className="text-error text-sm">{error}</p>}
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-accent hover:brightness-110 disabled:opacity-50 text-black font-bold rounded-lg min-h-[44px] w-full mt-2 transition-all"
+            >
+              {loading ? 'Signing in…' : 'Sign In'}
+            </button>
+          </form>
+          <p className="text-text-muted text-sm mt-5 text-center">
+            Don&apos;t have an account?{' '}
+            <Link to="/signup" className="text-accent font-medium hover:brightness-110">
+              Create account
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   )

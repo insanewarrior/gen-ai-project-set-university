@@ -11,10 +11,16 @@ const TIER_LABELS = {
 
 function StatRow({ label, value }) {
   return (
-    <div className="flex justify-between items-center py-3 border-b border-zinc-700 last:border-0">
-      <span className="text-zinc-400 text-sm">{label}</span>
-      <span className="text-zinc-100 font-medium">{value}</span>
+    <div className="flex justify-between items-center py-3 border-b border-border-subtle last:border-0">
+      <span className="text-text-muted text-sm">{label}</span>
+      <span className="text-white font-medium text-sm">{value}</span>
     </div>
+  )
+}
+
+function SectionLabel({ children }) {
+  return (
+    <p className="text-text-muted text-[10px] uppercase tracking-widest font-semibold mb-3">{children}</p>
   )
 }
 
@@ -67,77 +73,95 @@ export default function Profile() {
 
   if (loading) {
     return (
-      <div className="flex flex-col gap-3 mt-4">
+      <div className="p-4 md:p-6 flex flex-col gap-3 mt-4">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="bg-zinc-800 rounded-lg h-10 animate-pulse" />
+          <div key={i} className="bg-surface rounded-xl h-10 animate-pulse" />
         ))}
       </div>
     )
   }
 
   if (error) {
-    return <p className="text-red-400 text-sm mt-4">{error}</p>
+    return <p className="text-error text-sm mt-4 p-4">{error}</p>
   }
 
   return (
-    <div>
-      <div className="bg-zinc-800 rounded-lg px-4 mb-6">
-        <StatRow label="Sessions logged" value={profile.totalSessions} />
-        <StatRow label="Queries made" value={profile.totalQueries} />
-        <StatRow label="Account tier" value={TIER_LABELS[profile.tier] ?? profile.tier} />
-        <StatRow label="Member since" value={formatDate(profile.accountCreatedAt)} />
+    <div className="p-4 md:p-6 max-w-2xl mx-auto w-full">
+      <h1 className="text-2xl font-black text-white tracking-tight mb-6">Profile</h1>
+
+      {/* Stats */}
+      <div className="mb-6">
+        <SectionLabel>Account</SectionLabel>
+        <div className="bg-surface border border-border rounded-xl px-4">
+          <StatRow label="Sessions logged" value={profile.totalSessions} />
+          <StatRow label="Queries made" value={profile.totalQueries} />
+          <StatRow label="Account tier" value={TIER_LABELS[profile.tier] ?? profile.tier} />
+          <StatRow label="Member since" value={formatDate(profile.accountCreatedAt)} />
+        </div>
       </div>
-      <div className="bg-zinc-800 rounded-lg px-4 py-3">
-        <p className="text-zinc-400 text-xs mb-1">Today's query budget</p>
-        {profile.queriesRemainingToday === -1
-          ? <span className="text-xs text-zinc-400">Unlimited daily queries (Premium)</span>
-          : <QueryCounter queriesRemaining={profile.queriesRemainingToday} tierLimit={profile.tierLimit} />
-        }
+
+      {/* Query budget */}
+      <div className="mb-6">
+        <SectionLabel>Today's query budget</SectionLabel>
+        <div className="bg-surface border border-border rounded-xl px-4 py-3">
+          {profile.queriesRemainingToday === -1
+            ? <span className="text-xs text-text-muted">Unlimited daily queries (Premium)</span>
+            : <QueryCounter queriesRemaining={profile.queriesRemainingToday} tierLimit={profile.tierLimit} />
+          }
+        </div>
       </div>
-      <div className="bg-zinc-800 rounded-lg px-4 py-3 mt-4">
-        <p className="text-zinc-400 text-xs mb-2">Your data</p>
-        <button
-          onClick={handleExport}
-          disabled={exporting}
-          className="w-full py-2 px-4 border border-blue-500 text-blue-400 rounded-lg text-sm hover:bg-blue-500/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          {exporting ? 'Preparing your export...' : 'Export Training Data (CSV)'}
-        </button>
-        {exportError && <p className="text-red-400 text-xs mt-2">{exportError}</p>}
-      </div>
-      <div className="bg-zinc-800 rounded-lg px-4 py-3 mt-4">
-        <p className="text-zinc-400 text-xs mb-2">Danger zone</p>
-        {!showDeleteConfirm ? (
+
+      {/* Data export */}
+      <div className="mb-6">
+        <SectionLabel>Your data</SectionLabel>
+        <div className="bg-surface border border-border rounded-xl px-4 py-3">
           <button
-            onClick={() => setShowDeleteConfirm(true)}
-            className="w-full py-2 px-4 text-red-400 rounded-lg text-sm hover:bg-red-500/10 transition-colors"
+            onClick={handleExport}
+            disabled={exporting}
+            className="w-full py-2 px-4 border border-accent text-accent rounded-lg text-sm font-medium hover:bg-[#b8ff3c18] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            Delete Account
+            {exporting ? 'Preparing your export...' : 'Export Training Data (CSV)'}
           </button>
-        ) : (
-          <div>
-            <p className="text-zinc-300 text-sm mb-3">
-              Delete your account and all training data? This cannot be undone.
-            </p>
-            <div className="flex gap-2">
-              <button
-                onClick={handleDeleteAccount}
-                disabled={deleting}
-                className="flex-1 py-2 px-4 bg-red-500 text-white rounded-lg text-sm hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                {deleting ? 'Deleting...' : 'Delete'}
-              </button>
-              <button
-                onClick={() => { setShowDeleteConfirm(false); setDeleteError(null) }}
-                disabled={deleting}
-                className="flex-1 py-2 px-4 text-zinc-400 rounded-lg text-sm hover:bg-zinc-700 disabled:opacity-50 transition-colors"
-              >
-                Cancel
-              </button>
+          {exportError && <p className="text-error text-xs mt-2">{exportError}</p>}
+        </div>
+      </div>
+
+      {/* Danger zone */}
+      <div>
+        <SectionLabel>Danger zone</SectionLabel>
+        <div className="bg-surface border border-border rounded-xl px-4 py-3">
+          {!showDeleteConfirm ? (
+            <button
+              onClick={() => setShowDeleteConfirm(true)}
+              className="w-full py-2 px-4 text-error rounded-lg text-sm hover:bg-error/10 transition-colors"
+            >
+              Delete Account
+            </button>
+          ) : (
+            <div>
+              <p className="text-text-secondary text-sm mb-4">
+                Delete your account and all training data? This cannot be undone.
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={handleDeleteAccount}
+                  disabled={deleting}
+                  className="flex-1 py-2 px-4 bg-error text-white rounded-lg text-sm font-semibold hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                >
+                  {deleting ? 'Deleting...' : 'Delete'}
+                </button>
+                <button
+                  onClick={() => { setShowDeleteConfirm(false); setDeleteError(null) }}
+                  disabled={deleting}
+                  className="flex-1 py-2 px-4 text-text-muted rounded-lg text-sm hover:bg-surface-2 disabled:opacity-50 transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+              {deleteError && <p className="text-error text-xs mt-2">{deleteError}</p>}
             </div>
-            {deleteError && <p className="text-red-400 text-xs mt-2">{deleteError}</p>}
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   )

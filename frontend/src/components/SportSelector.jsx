@@ -18,7 +18,7 @@ export default function SportSelector({ value, onChange, disabled = false }) {
     <div
       role="radiogroup"
       aria-label="Select sport"
-      className="flex w-full rounded-lg overflow-hidden border border-zinc-700"
+      className="flex w-full rounded-lg overflow-hidden border border-border"
     >
       {SPORTS.map((sport) => (
         <button
@@ -30,8 +30,8 @@ export default function SportSelector({ value, onChange, disabled = false }) {
           className={`flex-1 py-3 text-sm font-medium text-center transition-colors
             ${
               value === sport.key
-                ? 'bg-blue-500 text-white'
-                : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700'
+                ? 'bg-[#b8ff3c18] border-accent text-accent'
+                : 'bg-surface-2 text-text-muted hover:text-text-secondary'
             }
             ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
           `}

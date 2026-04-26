@@ -1,3 +1,4 @@
+import { ArrowLeft } from 'lucide-react'
 import { SPORT_LABELS, formatDate } from './sessionUtils'
 
 export default function SessionDetail({ session, onBack }) {
@@ -5,30 +6,30 @@ export default function SessionDetail({ session, onBack }) {
   const dateLabel = formatDate(session.sessionDate)
 
   return (
-    <div>
+    <div className="p-4 md:p-6 max-w-3xl mx-auto w-full">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center gap-3 mb-6">
         <button
           onClick={onBack}
           aria-label="Back to history"
-          className="text-zinc-400 hover:text-zinc-100 min-w-[44px] min-h-[44px] flex items-center justify-center"
+          className="w-9 h-9 flex items-center justify-center rounded-lg text-text-muted hover:text-white hover:bg-surface transition-colors"
         >
-          <span className="text-xl">&larr;</span>
+          <ArrowLeft size={18} strokeWidth={2} />
         </button>
         <div>
-          <h2 className="text-zinc-100 text-lg font-semibold">{dateLabel}</h2>
-          <span className="text-zinc-400 text-sm">{sportLabel}</span>
+          <h2 className="text-white text-lg font-bold leading-tight">{dateLabel}</h2>
+          <span className="text-text-muted text-xs uppercase tracking-widest">{sportLabel}</span>
         </div>
       </div>
 
       {/* Exercises */}
       {session.exercises?.map((exercise, idx) => (
-        <div key={exercise.exerciseId || idx} className="bg-zinc-800 rounded-lg p-3 mb-2">
-          <h3 className="text-zinc-100 font-semibold mb-2">{exercise.exerciseName}</h3>
+        <div key={exercise.exerciseId || idx} className="bg-surface border border-border rounded-xl p-4 mb-3">
+          <h3 className="text-white font-semibold mb-3 text-sm">{exercise.exerciseName}</h3>
           {/* Header row */}
-          <div className="grid grid-cols-[40px_1fr_1fr_60px] gap-1 text-zinc-500 text-xs mb-1">
+          <div className="grid grid-cols-[40px_1fr_1fr_60px] gap-1 text-text-muted text-[10px] uppercase tracking-widest mb-2">
             <span>Set</span>
-            <span>Weight (kg)</span>
+            <span>Weight</span>
             <span>Reps</span>
             <span>RPE</span>
           </div>
@@ -36,12 +37,12 @@ export default function SessionDetail({ session, onBack }) {
           {exercise.sets?.map((set) => (
             <div
               key={set.setNumber}
-              className="grid grid-cols-[40px_1fr_1fr_60px] gap-1 font-mono text-zinc-100 text-sm py-1"
+              className="grid grid-cols-[40px_1fr_1fr_60px] gap-1 font-mono text-sm py-1.5 border-t border-border-subtle"
             >
-              <span className="text-zinc-400">{set.setNumber}</span>
-              <span>{set.weight ?? '—'}</span>
-              <span>{set.reps ?? '—'}</span>
-              <span>{set.rpe != null ? set.rpe : '—'}</span>
+              <span className="text-text-muted">{set.setNumber}</span>
+              <span className="text-accent font-semibold">{set.weight ?? '—'}</span>
+              <span className="text-accent font-semibold">{set.reps ?? '—'}</span>
+              <span className="text-text-secondary">{set.rpe != null ? set.rpe : '—'}</span>
             </div>
           ))}
         </div>
@@ -49,9 +50,9 @@ export default function SessionDetail({ session, onBack }) {
 
       {/* Notes */}
       {session.notes && (
-        <div className="mt-3">
-          <span className="text-zinc-400 text-sm font-medium">Notes:</span>
-          <p className="text-zinc-400 text-sm italic mt-1">{session.notes}</p>
+        <div className="mt-4 bg-surface border border-border rounded-xl p-4">
+          <span className="text-text-muted text-[10px] uppercase tracking-widest font-semibold block mb-2">Notes</span>
+          <p className="text-text-secondary text-sm italic">{session.notes}</p>
         </div>
       )}
     </div>

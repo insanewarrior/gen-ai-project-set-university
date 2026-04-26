@@ -36,21 +36,21 @@ export default function ExerciseBlock({
   }
 
   return (
-    <div className="bg-zinc-800 rounded-lg p-3 mb-2">
-      <div className="flex items-center justify-between mb-1">
-        <span className="text-white font-medium">{exercise.name}</span>
+    <div className="bg-surface border border-border rounded-xl p-3 mb-3">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-white font-semibold text-sm">{exercise.name}</span>
         <button
           onClick={() => onRemove(exercise.exerciseId || exercise.id)}
-          className="text-zinc-400 hover:text-red-400 text-lg leading-none"
+          className="text-text-muted hover:text-error text-lg leading-none transition-colors"
           aria-label={`Remove ${exercise.name}`}
         >
           ×
         </button>
       </div>
       {lastSessionHint && (
-        <p className="text-zinc-500 text-xs mb-2">{lastSessionHint}</p>
+        <p className="text-text-muted text-xs mb-2">{lastSessionHint}</p>
       )}
-      <div className="grid grid-cols-[40px_1fr_1fr_60px] gap-1 text-zinc-500 text-xs uppercase px-0 mb-1">
+      <div className="grid grid-cols-[40px_1fr_1fr_60px] gap-1 text-text-muted text-xs uppercase px-0 mb-1">
         <span className="text-center">Set</span>
         <span className="text-center">Weight</span>
         <span className="text-center">Reps</span>
@@ -71,9 +71,9 @@ export default function ExerciseBlock({
       ))}
       <button
         onClick={addSet}
-        className="text-blue-400 text-sm hover:text-blue-300 py-2 w-full text-left"
+        className="text-accent text-sm font-medium hover:brightness-110 py-2 w-full text-left transition-all"
       >
-        ＋ Add Set
+        + Add Set
       </button>
     </div>
   )
