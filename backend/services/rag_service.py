@@ -16,7 +16,14 @@ logger = logging.getLogger(__name__)
 
 _index = None
 _metadata = None
+_source_to_title: dict[str, str] = {}
 _model = SentenceTransformer("all-MiniLM-L6-v2")
+
+PLAN_KEYWORDS = (
+    "plan", "program", "routine", "schedule",
+    "next week", "weekly", "this week",
+    "structure my", "lay out", "design a",
+)
 
 
 def _download_from_s3(dest_path: Path) -> None:
@@ -29,7 +36,7 @@ def _download_from_s3(dest_path: Path) -> None:
 
 
 def _load_index() -> None:
-    global _index, _metadata
+    global _index, _metadata, _source_to_title
     index_path = Path(config.FAISS_INDEX_PATH)
     if not (index_path / "index.faiss").exists():
         if config.S3_FAISS_BUCKET:
@@ -41,6 +48,10 @@ def _load_index() -> None:
     _index = faiss.read_index(str(index_path / "index.faiss"))
     with open(index_path / "index_metadata.json") as f:
         _metadata = json.load(f)
+    _source_to_title = {
+        c["source"]: c.get("doc_title", c["source"])
+        for c in _metadata if c.get("source")
+    }
     logger.info("FAISS index loaded: %d vectors", _index.ntotal)
 
 
@@ -102,6 +113,11 @@ def _confidence_framing(session_count: int) -> str:
     return "Based on your training history, a clear pattern shows..."
 
 
+def _is_planning_query(query: str) -> bool:
+    q = query.lower()
+    return any(kw in q for kw in PLAN_KEYWORDS)
+
+
 def _build_prompt(
     query: str,
     personal_context: str,
@@ -113,6 +129,21 @@ def _build_prompt(
         for chunk in knowledge_chunks
     )
     framing = _confidence_framing(session_count)
+
+    if _is_planning_query(query):
+        response_guidance = (
+            'A concrete training plan in markdown. Use a day-by-day structure '
+            '(### Day 1, ### Day 2, ...). For every exercise specify sets × reps '
+            '@ target weight, deriving target weights from the athlete\'s most '
+            'recent logged maxes (apply percentages from the retrieved cycle '
+            'templates). Open with one short paragraph explaining the plan\'s '
+            'rationale (why these days, lifts, intensities), then the day-by-day '
+            'breakdown, then close with a one-line note on what to track. '
+            'Cite the cycle templates you drew from.'
+        )
+    else:
+        response_guidance = 'Your coaching response here (2-3 paragraphs).'
+
     return f"""You are StrengthWise, an AI strength coach. Analyze the athlete's question using their personal training data and general strength science knowledge provided below.
 
 ATHLETE QUESTION: {query}
@@ -127,7 +158,7 @@ STRENGTH SCIENCE KNOWLEDGE:
 
 Respond with a JSON object in this exact format:
 {{
-  "response": "Your coaching response here (2-3 paragraphs).",
+  "response": "{response_guidance}",
   "personal_citations": [
     {{"sessionDate": "YYYY-MM-DD", "exercise": "exercise name", "detail": "specific metric or observation"}}
   ],
@@ -140,7 +171,8 @@ Rules:
 - Only cite sessions that are directly relevant to the question
 - Only cite knowledge chunks that appear in the provided knowledge above
 - If data is insufficient, say so honestly in the response; return empty citation arrays
-- Return ONLY the JSON object, no markdown code blocks"""
+- The "response" field must be a single JSON string. Use \\n for line breaks inside it.
+- Return ONLY the JSON object, no markdown code blocks around it"""
 
 
 def _call_gemini(prompt: str) -> dict:
@@ -221,7 +253,11 @@ def analyze(user_id: str, program_text: str) -> dict:
         for c in parsed.get("personal_citations", [])
     ]
     knowledge_citations = [
-        {"source": c.get("source", ""), "principle": c.get("principle", "")}
+        {
+            "source": c.get("source", ""),
+            "doc_title": _source_to_title.get(c.get("source", ""), c.get("source", "")),
+            "principle": c.get("principle", ""),
+        }
         for c in parsed.get("knowledge_citations", [])
     ]
 
@@ -255,7 +291,11 @@ def query(user_id: str, query_text: str) -> dict:
         for c in parsed.get("personal_citations", [])
     ]
     knowledge_citations = [
-        {"source": c.get("source", ""), "principle": c.get("principle", "")}
+        {
+            "source": c.get("source", ""),
+            "doc_title": _source_to_title.get(c.get("source", ""), c.get("source", "")),
+            "principle": c.get("principle", ""),
+        }
         for c in parsed.get("knowledge_citations", [])
     ]
 

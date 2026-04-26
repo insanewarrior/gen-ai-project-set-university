@@ -15,8 +15,16 @@ EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 EMBEDDING_DIM = 384
 
 
+def _extract_doc_title(text: str, fallback: str) -> str:
+    for line in text.splitlines():
+        if line.startswith("# ") and not line.startswith("## "):
+            return line[2:].strip()
+    return fallback
+
+
 def chunk_document(filepath: Path) -> list[dict]:
     text = filepath.read_text()
+    doc_title = _extract_doc_title(text, filepath.stem)
     sections = re.split(r"\n(?=## )", text)
     chunks = []
     for section in sections:
@@ -34,6 +42,7 @@ def chunk_document(filepath: Path) -> list[dict]:
         for para in paragraphs:
             chunks.append({
                 "source": filepath.name,
+                "doc_title": doc_title,
                 "principle": header,
                 "text": para,
             })

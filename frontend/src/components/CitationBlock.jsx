@@ -23,7 +23,7 @@ export default function CitationBlock({ type, citation }) {
   return (
     <div style={KNOWLEDGE_STYLE} className="p-3 mb-2 text-sm text-zinc-300" aria-label="General knowledge citation">
       <span className="text-xs font-bold uppercase text-amber-400">TRAINING SCIENCE</span>
-      <p className="mt-1">{citation.principle} — {citation.source}</p>
+      <p className="mt-1">{citation.principle} — {citation.doc_title || citation.source}</p>
     </div>
   )
 }
