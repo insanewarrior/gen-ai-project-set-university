@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { getProfile, exportTrainingData } from '../api'
+import { getProfile, exportTrainingData, deleteAccount } from '../api'
+import { signOut } from '../auth'
 import QueryCounter from '../components/QueryCounter'
 
 const TIER_LABELS = {
@@ -28,6 +29,22 @@ export default function Profile() {
   const [error, setError] = useState(null)
   const [exporting, setExporting] = useState(false)
   const [exportError, setExportError] = useState(null)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState(null)
+
+  async function handleDeleteAccount() {
+    setDeleting(true)
+    setDeleteError(null)
+    try {
+      await deleteAccount()
+      signOut()
+      window.location.href = '/login'
+    } catch {
+      setDeleteError('Account deletion failed. Please try again.')
+      setDeleting(false)
+    }
+  }
 
   async function handleExport() {
     setExporting(true)
@@ -87,6 +104,40 @@ export default function Profile() {
           {exporting ? 'Preparing your export...' : 'Export Training Data (CSV)'}
         </button>
         {exportError && <p className="text-red-400 text-xs mt-2">{exportError}</p>}
+      </div>
+      <div className="bg-zinc-800 rounded-lg px-4 py-3 mt-4">
+        <p className="text-zinc-400 text-xs mb-2">Danger zone</p>
+        {!showDeleteConfirm ? (
+          <button
+            onClick={() => setShowDeleteConfirm(true)}
+            className="w-full py-2 px-4 text-red-400 rounded-lg text-sm hover:bg-red-500/10 transition-colors"
+          >
+            Delete Account
+          </button>
+        ) : (
+          <div>
+            <p className="text-zinc-300 text-sm mb-3">
+              Delete your account and all training data? This cannot be undone.
+            </p>
+            <div className="flex gap-2">
+              <button
+                onClick={handleDeleteAccount}
+                disabled={deleting}
+                className="flex-1 py-2 px-4 bg-red-500 text-white rounded-lg text-sm hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {deleting ? 'Deleting...' : 'Delete'}
+              </button>
+              <button
+                onClick={() => { setShowDeleteConfirm(false); setDeleteError(null) }}
+                disabled={deleting}
+                className="flex-1 py-2 px-4 text-zinc-400 rounded-lg text-sm hover:bg-zinc-700 disabled:opacity-50 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+            {deleteError && <p className="text-red-400 text-xs mt-2">{deleteError}</p>}
+          </div>
+        )}
       </div>
     </div>
   )

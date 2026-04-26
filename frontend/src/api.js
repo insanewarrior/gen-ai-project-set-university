@@ -96,6 +96,10 @@ export async function postQuery(queryText) {
   return response.json()
 }
 
+export async function deleteAccount() {
+  return apiFetch('/account', { method: 'DELETE' })
+}
+
 export async function exportTrainingData() {
   const token = await getToken()
   const headers = { ...devHeaders() }
