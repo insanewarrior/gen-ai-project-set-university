@@ -1094,7 +1094,7 @@
         <rect x="960" y="58" width="168" height="110" rx="8" fill="#141414" stroke="#b8ff3c" stroke-width="1.5" stroke-opacity="0.6"/>
         <text x="1044" y="96" text-anchor="middle" dominant-baseline="middle" fill="#b8ff3c" font-size="13" font-weight="700">Gemini API</text>
         <text x="1044" y="122" text-anchor="middle" dominant-baseline="middle" fill="#555" font-size="10">google-genai SDK</text>
-        <text x="1044" y="144" text-anchor="middle" dominant-baseline="middle" fill="#555" font-size="10">Flash model · JSON out</text>
+        <text x="1044" y="144" text-anchor="middle" dominant-baseline="middle" fill="#555" font-size="10">2.0 Flash · JSON out</text>
 
         <!-- ─── CDK STRIP ─── -->
         <rect x="10" y="508" width="1330" height="52" rx="6" fill="#141414" stroke="#242424" stroke-width="1"/>
@@ -1188,7 +1188,7 @@
         <div class="rag-step-num">4</div>
         <div class="rag-step-box">
           <div class="rag-step-title">LLM Synthesis</div>
-          <div class="rag-step-desc">Both sources injected into structured prompt → <span style="color:var(--accent-lime)">Gemini Flash</span> → JSON with response + citation arrays</div>
+          <div class="rag-step-desc">Both sources injected into structured prompt → <span style="color:var(--accent-lime)">Gemini 2.0 Flash</span> → JSON with response + citation arrays</div>
         </div>
       </div>
 
@@ -1222,7 +1222,160 @@
 </section>
 
 <!-- ================================================================
-     SLIDE 7 — BUSINESS MODEL
+     SLIDE 7 — KNOWLEDGE BASE & TEST DATASET
+     ================================================================ -->
+<section>
+  <div class="slide-inner">
+    <div class="slide-label">Knowledge Base &amp; Test Dataset</div>
+    <h2>612 indexed chunks. 40 documents.<br>37 exercises. Built for niche sports.</h2>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem;margin-bottom:0.8rem">
+      <div class="stat-card"><div class="stat-number">612</div><div class="stat-label">Knowledge chunks<br>(FAISS index)</div></div>
+      <div class="stat-card"><div class="stat-number">40</div><div class="stat-label">Source documents<br>in corpus</div></div>
+      <div class="stat-card"><div class="stat-number">37</div><div class="stat-label">Sport-specific<br>exercises</div></div>
+      <div class="stat-card"><div class="stat-number">19</div><div class="stat-label">Backend test<br>modules</div></div>
+    </div>
+
+    <div class="two-col two-col-5050" style="flex:1">
+      <div>
+        <div style="font-size:0.52em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.5rem">Knowledge Corpus Breakdown</div>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th style="text-align:right">Docs</th>
+              <th style="text-align:right">Chunks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Core Strength Science</td><td style="text-align:right;color:var(--text-secondary)">6</td><td style="text-align:right;color:var(--accent-lime)">96</td></tr>
+            <tr><td>Training Systems</td><td style="text-align:right;color:var(--text-secondary)">8</td><td style="text-align:right;color:var(--accent-lime)">154</td></tr>
+            <tr><td>Historical Cycles</td><td style="text-align:right;color:var(--text-secondary)">13</td><td style="text-align:right;color:var(--accent-lime)">162</td></tr>
+            <tr><td>Niche Sport Programs</td><td style="text-align:right;color:var(--text-secondary)">2</td><td style="text-align:right;color:var(--accent-lime)">39</td></tr>
+            <tr><td>Sport Programming</td><td style="text-align:right;color:var(--text-secondary)">2</td><td style="text-align:right;color:var(--accent-lime)">34</td></tr>
+            <tr><td>Research &amp; Reference</td><td style="text-align:right;color:var(--text-secondary)">5</td><td style="text-align:right;color:var(--accent-lime)">79</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:0.1rem;font-size:0.82em">
+        <div class="card" style="padding:0.7rem 1rem">
+          <div style="font-size:0.55em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.4rem">Exercise Library — 4 sports</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem">
+            <span class="tag tag-personal">Grip · 8</span>
+            <span class="tag tag-knowledge">Armwrestling · 9</span>
+            <span class="tag tag-lime">Powerlifting · 10</span>
+            <span class="tag tag-muted">General · 10</span>
+          </div>
+        </div>
+
+        <div class="json-mockup" style="margin-top:0;padding:0.6rem 0.8rem">
+          <div style="color:var(--text-muted);margin-bottom:0.2em">Embedding specs</div>
+          <div><span class="json-key">model: </span><span class="json-str">all-MiniLM-L6-v2</span></div>
+          <div><span class="json-key">dims: </span><span class="json-str">384</span></div>
+          <div><span class="json-key">index: </span><span class="json-str">FAISS IndexFlatIP (cosine)</span></div>
+          <div><span class="json-key">size: </span><span class="json-str">&lt;&lt; 1 GB (currently ~1 MB) — fits in Lambda /tmp</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:0.6rem;padding:0.65rem 0.9rem;background:rgba(184,255,60,0.06);border:1px solid rgba(184,255,60,0.2);border-left:3px solid var(--accent-lime);border-radius:8px">
+      <strong style="font-size:0.65em;color:var(--accent-lime)">Demo Seed Dataset</strong>
+      <span style="font-size:0.62em;color:var(--text-secondary);margin-left:0.8em">77 sessions · 3 dev users: free (5 grip), onboarding (12 grip + AW), premium (60 — grip RPE stall → deload → rebound + full PL peaking cycle). Each user triggers a different AI confidence tier.</span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    "The knowledge base isn't generic fitness content — every document was selected for niche sport relevance."
+    "612 chunks from 40 documents gives the RAG pipeline dense, domain-specific retrieval."
+    "77 seeded sessions across 3 dev users. Premium user's 60-session history has a deliberate grip stall built in — perfect for the live demo query."
+    Target: 30 seconds.
+  </aside>
+</section>
+
+<!-- ================================================================
+     SLIDE 8 — RAG EVALUATION FRAMEWORK
+     ================================================================ -->
+<section>
+  <div class="slide-inner">
+    <div class="slide-label">AI Evaluation Framework</div>
+    <h2>Four evaluator types. Three RAG strategies.<br>Applied to StrengthWise.</h2>
+
+    <div class="two-col two-col-5050" style="flex:1;margin-top:0.5rem">
+      <div>
+        <div style="font-size:0.52em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.5rem">Evaluator Types</div>
+        <table class="comp-table">
+          <thead>
+            <tr><th>Type</th><th>StrengthWise implementation</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="white-space:nowrap"><strong style="color:var(--text-primary)">👤 Human</strong></td>
+              <td>Thumbs up/down per query → <span style="color:var(--accent-lime);font-family:monospace">/feedback</span> endpoint. Target ≥ 4.0 / 5.0</td>
+            </tr>
+            <tr>
+              <td style="white-space:nowrap"><strong style="color:var(--text-primary)">⚙️ Heuristic</strong></td>
+              <td>Citation coverage rule: 100% of 3+ session users must receive ≥1 personal cite. Rule-based confidence tier assignment.</td>
+            </tr>
+            <tr>
+              <td style="white-space:nowrap"><strong style="color:var(--text-primary)">🤖 LLM-as-Judge</strong></td>
+              <td>Gemini evaluates answer faithfulness to retrieved chunks &amp; helpfulness via structured prompt rubric. Applied to 50 reference Q&amp;A pairs.</td>
+            </tr>
+            <tr>
+              <td style="white-space:nowrap"><strong style="color:var(--text-primary)">↔️ Pairwise</strong></td>
+              <td>Ablation study: Dual-RAG vs Personal-only vs Knowledge-only vs Vanilla LLM — same question, four conditions.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:0.7rem">
+        <div>
+          <div style="font-size:0.52em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.35rem">RAG Evaluation Use Cases</div>
+          <div style="font-size:0.46em;color:var(--text-muted);margin-bottom:0.45rem;font-style:italic">Reference-free = no gold answer required; judge checks internal consistency</div>
+          <table class="comp-table">
+            <thead>
+              <tr><th>Use Case</th><th>Ref-free?</th><th>Strategy</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Document relevance</td><td class="check-yes">✓</td><td style="color:var(--text-secondary)">Online</td></tr>
+              <tr><td>Answer faithfulness</td><td class="check-yes">✓</td><td style="color:var(--text-secondary)">Online</td></tr>
+              <tr><td>Answer helpfulness</td><td class="check-yes">✓</td><td style="color:var(--text-secondary)">Online</td></tr>
+              <tr><td>Answer correctness</td><td class="check-no">✗</td><td style="color:var(--text-secondary)">Offline (50 Q&amp;A)</td></tr>
+              <tr><td>Chain comparison</td><td class="check-yes">✓</td><td style="color:var(--text-secondary)">Pairwise (ablation)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card card-lime">
+          <div style="font-size:0.55em;font-weight:700;color:var(--accent-lime);margin-bottom:0.4em">Confidence Calibration — Heuristic Rule</div>
+          <div style="font-size:0.58em;color:var(--text-secondary);line-height:1.6">
+            <div><span style="color:var(--text-muted)">Low (1–5 sessions):</span> "early indicators suggest..."</div>
+            <div><span style="color:var(--orange)">Medium (6–30 sessions):</span> "looking at your recent data..."</div>
+            <div><span style="color:var(--accent-lime)">High (30+ sessions):</span> "a clear pattern shows..."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp-insight" style="margin-top:0.4rem;padding:0.5rem 1rem;font-size:0.55em">
+      <strong style="color:var(--accent-lime)">Offline:</strong> 50 known-good Q&amp;A pairs test powerlifting→grip cross-domain transfer accuracy. &nbsp;
+      <strong style="color:var(--cite-personal)">Online:</strong> real-time human feedback via /feedback endpoint. &nbsp;
+      <strong style="color:var(--cite-knowledge)">Pairwise:</strong> StrengthWise vs ChatGPT — evaluators see the citation difference live.
+    </div>
+  </div>
+
+  <aside class="notes">
+    "We apply all four evaluator types from the course: human, heuristic, LLM-as-judge, and pairwise."
+    "LLM-as-judge is used offline against 50 expert-curated Q&A pairs for cross-domain accuracy."
+    "The heuristic confidence tier is the simplest evaluator: three rules, zero LLM cost."
+    "Pairwise is the capstone demo: same question, four conditions — the dual-RAG answer is clearly best."
+    Target: 40 seconds.
+  </aside>
+</section>
+
+<!-- ================================================================
+     SLIDE 9 — BUSINESS MODEL
      ================================================================ -->
 <section>
   <div class="slide-inner">
@@ -1363,7 +1516,7 @@
               <div class="kpi-progress-val">&lt;3s p95</div>
             </div>
           </div>
-          <div class="kpi-target-note" style="text-align:left;margin-top:0.15rem;font-size:0.5em">Lambda /tmp FAISS cache + Gemini Flash model keeps warm-start latency low</div>
+          <div class="kpi-target-note" style="text-align:left;margin-top:0.15rem;font-size:0.5em">Lambda /tmp FAISS cache + Gemini 2.0 Flash keeps warm-start latency low</div>
         </div>
       </div>
 
@@ -1578,7 +1731,7 @@
         <div>
           <div style="font-size:0.52em;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.25em">Likely Questions</div>
           <div style="font-size:0.58em;color:var(--text-secondary);line-height:1.65">
-            <div><strong style="color:var(--text-primary)">Why Gemini?</strong> Google AI Studio free tier + lower inference cost at scale vs Claude</div>
+            <div><strong style="color:var(--text-primary)">Why Gemini 2.0 Flash?</strong> Strong reasoning at Flash pricing (~$0.0004/query); Pro models are 15–20× more expensive</div>
             <div><strong style="color:var(--text-primary)">FAISS vs Pinecone?</strong> FAISS in Lambda /tmp = zero per-query vector DB cost</div>
             <div><strong style="color:var(--text-primary)">Data privacy?</strong> userId = Cognito UUID — no PII in training logs</div>
             <div><strong style="color:var(--text-primary)">Cold start?</strong> FAISS loads ~80MB from S3 on cold start, stays in /tmp after</div>
@@ -1632,8 +1785,8 @@
   Chart.defaults.font.size = 11;
 
   // ─── LAZY INIT CHARTS ON KPI SLIDE ────────────────────────────
-  // KPI slide is index 8 (0-based: 0=hero,1=problem,2=comp,3=solution,4=arch,5=rag,6=biz,7=econ,8=kpi)
-  const KPI_IDX = 8;
+  // KPI slide is index 10 (0-based: 0=hero,1=problem,2=comp,3=solution,4=arch,5=rag,6=kb,7=eval,8=biz,9=econ,10=kpi)
+  const KPI_IDX = 10;
   let kpiInitDone = false;
 
   Reveal.on('slidechanged', e => {

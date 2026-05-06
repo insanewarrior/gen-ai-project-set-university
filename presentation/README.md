@@ -1,5 +1,24 @@
 # StrengthWise — Capstone Presentation 2026
 
+14 slides. Built with Reveal.js.
+
+| # | Slide |
+|---|---|
+| 1 | Hero / Title |
+| 2 | Problem & Market |
+| 3 | Competitive Landscape |
+| 4 | Solution & UVP |
+| 5 | Technical Architecture |
+| 6 | How It Works (RAG Flow) |
+| 7 | Knowledge Base & Test Dataset |
+| 8 | AI Evaluation Framework |
+| 9 | Business Model |
+| 10 | Unit Economics |
+| 11 | KPIs & Metrics |
+| 12 | Roadmap & Scalability |
+| 13 | Live Demo |
+| 14 | Q&A |
+
 ## View the slides
 
 ```bash

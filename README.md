@@ -43,7 +43,13 @@ Cross-domain AI strength coach with memory — dual-source RAG + structured logg
    - FastAPI backend on port 8080
    - Vite dev server on port 5173
 
-5. Open http://localhost:5173 in your browser.
+5. Seed the local database with realistic training sessions:
+   ```bash
+   make seed        # create DynamoDB tables
+   make seed-data   # insert sessions for all three dev users
+   ```
+
+6. Open http://localhost:5173 in your browser.
 
 > **Note:** The FAISS knowledge base index is pre-built and committed to the repo — no need to run `make build-index` for a fresh clone. Only run it if you modify files under `backend/data/knowledge/`.
 
@@ -57,16 +63,33 @@ Cross-domain AI strength coach with memory — dual-source RAG + structured logg
 └── Makefile       # Task runner
 ```
 
+## Dev Users
+
+In local development (`AUTH_BYPASS=true`) three users are available via the `x-dev-user` request header. Each has a pre-seeded training history after running `make seed-data`:
+
+| Header value | User ID | Tier | Sessions | Story |
+|---|---|---|---|---|
+| `x-dev-user: free` | `test-user-free` | Free | 5 | Grip only — AI gives low-confidence responses |
+| `x-dev-user: onboarding` | `test-user-onboarding` | Free (new) | 12 | Grip + armwrestling — medium confidence |
+| `x-dev-user: premium` | `test-user-premium` | Premium | 60 | All sports, RPE stall + deload cycle — high confidence, pattern detection |
+
+The default user (no header) is controlled by `TEST_USER_ID` / `TEST_IS_PREMIUM` in `backend/.env`.
+
 ## Makefile Targets
 
-| Target         | Description                        |
-|----------------|------------------------------------|
-| `make dev`          | Start all local services           |
-| `make dev-backend`  | Start backend only                 |
-| `make dev-frontend` | Start frontend only                |
-| `make build-index`  | Build FAISS knowledge base index   |
-| `make deploy`       | Deploy to AWS (placeholder)        |
-| `make seed`         | Seed local database (placeholder)  |
+| Target | Description |
+|---|---|
+| `make dev` | Start all local services (DynamoDB, backend, frontend) |
+| `make dev-backend` | Start backend only |
+| `make dev-frontend` | Start frontend only |
+| `make seed` | Create DynamoDB tables |
+| `make seed-data` | Insert training sessions for all three dev users |
+| `make seed-data-fresh` | Wipe and re-insert seed data (clean slate) |
+| `make build-index` | Rebuild FAISS knowledge base index |
+| `make upload-index` | Upload FAISS index to S3 (requires `S3_BUCKET`) |
+| `make update-kb` | Rebuild + upload index |
+| `make deploy` | Deploy to AWS via CDK |
+| `make teardown` | Tear down AWS stack |
 
 ## Environment Variables
 
