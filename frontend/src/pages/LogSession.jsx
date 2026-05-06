@@ -7,6 +7,7 @@ import SportSelector, {
 import ExercisePicker from '../components/ExercisePicker'
 import ExerciseBlock from '../components/ExerciseBlock'
 import { createSession, getSessions } from '../api'
+import DatePicker from '../components/DatePicker'
 
 function buildHint(sets) {
   if (!sets?.length) return null
@@ -120,12 +121,7 @@ export default function LogSession() {
       <h1 className="text-2xl font-black text-white tracking-tight mb-6">Log Session</h1>
 
       <div className="mb-4">
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className="bg-surface-2 border border-border rounded-lg px-3 py-2.5 text-white text-sm w-full focus:outline-none focus:border-accent transition-colors"
-        />
+        <DatePicker value={date} onChange={setDate} />
       </div>
 
       <div className="mb-4">
