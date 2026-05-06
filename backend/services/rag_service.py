@@ -88,7 +88,7 @@ def _format_sessions(sessions: list) -> tuple[str, int]:
             name = ex.get("exerciseName", ex.get("exercise_name", ""))
             sets = ex.get("sets", [])
             set_str = ", ".join(
-                f"{float(st.get('weight', 0))}kg x{st.get('reps', 0)} @RPE{float(st.get('rpe', 0))}"
+                f"{float(st.get('weight') or 0)}kg x{st.get('reps') or 0} @RPE{float(st.get('rpe') or 0)}"
                 for st in sets if st.get('weight')
             )
             lines.append(f"{date} | {sport}: {name} — {set_str}")
