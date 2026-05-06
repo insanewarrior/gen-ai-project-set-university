@@ -1311,7 +1311,7 @@
           <tbody>
             <tr>
               <td style="white-space:nowrap"><strong style="color:var(--text-primary)">👤 Human</strong></td>
-              <td>Thumbs up/down per query → <span style="color:var(--accent-lime);font-family:monospace">/feedback</span> endpoint. Target ≥ 4.0 / 5.0</td>
+              <td>Thumbs up/down per query → <span style="color:var(--accent-lime);font-family:monospace">/feedback</span> endpoint. Target ≥ 95% positive rate</td>
             </tr>
             <tr>
               <td style="white-space:nowrap"><strong style="color:var(--text-primary)">⚙️ Heuristic</strong></td>
@@ -1524,17 +1524,17 @@
       <div class="kpi-card">
         <div class="kpi-header">
           <div class="kpi-name">Query Relevance Rating</div>
-          <div class="kpi-method">Thumbs up/down per query → /feedback endpoint → Feedback DynamoDB table</div>
+          <div class="kpi-method">Thumbs up/down per query → /feedback endpoint → Feedback DynamoDB table → positive rate</div>
         </div>
-        <div class="kpi-body" style="flex-direction:column;align-items:center;justify-content:center;gap:0.3rem">
-          <div class="stars-row">
-            <span class="star-filled">★</span>
-            <span class="star-filled">★</span>
-            <span class="star-filled">★</span>
-            <span class="star-filled">★</span>
-            <span class="star-empty">★</span>
+        <div class="kpi-body" style="flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;width:100%">
+          <div class="kpi-progress-wrap">
+            <div class="kpi-progress-row">
+              <div class="kpi-progress-label">Target</div>
+              <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width:95%;background:var(--accent-lime)"></div></div>
+              <div class="kpi-progress-val">≥ 95%</div>
+            </div>
           </div>
-          <div style="font-size:0.7em;color:var(--text-primary);font-weight:700">Target: ≥ 4.0 / 5.0</div>
+          <div style="font-size:0.7em;color:var(--text-primary);font-weight:700">positive rate: 👍 ÷ (👍 + 👎)</div>
           <div class="kpi-target-note">Collection begins at launch. Feedback endpoint already implemented.</div>
         </div>
       </div>
